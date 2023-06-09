@@ -17,6 +17,7 @@ import { PINValidationRules } from './constants'
 import { useNotifications } from './hooks/notifications'
 import en from './localization/en'
 import fr from './localization/fr'
+import HistoryStack from './navigators/HistoryStack'
 import TermsStack from './navigators/TermsStack'
 import { proofRequestTemplates } from './request-templates'
 import Developer from './screens/Developer'
@@ -38,6 +39,7 @@ const configuration: ConfigurationContext = {
   pages,
   splash: Splash,
   terms: TermsStack,
+  historic: HistoryStack,
   credentialListHeaderRight: AddCredentialButton,
   credentialListOptions: AddCredentialSlider,
   credentialEmptyList: EmptyList,

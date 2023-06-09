@@ -50,6 +50,20 @@ const App = () => {
   const settings = [
     {
       header: {
+        title: 'history',
+        icon: 'historic',
+      },
+      data: [
+        {
+          title: 'history',
+          accessibilityLabel: 'history',
+          testID: testIdWithKey('history'),
+          onPress: () => navigate(Stacks.SettingStack as never, { screen: Screens.Historic } as never),
+        },
+      ],
+    },
+    {
+      header: {
         title: t('Settings.Help'),
         icon: 'help',
       },
