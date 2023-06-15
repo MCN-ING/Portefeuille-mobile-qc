@@ -9,3 +9,11 @@ export const PINValidationRules = {
   no_cross_pattern: false,
 }
 export const hitSlop = { top: 44, bottom: 44, left: 44, right: 44 }
+
+export const lookBackOptions = { day: 'day', week: 'week', month: 'month', year: 'year', all: 'all' }
+export const sortTypeOptions = { asc: 'asc', desc: 'desc' }
+export const filterTypeOptions = {
+  credential: 'CredentialRecord',
+  proof: 'ProofRecord',
+  connection: 'ConnectionRecord',
+}

@@ -13,11 +13,8 @@ const HistoryStack: React.FC = () => {
   const defaultStackOptions = createDefaultStackOptions(theme)
 
   return (
-    <StackHistory.Navigator
-      initialRouteName={Screens.Historic}
-      screenOptions={{ ...defaultStackOptions, headerShown: false }}
-    >
-      <StackHistory.Screen name={Screens.Historic} component={History} />
+    <StackHistory.Navigator initialRouteName={'History'} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+      <StackHistory.Screen name={'History'} component={History} />
     </StackHistory.Navigator>
   )
 }

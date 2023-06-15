@@ -11,4 +11,5 @@ export type TermsStackParams = {
 
 export type HistoryStackParams = {
   [Screens.Historic]: undefined
+  ['History']: undefined
 }

@@ -122,6 +122,21 @@ const translation = {
   StatusMessages: {
     InitAgent: 'Initializing agent ..',
   },
+  Activity: {
+    sortBy: 'Sort by',
+    newToOld: 'Newest to oldest',
+    oldToNew: 'Oldest to newest',
+    filter: 'Filter',
+    lookBack: 'Look back time',
+    credentials: 'Credentials',
+    proofs: 'Proofs',
+    connections: 'Connections',
+    all: 'All',
+    day: 'Day',
+    week: 'Week',
+    month: 'Month',
+    year: 'Year',
+  },
   TermsV2: {
     Consent: {
       title: 'Consent',

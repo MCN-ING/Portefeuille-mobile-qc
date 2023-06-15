@@ -116,6 +116,21 @@ const translation = {
   StatusMessages: {
     InitAgent: "Initialisation de l'agent ...",
   },
+  Activity: {
+    sortBy: 'Trier par',
+    newToOld: 'Nouveau à ancien',
+    oldToNew: 'Ancien à nouveau',
+    filter: 'Filtrer',
+    lookBack: 'Regarder en arrière',
+    credentials: 'Attestations',
+    proofs: 'Preuves',
+    connections: 'Connexions',
+    all: 'Tout',
+    day: 'Jour',
+    week: 'Semaine',
+    month: 'Mois',
+    year: 'Année',
+  },
   TermsV2: {
     Consent: {
       title: 'Consentement',
