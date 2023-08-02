@@ -12211,6 +12211,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"instabug-reactnative@npm:^11.13.0":
+  version: 11.13.0
+  resolution: "instabug-reactnative@npm:11.13.0"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-native: ">=0.60.0"
+  bin:
+    instabug: bin/index.js
+  checksum: a73de75d063e87adc69bdfe2c0dd1bb29fbcd2bec590a4086e39a2ac053aa7283e46140a545a3ddf07b1b477422942dde3a36dcbbd86cb1d346863fec8e25bfe
+  languageName: node
+  linkType: hard
+
 "install-peerdeps@npm:^3.0.3":
   version: 3.0.3
   resolution: "install-peerdeps@npm:3.0.3"
@@ -17342,6 +17354,7 @@ __metadata:
     googleapis: ^113.0.0
     husky: ^7.0.0
     i18next: 21.4.0
+    instabug-reactnative: ^11.13.0
     jest: ^27.5.1
     lint-staged: ^11.2.6
     lodash.flatten: 4.4.0

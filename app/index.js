@@ -19,8 +19,8 @@ import '@formatjs/intl-relativetimeformat/locale-data/en' // locale-data for en
 import '@formatjs/intl-datetimeformat/polyfill'
 import '@formatjs/intl-datetimeformat/locale-data/en' // locale-data for en
 import '@formatjs/intl-datetimeformat/add-all-tz' // Add ALL tz data
-
 import { NavigationContainer } from '@react-navigation/native'
+import Instabug, { InvocationEvent } from 'instabug-reactnative'
 import React from 'react'
 import { AppRegistry } from 'react-native'
 
@@ -42,7 +42,10 @@ const navigationTheme = {
     notification: ColorPallet.grayscale.white,
   },
 }
-
+Instabug.init({
+  token: '9f0cd74dc0b91474c3d646d0c117c0fd',
+  invocationEvents: [InvocationEvent.floatingButton],
+})
 const Base = () => {
   return (
     <NavigationContainer theme={navigationTheme}>
