@@ -21,6 +21,7 @@ import {
 import React, { useEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, StatusBar } from 'react-native'
+import { endAppStartup, initialize, logMessage } from 'react-native-embrace'
 import SplashScreen from 'react-native-splash-screen'
 import Toast from 'react-native-toast-message'
 
@@ -36,6 +37,13 @@ const App = () => {
   useMemo(() => {
     initStoredLanguage().then()
   }, [])
+
+  useEffect(() => {
+    initialize()
+    endAppStartup()
+  }, [])
+
+  logMessage('embrace_error 03')
 
   const [agent] = useState<Agent | undefined>(undefined)
   const [surveyVisible, setSurveyVisible] = useState(false)

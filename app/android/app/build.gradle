@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'embrace-swazzler'
 
 import com.android.build.OutputFile
 
@@ -218,7 +219,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation 'net.java.dev.jna:jna:5.2.0'
-    
+    implementation 'io.embrace:embrace-android-sdk:5.22.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     if (enableHermes) {
