@@ -26,6 +26,7 @@ PODS:
     - React
     - React-callinvoker
     - React-Core
+  - Instabug (11.13.3)
   - libevent (2.1.12)
   - Permission-Camera (3.8.0):
     - RNPermissions
@@ -351,6 +352,9 @@ PODS:
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
+  - RNInstabug (11.13.0):
+    - Instabug (= 11.13.3)
+    - React-Core
   - RNKeychain (7.0.0):
     - React-Core
   - RNLocalize (2.2.6):
@@ -450,6 +454,7 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
+  - RNInstabug (from `../node_modules/instabug-reactnative`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -465,6 +470,7 @@ SPEC REPOS:
     - CocoaAsyncSocket
     - fmt
     - hermes-engine
+    - Instabug
     - libevent
 
 EXTERNAL SOURCES:
@@ -568,6 +574,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
+  RNInstabug:
+    :path: "../node_modules/instabug-reactnative"
   RNKeychain:
     :path: "../node_modules/react-native-keychain"
   RNLocalize:
@@ -598,6 +606,7 @@ SPEC CHECKSUMS:
   glog: 5337263514dd6f09803962437687240c5dc39aa4
   hermes-engine: bf7577d12ac6ccf53ab8b5af3c6ccf0dd8458c5c
   indy-vdr: 85cd66089f151256581323440e78988891f4082e
+  Instabug: f7c3880823873cff9ee70307d373e8266c9ea0f8
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   Permission-Camera: e6d142d7d8b714afe0a83e5e6ae17eb949f1e3e9
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
@@ -641,6 +650,7 @@ SPEC CHECKSUMS:
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
+  RNInstabug: a72078ae892268b40d72ce812b213fd8f127c2e9
   RNKeychain: f75b8c8b2f17d3b2aa1f25b4a0ac5b83d947ff8f
   RNLocalize: d4b8af4e442d4bcca54e68fc687a2129b4d71a81
   RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b

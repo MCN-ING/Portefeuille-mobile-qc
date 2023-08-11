@@ -218,7 +218,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation 'net.java.dev.jna:jna:5.2.0'
-    
+    implementation 'com.instabug.library:instabug:11.13.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     if (enableHermes) {

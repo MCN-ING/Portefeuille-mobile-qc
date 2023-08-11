@@ -1,5 +1,5 @@
 package ca.qc.gouv.portefeuillemobileqc;
-
+import com.instabug.library.Instabug;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -44,7 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-   
+    new Instabug.Builder(this, "a2d2d01b75bd593f5081f5a9e76b527f").build();
+    
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
