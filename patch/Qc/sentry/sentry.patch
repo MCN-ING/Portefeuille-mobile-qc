@@ -1,0 +1,196 @@
+diff --git a/.github/workflows/main.yaml b/.github/workflows/main.yaml
+index 3721252..7158372 100644
+--- a/.github/workflows/main.yaml
++++ b/.github/workflows/main.yaml
+@@ -127,6 +127,7 @@ jobs:
+         if: env.MEDIATOR_URL != null
+         working-directory: app
+         env:
++          SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+           MEDIATOR_URL: ${{ secrets.MEDIATOR_URL }}
+         run: |
+           echo "MEDIATOR_URL=${MEDIATOR_URL}" >.env
+@@ -240,6 +241,7 @@ jobs:
+         if: env.MEDIATOR_URL != null
+         working-directory: app
+         env:
++          SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+           MEDIATOR_URL: ${{ secrets.MEDIATOR_URL }}
+         run: |
+           echo "MEDIATOR_URL=${MEDIATOR_URL}" >.env
+diff --git a/app/App.tsx b/app/App.tsx
+index 3f7389e..7f2f25d 100644
+--- a/app/App.tsx
++++ b/app/App.tsx
+@@ -1,4 +1,5 @@
+ import { useNavigation } from '@react-navigation/native'
++import * as Sentry from '@sentry/react-native'
+ import {
+   Stacks,
+   Screens,
+@@ -21,6 +22,7 @@ import {
+ import React, { useEffect, useState, useMemo } from 'react'
+ import { useTranslation } from 'react-i18next'
+ import { Linking, StatusBar } from 'react-native'
++import { Config } from 'react-native-config'
+ import SplashScreen from 'react-native-splash-screen'
+ import Toast from 'react-native-toast-message'
+ 
+@@ -28,6 +30,20 @@ import qcwallet from './src'
+ import { homeTourSteps } from './src/components/tours/HomeTourSteps'
+ import { initialState, reducer } from './src/store'
+ 
++Sentry.init({
++  dsn: `${Config.SENTRY_TOKEN}`,
++  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
++  // We recommend adjusting this value in production.
++  tracesSampleRate: 1.0,
++  attachScreenshot: true,
++  attachViewHierarchy: true,
++})
++Sentry.addBreadcrumb({
++  category: 'auth',
++  message: 'Authenticated user ',
++  level: 'info',
++})
++
+ const { theme, localization, configuration } = qcwallet
+ 
+ initLanguages(localization)
+@@ -130,4 +146,4 @@ const App = () => {
+   )
+ }
+ 
+-export default App
++export default Sentry.wrap(App)
+diff --git a/app/ios/AriesBifold.xcodeproj/project.pbxproj b/app/ios/AriesBifold.xcodeproj/project.pbxproj
+index 61114f7..6e698a8 100644
+--- a/app/ios/AriesBifold.xcodeproj/project.pbxproj
++++ b/app/ios/AriesBifold.xcodeproj/project.pbxproj
+@@ -655,7 +655,7 @@
+ 				COPY_PHASE_STRIP = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				ENABLE_TESTABILITY = YES;
+-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
++				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+ 				GCC_DYNAMIC_NO_PIC = NO;
+ 				GCC_NO_COMMON_BLOCKS = YES;
+@@ -719,7 +719,7 @@
+ 				COPY_PHASE_STRIP = YES;
+ 				ENABLE_NS_ASSERTIONS = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
++				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+ 				GCC_NO_COMMON_BLOCKS = YES;
+ 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+diff --git a/app/ios/Podfile.lock b/app/ios/Podfile.lock
+index dc4cf7f..42cffdb 100644
+--- a/app/ios/Podfile.lock
++++ b/app/ios/Podfile.lock
+@@ -389,10 +389,16 @@ PODS:
+   - RNScreens (3.7.2):
+     - React-Core
+     - React-RCTImage
++  - RNSentry (5.9.0):
++    - React-Core
++    - Sentry/HybridSDK (= 8.9.4)
+   - RNSVG (12.1.1):
+     - React
+   - RNVectorIcons (8.1.0):
+     - React-Core
++  - Sentry/HybridSDK (8.9.4):
++    - SentryPrivate (= 8.9.4)
++  - SentryPrivate (8.9.4)
+   - Yoga (1.14.0)
+ 
+ DEPENDENCIES:
+@@ -455,6 +461,7 @@ DEPENDENCIES:
+   - RNPermissions (from `../node_modules/react-native-permissions`)
+   - RNReanimated (from `../node_modules/react-native-reanimated`)
+   - RNScreens (from `../node_modules/react-native-screens`)
++  - "RNSentry (from `../node_modules/@sentry/react-native`)"
+   - RNSVG (from `../node_modules/react-native-svg`)
+   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+@@ -466,6 +473,8 @@ SPEC REPOS:
+     - fmt
+     - hermes-engine
+     - libevent
++    - Sentry
++    - SentryPrivate
+ 
+ EXTERNAL SOURCES:
+   anoncreds:
+@@ -578,6 +587,8 @@ EXTERNAL SOURCES:
+     :path: "../node_modules/react-native-reanimated"
+   RNScreens:
+     :path: "../node_modules/react-native-screens"
++  RNSentry:
++    :path: "../node_modules/@sentry/react-native"
+   RNSVG:
+     :path: "../node_modules/react-native-svg"
+   RNVectorIcons:
+@@ -646,8 +657,11 @@ SPEC CHECKSUMS:
+   RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
+   RNReanimated: 65583befd5706cc9c86ae9a081786181ced37b93
+   RNScreens: 0591543e343c7444ea1756b6265d81a4295922c9
++  RNSentry: c167b3da6aa7f3cf85d909caae905d043a062b6c
+   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
++  Sentry: 56c76eed917f7dffd46db50906afbf5c9aa2673a
++  SentryPrivate: f3be34b5deb9fe676fdfb1f1ad5cdb1b740c5688
+   Yoga: b316a990bb6d115afa1b436b5626ac7c61717d17
+ 
+ PODFILE CHECKSUM: 4266f539fd5c242abd4005c88814b151329c70f6
+diff --git a/app/package.json b/app/package.json
+index 6ef137f..2e27367 100644
+--- a/app/package.json
++++ b/app/package.json
+@@ -65,6 +65,7 @@
+     "@react-navigation/devtools": "6.0.8",
+     "@react-navigation/native": "6.0.6",
+     "@react-navigation/stack": "6.0.11",
++    "@sentry/react-native": "^5.9.0",
+     "aries-bifold": "link:../bifold-core",
+     "axios": "0.21.4",
+     "googleapis": "^113.0.0",
+diff --git a/app/src/screens/Splash.tsx b/app/src/screens/Splash.tsx
+index 134a666..f052009 100644
+--- a/app/src/screens/Splash.tsx
++++ b/app/src/screens/Splash.tsx
+@@ -10,6 +10,7 @@ import { useAgent } from '@aries-framework/react-hooks'
+ import { agentDependencies } from '@aries-framework/react-native'
+ import AsyncStorage from '@react-native-async-storage/async-storage'
+ import { CommonActions, useNavigation } from '@react-navigation/native'
++import * as Sentry from '@sentry/react-native'
+ import {
+   LocalStorageKeys,
+   DispatchAction,
+@@ -171,7 +172,8 @@ const Splash: React.FC = () => {
+       if (data) {
+         return JSON.parse(data)
+       }
+-    } catch {
++    } catch (e: unknown) {
++      Sentry.captureException(e as Error)
+       return
+     }
+   }
+@@ -305,6 +307,7 @@ const Splash: React.FC = () => {
+         )
+       } catch (e: unknown) {
+         setInitErrorType(InitErrorTypes.Onboarding)
++        Sentry.captureException(e as Error)
+         setInitError(e as Error)
+       }
+     }
+@@ -384,6 +387,7 @@ const Splash: React.FC = () => {
+         )
+       } catch (e: unknown) {
+         setInitErrorType(InitErrorTypes.Agent)
++        Sentry.captureException(e as Error)
+         setInitError(e as Error)
+       }
+     }

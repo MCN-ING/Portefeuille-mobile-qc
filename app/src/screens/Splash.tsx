@@ -10,6 +10,7 @@ import { useAgent } from '@aries-framework/react-hooks'
 import { agentDependencies } from '@aries-framework/react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions, useNavigation } from '@react-navigation/native'
+import * as Sentry from '@sentry/react-native'
 import {
   LocalStorageKeys,
   DispatchAction,
@@ -171,7 +172,8 @@ const Splash: React.FC = () => {
       if (data) {
         return JSON.parse(data)
       }
-    } catch {
+    } catch (e: unknown) {
+      Sentry.captureException(e as Error)
       return
     }
   }
@@ -305,6 +307,7 @@ const Splash: React.FC = () => {
         )
       } catch (e: unknown) {
         setInitErrorType(InitErrorTypes.Onboarding)
+        Sentry.captureException(e as Error)
         setInitError(e as Error)
       }
     }
@@ -384,6 +387,7 @@ const Splash: React.FC = () => {
         )
       } catch (e: unknown) {
         setInitErrorType(InitErrorTypes.Agent)
+        Sentry.captureException(e as Error)
         setInitError(e as Error)
       }
     }

@@ -127,6 +127,7 @@ jobs:
         if: env.MEDIATOR_URL != null
         working-directory: app
         env:
+          SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
           MEDIATOR_URL: ${{ secrets.MEDIATOR_URL }}
         run: |
           echo "MEDIATOR_URL=${MEDIATOR_URL}" >.env
@@ -240,6 +241,7 @@ jobs:
         if: env.MEDIATOR_URL != null
         working-directory: app
         env:
+          SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
           MEDIATOR_URL: ${{ secrets.MEDIATOR_URL }}
         run: |
           echo "MEDIATOR_URL=${MEDIATOR_URL}" >.env
