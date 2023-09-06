@@ -39,14 +39,15 @@ const translation = {
     AllowCameraUse: 'Allow camera use',
     CameraDisclosure:
       'The camera is used to scan QR codes that initiate a credential offer or credential request. No information about the images is stored, used for analytics, or shared.',
-    ToContinueUsing: 'To continue using the QC Wallet scan feature, please allow camera permissions.',
+    ToContinueUsing: 'To continue using the BC Wallet scan feature, please allow camera permissions.',
     Allow: 'Allow',
     OpenSettings: 'Open settings',
   },
   Biometry: {
     Toggle: 'Toggle Biometrics',
-    EnabledText1: "Log in with your phone's biometrics instead of your wallet PIN.",
-    EnabledText1Bold: 'you will need to use biometrics to open your QC Wallet.',
+    EnabledText1: "Unlock the wallet with your phone's biometrics instead of your wallet PIN.",
+    EnabledText1Bold:
+      'Using biometrics means that all fingerprints or face ID added on this phone will have access to your wallet.',
     EnabledText2:
       'This means all fingerprint and facial data added on this phone can be used to access your QC Wallet.',
     EnabledText3: 'Anyone who can access your phone with biometrics can access your QC Wallet.',
@@ -66,13 +67,13 @@ const translation = {
     ButtonTitle: 'Start',
   },
   PersonCredential: {
-    Issuer: 'Service QC',
+    Issuer: 'Service BC',
     Name: 'Person',
     GivenName: 'Sample Given Name',
     FamilyName: 'Sample Family Name',
     Description:
-      "Add your Person credential to your wallet to prove your personal information online and get access to services online.\n\nYou'll need the QC Service Card app set up on this mobile device.",
-    LinkDescription: 'Get the QC Services Card app',
+      "Add your Person credential to your wallet to prove your personal information online and get access to services online.\n\nYou'll need the BC Service Card app set up on this mobile device.",
+    LinkDescription: 'Get the BC Services Card app',
     GetCredential: 'Get your Person credential',
     Decline: 'Get this later',
     PageTitle: 'Person Credential',
@@ -328,23 +329,10 @@ const translation = {
     Contacts: 'Contacts',
     Settings: 'Settings',
   },
-  Onboarding: {
-    Welcome: 'Welcome',
-    WelcomeParagraph1: 'QC Wallet lets you receive, store and use digital credentials.',
-    WelcomeParagraph2: 'It is highly secure, and helps protect your privacy online.',
-    WelcomeParagraph3:
-      'QC Wallet is currently in its early stages and the technology is being explored. Most people will not have a use for QC Wallet yet, because very few digital credentials are available.',
-    StoredSecurelyTitle: 'Digital credentials, stored securely',
-    StoredSecurelyBody:
-      'QC Wallet holds digital credentials—the digital versions of things like licenses, identities and permits.\n\nThey are stored securely, only on this device.',
-    UsingCredentialsTitle: 'Receiving and using credentials',
-    UsingCredentialsBody:
-      'To receive and use credentials you use the “Scan” feature in the app to scan a special QR code.\n\nInformation is sent and received over a private, encrypted connection.',
-    PrivacyConfidentiality: 'Privacy and confidentiality',
-    PrivacyParagraph:
-      'You approve every use of information from your QC Wallet. You also only share what is needed for a situation.\n\nThe Government of Québec is not told when you use your digital credentials.',
-    GetStarted: 'Get Started',
-    SkipA11y: 'Skip introduction to QC Wallet',
+  QRScanner: {
+    PermissionToUseCamera: 'Permission to use camera',
+    WeNeedYourPermissionToUseYourCamera: 'We need your permission to use your camera',
+    Ok: 'Ok',
   },
   Record: {
     Hide: 'Hide',
@@ -373,7 +361,7 @@ const translation = {
     SecondPageBody:
       'The Quebec wallet protects your digital credentials, a digital version of your permits and identity card. \n\nThey are stored securely, only on your device.',
     ThirdPageTitle: 'Share only what is necessary',
-    ThirdPageBody:
+    ThirdPageBogy:
       'To receive a credential, you must Capture the QR code that will be presented to you. \n\nThe information will be communicated through a private and protected communication.',
     FourthPageTitle: 'Take control of your information',
     FourthPageBody:
@@ -383,8 +371,7 @@ const translation = {
   Settings: {
     Help: 'Help',
     MoreInformation: 'More Information',
-    HelpUsingBCWallet: 'Help using QC Wallet',
-    GiveFeedback: 'Give feedback',
+    HelpUsingBCWallet: 'Help using BC Wallet',
     ReportAProblem: 'Report A Problem',
     TermsOfUse: 'Terms of use',
     PrivacyStatement: 'Privacy statement',
@@ -398,8 +385,8 @@ const translation = {
     Language: 'Language',
   },
   Tour: {
-    GuideTitle: 'Welcome to QC Wallet',
-    WouldYouLike: 'Would you like some guidance on how to use QC Wallet?',
+    GuideTitle: 'Welcome to BC Wallet',
+    WouldYouLike: 'Would you like some guidance on how to use BC Wallet?',
     UseAppGuides: 'Use app guides',
     DoNotUseAppGuides: "Don't use app guides",
     AddAndShare: 'Add and share credentials',
@@ -418,7 +405,7 @@ const translation = {
   Tips: {
     Header: 'Tips',
     GettingReady: 'Getting your wallet ready...',
-    Tip1: 'For extra security, QC Wallet locks the app after 5 minutes of inactivity',
+    Tip1: 'For extra security, BC Wallet locks the app after 5 minutes of inactivity',
     Tip2: 'Unlike showing physical cards, you share only what is necessary from your credentials',
     Tip3: 'Your credentials are stored only on this phone, nowhere else',
     Tip4: 'Information is sent and received over an untraceable encrypted connection',
