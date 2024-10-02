@@ -37,6 +37,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import { Config } from 'react-native-config'
+import { CachesDirectoryPath } from 'react-native-fs'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import LogoQuebecBlanc from '../assets/img/LogoQuebecBlanc.svg'
@@ -372,6 +373,11 @@ const Splash = () => {
         const modules = getAgentModules({
           indyNetworks: ledgers,
           mediatorInvitationUrl: environment,
+          txnCache: {
+            capacity: 1000,
+            expiryOffsetMs: 1000 * 60 * 60 * 24 * 7,
+            path: CachesDirectoryPath + '/txn-cache',
+          },
         })
 
         modules.connections = new ConnectionsModule({
