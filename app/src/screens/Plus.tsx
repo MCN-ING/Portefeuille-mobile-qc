@@ -1,5 +1,4 @@
 import { useTheme, Button, ButtonType, testIdWithKey, Screens, TabStacks } from '@hyperledger/aries-bifold-core'
-import { HomeStackParams } from '@hyperledger/aries-bifold-core/App/types/navigators'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
@@ -9,17 +8,17 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import CalendarImg from '../assets/img/calendar-empty.svg'
 import ClockImg from '../assets/img/clock.svg'
 import PhoneImg from '../assets/img/telephone.svg'
+import { SettingStackParams, Stacks } from '../navigators/navigators'
 
 const Plus: React.FC = () => {
   const { ColorPallet, TextTheme } = useTheme()
   const { t } = useTranslation()
-  const { navigate } = useNavigation<StackNavigationProp<HomeStackParams>>()
+  const { navigate } = useNavigation<StackNavigationProp<SettingStackParams>>()
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 20,
-      marginBottom: 20,
+      paddingHorizontal: 20,
       backgroundColor: ColorPallet.brand.primaryBackground,
     },
     innerContainer: {
@@ -99,7 +98,7 @@ const Plus: React.FC = () => {
                 testID={testIdWithKey('AppParams')}
                 accessibilityLabel={t('OptionsPlus.ButtonParamsApp')}
                 title={t('OptionsPlus.ButtonParamsApp')}
-                onPress={() => navigate(TabStacks.HomeStack as never, { screen: Screens.Home } as never)}
+                onPress={() => navigate(Stacks.SettingsStack as never, { screen: Screens.Settings } as never)}
               />
             </View>
             <View style={styles.button}>
