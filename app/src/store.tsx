@@ -38,6 +38,7 @@ export interface BCState extends BifoldState {
   attestationAuthentification: AttestationAuthentification
   preferences: QCPreferences
   notificationsTempDeletedIds: string[]
+  historyTempDeletedIds: string[]
 }
 
 enum DeveloperDispatchAction {
@@ -53,6 +54,10 @@ enum NotificationsTemporarilyDeletedDispatchAction {
   NOTIFICATIONS_TEMPORARILY_DELETED_IDS = 'notifications/temporarilyDeletedIds',
 }
 
+enum HistoryTemporarilyDeletedDispatchAction {
+  HISTORY_TEMPORARILY_DELETED_IDS = 'history/temporarilyDeletedIds',
+}
+
 export enum PreferencesQCDispatchAction {
   USE_APP_FORCED_UPDATE = 'preferences/appForcedUpdate',
 }
@@ -62,12 +67,14 @@ export type BCDispatchAction =
   | AttestationAuthentificationDispatchAction
   | PreferencesQCDispatchAction
   | NotificationsTemporarilyDeletedDispatchAction
+  | HistoryTemporarilyDeletedDispatchAction
 
 export const BCDispatchAction = {
   ...DeveloperDispatchAction,
   ...AttestationAuthentificationDispatchAction,
   ...PreferencesQCDispatchAction,
   ...NotificationsTemporarilyDeletedDispatchAction,
+  ...HistoryTemporarilyDeletedDispatchAction,
 }
 
 export const iasEnvironments: Array<IASEnvironment> = [
@@ -127,6 +134,7 @@ export const getInitialState = async (): Promise<BCState> => {
       useForcedAppUpdate: false,
     },
     notificationsTempDeletedIds: [],
+    historyTempDeletedIds: [],
   }
 }
 

@@ -5,6 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import ActivityNotifications from '../screens/activities/Activities'
+import HistoryDetail from '../screens/activities/HistoryDetail'
 
 import { ActivitiesStackParams, Screens } from './navigators'
 
@@ -23,6 +24,11 @@ const ActivitiesStack: React.FC = () => {
         name={Screens.Activities}
         component={ActivityNotifications}
         options={{ title: t('TabStack.Activities') }}
+      />
+      <StackActivities.Screen
+        name={Screens.HistoryDetail}
+        component={HistoryDetail}
+        options={{ title: t('Screens.History') }}
       />
     </StackActivities.Navigator>
   )

@@ -19,6 +19,7 @@ export type ActivitiesProps = {
 const Activities: React.FC<ActivitiesProps> = ({ navigation }) => {
   const [openSwipeableId, setOpenSwipeableId] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState(NotificationTab)
+
   const { t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
 
@@ -92,7 +93,11 @@ const Activities: React.FC<ActivitiesProps> = ({ navigation }) => {
           navigation={navigation}
         />
       ) : (
-        <HistoryList />
+        <HistoryList
+          openSwipeableId={openSwipeableId}
+          handleOpenSwipeable={setOpenSwipeableId}
+          navigation={navigation}
+        />
       )}
     </View>
   )

@@ -3,6 +3,7 @@ import {
   Screens as BifoldScreens,
   NotificationStackParams,
 } from '@hyperledger/aries-bifold-core'
+import { CustomRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import {
   ConnectStackParams,
   ContactStackParams,
@@ -23,6 +24,7 @@ export enum Screens {
   Settings = 'Settings',
   Language = 'Language',
   HistoryPage = 'History',
+  HistoryDetail = 'HistoryDetail',
   Notification = 'Notifications',
   CreatePIN = 'Create a PIN',
   UseBiometry = 'Use Biometry',
@@ -100,6 +102,7 @@ export type AboutStackParams = {
 
 export type ActivitiesStackParams = {
   [Screens.Activities]: undefined
+  HistoryDetail: { item: CustomRecord }
 }
 
 export type OptionsPlusStackParams = {

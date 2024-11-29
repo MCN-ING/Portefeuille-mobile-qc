@@ -550,6 +550,8 @@ const translation = {
     FooterNothingElse: 'There is nothing else',
     NotificationsDeleted_one: '{{ count }} notification deleted.',
     NotificationsDeleted_other: '{{ count }} notifications deleted.',
+    HistoryDeleted_one: '{{ count }} history deleted.',
+    HistoryDeleted_other: '{{ count }} histories deleted.',
   },
   Scan: {
     SuccessfullyAcceptedConnection: 'Successfully Accepted Connection',
@@ -972,6 +974,41 @@ const translation = {
     Accessibility: 'Accessibility',
     TermsOfUse: 'Terms of Use',
     PrivacyPolicy: 'Privacy Policy',
+  },
+  History: {
+    Initial: {
+      Description: {
+        Header: 'This History section can list when:\n',
+        PointA: 'You have <b>shared information</b> with a verifier',
+        PointAAxs: 'You have shared information with a verifier',
+        PointB: 'A card is <b>accepted, revoked or expired</b>',
+        PointBAxs: 'A card is accepted, revoked or expired',
+        PointC: 'You have updated your <b>PIN</b>',
+        PointCAxs: 'You have updated your PIN',
+      },
+    },
+    Button: {
+      DeleteEvent: 'Delete Event',
+    },
+    CardTitle: {
+      CardAccepted: 'Card accepted:',
+      CardDeclined: 'Card declined:',
+      CardExpired: 'Card expired',
+      CardRevoked: 'Card revoked',
+      InformationSent: 'Information sent to:',
+      WalletPinUpdated: 'Wallet PIN updated',
+    },
+    CardDescription: {
+      CardExpired: '{{cardName}} expired',
+      CardRevoked: '{{cardName}} revoked',
+      WalletPinUpdated: 'New PIN set',
+    },
+    Detail: {
+      InformationRequested: 'The requested information',
+      Email: 'Email address',
+      Identifier: 'Unique identifier',
+    },
+    Today: 'Today',
   },
 }
 

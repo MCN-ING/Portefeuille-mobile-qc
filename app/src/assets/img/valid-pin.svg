@@ -1,0 +1,44 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+	<title>valid-pin-svg</title>
+	<style>
+		.s0 { fill: none;stroke: #095797;stroke-linecap: round;stroke-linejoin: round;stroke-width: 15 } 
+	</style>
+	<g>
+		<path class="s0" d="m18 18h477v477h-477z"/>
+		<path class="s0" d="m18 18h477v72h-477z"/>
+		<path class="s0" d="m463.5 54c-2.5 0-4.5-2-4.5-4.5 0-2.5 2-4.5 4.5-4.5 2.5 0 4.5 2 4.5 4.5 0 2.5-2 4.5-4.5 4.5z"/>
+		<path class="s0" d="m427.5 54c-2.5 0-4.5-2-4.5-4.5 0-2.5 2-4.5 4.5-4.5 2.5 0 4.5 2 4.5 4.5 0 2.5-2 4.5-4.5 4.5z"/>
+		<path class="s0" d="m62.5 126h387v108h-387z"/>
+		<g>
+			<g>
+				<path class="s0" d="m146.7 180h-54"/>
+				<path class="s0" d="m119.7 153v54"/>
+				<path class="s0" d="m138.8 160.9l-38.2 38.2"/>
+				<path class="s0" d="m138.8 199.1l-38.2-38.2"/>
+			</g>
+			<g>
+				<path class="s0" d="m239.3 180h-54"/>
+				<path class="s0" d="m212.3 153v54"/>
+				<path class="s0" d="m231.4 160.9l-38.2 38.2"/>
+				<path class="s0" d="m231.4 199.1l-38.2-38.2"/>
+			</g>
+			<g>
+				<path class="s0" d="m329.3 180h-54"/>
+				<path class="s0" d="m302.3 153v54"/>
+				<path class="s0" d="m321.4 160.9l-38.2 38.2"/>
+				<path class="s0" d="m321.4 199.1l-38.2-38.2"/>
+			</g>
+			<g>
+				<path class="s0" d="m419.3 180h-54"/>
+				<path class="s0" d="m392.3 153v54"/>
+				<path class="s0" d="m411.4 160.9l-38.2 38.2"/>
+				<path class="s0" d="m411.4 199.1l-38.2-38.2"/>
+			</g>
+		</g>
+		<g>
+			<path class="s0" d="m324.5 430.6c-37.9 37.9-99.1 37.9-137 0-37.9-37.9-37.9-99.1 0-137 37.9-37.9 99.1-37.9 137 0 37.9 37.9 37.9 99.1 0 137z"/>
+			<path class="s0" d="m207 360l36 36 72-72"/>
+		</g>
+		<path class="s0" d="m391.5 54c-2.5 0-4.5-2-4.5-4.5 0-2.5 2-4.5 4.5-4.5 2.5 0 4.5 2 4.5 4.5 0 2.5-2 4.5-4.5 4.5z"/>
+	</g>
+</svg>
