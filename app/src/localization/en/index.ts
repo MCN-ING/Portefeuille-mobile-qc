@@ -60,6 +60,7 @@ const translation = {
       ErrorTitle: 'Update Unavailable',
       ErrorMsg: 'Unable to update the app.',
     },
+    Loading: 'Loading',
   },
   Language: {
     code_en: 'English',
@@ -72,6 +73,9 @@ const translation = {
     MinuteAgo: 'minute ago',
     MinutesAgo: 'minutes ago',
     JustNow: 'just now',
+    ModifiedOn: 'Modified on',
+    acceptedOn: 'Accepted on',
+    DeclinedOn: 'Declined on',
     MonthLong: {
       January: 'January',
       February: 'February',
@@ -309,6 +313,8 @@ const translation = {
     Message1044: 'There was a problem while initializing onboarding.',
     Title1045: 'Unable to initialize agent.',
     Message1045: 'There was a problem while initializing agent.',
+    FailedToDelete: 'Failed to delete',
+    UnexpectedError: 'An unexpected error occurred',
   },
   StatusMessages: {
     InitAgent: 'Initializing agent ..',
@@ -553,6 +559,8 @@ const translation = {
     FooterNothingElse: 'There is nothing else',
     NotificationsDeleted_one: '{{ count }} notification deleted.',
     NotificationsDeleted_other: '{{ count }} notifications deleted.',
+    HistoryDeleted_one: '{{ count }} history deleted.',
+    HistoryDeleted_other: '{{ count }} histories deleted.',
   },
   Scan: {
     SuccessfullyAcceptedConnection: 'Successfully Accepted Connection',
@@ -975,6 +983,56 @@ const translation = {
     Accessibility: 'Accessibility',
     TermsOfUse: 'Terms of Use',
     PrivacyPolicy: 'Privacy Policy',
+  },
+  History: {
+    ConfirmDeleteHistory: 'Are you sure you want to delete this history?',
+    Initial: {
+      Description: {
+        Header: 'This History section can list when:\n',
+        PointA: 'You have <b>shared information</b> with a verifier',
+        PointAAxs: 'You have shared information with a verifier',
+        PointB: 'A card is <b>accepted, revoked or expired</b>',
+        PointBAxs: 'A card is accepted, revoked or expired',
+        PointC: 'You have updated your <b>PIN</b>',
+        PointCAxs: 'You have updated your PIN',
+      },
+    },
+    Button: {
+      DeleteHistory: 'Delete history',
+    },
+    CardTitle: {
+      CardChanged: 'Card {{operation}}',
+      InformationSent: 'Information sent to:',
+      ContactUpdated: 'Contact {{operation}}',
+      WalletPinUpdated: 'Wallet PIN updated',
+      BiometricUpdated: 'Biometrics is {{operation}}',
+      ConnectionEstablished: 'Connection established',
+      ConnectionRemoved: 'Connection removed',
+      Default: 'History Event',
+    },
+    CardDescription: {
+      CardChanged: 'Card {{cardName}} {{operation}}',
+      ContactUpdated: '{contactName} has been {{operation}}.',
+      WalletPinUpdated: 'New PIN set',
+      BiometricUpdated: 'Biometrics has been {{operation}}',
+    },
+    Detail: {
+      InformationRequested: 'The requested information',
+      Email: 'Email address',
+      Identifier: 'Unique identifier',
+    },
+    Date: {
+      changedOn: '{{operation}} on',
+    },
+    Operations: {
+      Accepted: 'accepted',
+      Declined: 'refused',
+      Removed: 'removed',
+      Expired: 'expired',
+      Revoked: 'revoked',
+      Activated: 'activated',
+      Deactivated: 'deactivated',
+    },
   },
 }
 
