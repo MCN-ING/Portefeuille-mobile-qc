@@ -17,7 +17,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import HeaderText from '../components/HeaderText'
 import Progress from '../components/Progress'
-import { AccordionItem } from '../components/react-native-accordion-list-view'
 
 export const TermsVersion = '2'
 
@@ -108,42 +107,52 @@ const Terms = () => {
         <View style={{ marginTop: agreedToPreviousTerms ? 20 : 0 }}>
           <HeaderText title={t('Screens.Terms')} />
         </View>
-        <Text style={[style.title, { marginTop: 20 }]}>{t('TermsV2.Consent.title')}</Text>
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.title')}
+        </Text>
         <Text style={[style.bodyText, { marginTop: 20 }]}>{t('TermsV2.Consent.body')}</Text>
 
-        <Text style={[style.title, { marginTop: 20 }]}>{t('TermsV2.Consent.PersonalUse.title')}</Text>
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.PersonalUse.title')}
+        </Text>
         <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20 }]}>
           {t('TermsV2.Consent.PersonalUse.body')}
         </Text>
-        <AccordionItem
-          customTitle={() => <Text style={[style.title]}>{t('TermsV2.Consent.PersonalUse.subsection.title')}</Text>}
-          customBody={() => (
-            <Text style={[style.bodyText, { margin: 20 }]}>{t('TermsV2.Consent.PersonalUse.subsection.body')}</Text>
-          )}
-        ></AccordionItem>
 
-        <Text style={[style.title, { marginTop: 20 }]}>{t('TermsV2.Consent.IdentityTheft.title')}</Text>
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.PersonalUse.subsection.title')}
+        </Text>
+        <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20 }]}>
+          {t('TermsV2.Consent.PersonalUse.subsection.body')}
+        </Text>
+
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.IdentityTheft.title')}
+        </Text>
         <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20 }]}>
           {t('TermsV2.Consent.IdentityTheft.body')}
         </Text>
-        <AccordionItem
-          customTitle={() => <Text style={[style.title]}>{t('TermsV2.Consent.IdentityTheft.subsection.title')}</Text>}
-          customBody={() => (
-            <Text style={[style.bodyText, { margin: 20 }]}>{t('TermsV2.Consent.IdentityTheft.subsection.body')}</Text>
-          )}
-        ></AccordionItem>
 
-        <Text style={[style.title, { marginTop: 20 }]}>{t('TermsV2.Consent.Privacy.title')}</Text>
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.IdentityTheft.subsection.title')}
+        </Text>
+        <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20 }]}>
+          {t('TermsV2.Consent.IdentityTheft.subsection.body')}
+        </Text>
+
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.Privacy.title')}
+        </Text>
         <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20, marginVertical: 20 }]}>
           {t('TermsV2.Consent.Privacy.body')}
         </Text>
-        <AccordionItem
-          containerStyle={{ marginBottom: 20 }}
-          customTitle={() => <Text style={[style.title]}>{t('TermsV2.Consent.Privacy.subsection.title')}</Text>}
-          customBody={() => (
-            <Text style={[style.bodyText, { margin: 20 }]}>{t('TermsV2.Consent.Privacy.subsection.body')}</Text>
-          )}
-        ></AccordionItem>
+
+        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+          {t('TermsV2.Consent.Privacy.subsection.title')}
+        </Text>
+        <Text style={[style.bodyText, { marginTop: 20, marginBottom: 20, marginVertical: 20 }]}>
+          {t('TermsV2.Consent.Privacy.subsection.body')}
+        </Text>
 
         <View style={[style.controlsContainer]}>
           {!(agreesToCurrentTerms && agreedToPreviousTerms && store.authentication.didAuthenticate) && (
