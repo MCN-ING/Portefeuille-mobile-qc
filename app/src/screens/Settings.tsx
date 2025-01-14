@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native'
-import { getVersion } from 'react-native-device-info'
+import { getVersion, getBuildNumber } from 'react-native-device-info'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 
@@ -208,7 +208,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             incrementDeveloperMenuCounter()
           }}
         >
-          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>{getVersion()} </Text>
+          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>
+            {getVersion()} {store.preferences.developerModeEnabled && `(${getBuildNumber()})`}
+          </Text>
         </SectionRow>
 
         {store.preferences.developerModeEnabled && <Developer />}
