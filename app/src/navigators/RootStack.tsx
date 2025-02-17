@@ -20,15 +20,16 @@ import {
   useServices,
   useStore,
   useTheme,
+  useTour,
 } from '@hyperledger/aries-bifold-core'
 import OpenIdCredentialDetails from '@hyperledger/aries-bifold-core/App/modules/openid/screens/OpenIDCredentialDetails'
 import Chat from '@hyperledger/aries-bifold-core/App/screens/Chat'
 import CredentialDetails from '@hyperledger/aries-bifold-core/App/screens/CredentialDetails'
 import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-verifier'
 import { CardStyleInterpolators, createStackNavigator, StackCardStyleInterpolator } from '@react-navigation/stack'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter } from 'react-native'
+import { DeviceEventEmitter, View } from 'react-native'
 
 import AboutStack from './AboutStack'
 import HelpCenterStack from './HelpCenterStack'
@@ -40,6 +41,7 @@ import { RootStackParams, Stacks } from './navigators'
 const RootStack: React.FC = () => {
   const [store, dispatch] = useStore()
   const { agent } = useAgent()
+  const { currentStep } = useTour()
   const { t } = useTranslation()
   const theme = useTheme()
   const defaultStackOptions = useDefaultStackOptions(theme)
@@ -49,6 +51,8 @@ const RootStack: React.FC = () => {
     TOKENS.OBJECT_SCREEN_CONFIG,
     TOKENS.LOAD_STATE,
   ])
+
+  const hideElements = useMemo(() => (currentStep === undefined ? 'auto' : 'no-hide-descendants'), [currentStep])
 
   useDeepLinks()
 
@@ -86,68 +90,73 @@ const RootStack: React.FC = () => {
     })
 
     return (
-      <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
-        <Stack.Screen name={Screens.Splash} component={splash} />
-        <Stack.Screen name={Bifoldstacks.TabStack} component={TabStack} />
-        <Stack.Screen
-          name={Screens.Chat}
-          component={Chat}
-          options={({ navigation }) => ({
-            headerShown: true,
-            title: t('Screens.CredentialOffer'),
-            headerLeft: () => (
-              <IconButton
-                buttonLocation={ButtonLocation.Left}
-                accessibilityLabel={t('Global.Back')}
-                testID={testIdWithKey('BackButton')}
-                onPress={() => {
-                  navigation.navigate(TabStacks.HomeStack, { screen: Screens.Home })
-                }}
-                icon="arrow-left"
-              />
-            ),
-          })}
-        />
-        <Stack.Screen name={Bifoldstacks.ConnectStack} component={ConnectStack} />
-        <Stack.Screen name={Bifoldstacks.ContactStack} component={ContactStack} />
-        <Stack.Screen name={Bifoldstacks.NotificationStack} component={NotificationStack} />
-        <Stack.Screen
-          name={Bifoldstacks.ConnectionStack}
-          component={DeliveryStack}
-          options={{
-            gestureEnabled: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-            presentation: 'modal',
-          }}
-        />
-        <Stack.Screen name={Bifoldstacks.ProofRequestsStack} component={ProofRequestStack} />
-        <Stack.Screen
-          name={Stacks.HistoryStack}
-          component={HistoryStack}
-          options={{
-            cardStyleInterpolator: forFade,
-          }}
-        />
-        <Stack.Screen name={Stacks.SettingsStack} component={SettingStack} />
-        <Stack.Screen name={Stacks.HelpCenterStack} component={HelpCenterStack} />
-        <Stack.Screen name={Stacks.AboutStack} component={AboutStack} />
-        <Stack.Screen
-          name={Screens.CredentialDetails}
-          component={CredentialDetails}
-          options={{
-            title: t('Screens.CredentialDetails'),
-            ...ScreenOptionsDictionary[Screens.CredentialDetails],
-          }}
-        />
-        <Stack.Screen
-          name={Screens.OpenIDCredentialDetails}
-          component={OpenIdCredentialDetails}
-          options={{
-            title: t('Screens.CredentialDetails'),
-            ...ScreenOptionsDictionary[Screens.OpenIDCredentialDetails],
-          }}
-        />
-      </Stack.Navigator>
+      <View style={{ flex: 1 }} importantForAccessibility={hideElements}>
+        <Stack.Navigator
+          initialRouteName={Screens.Splash}
+          screenOptions={{ ...defaultStackOptions, headerShown: false }}
+        >
+          <Stack.Screen name={Screens.Splash} component={splash} />
+          <Stack.Screen name={Bifoldstacks.TabStack} component={TabStack} />
+          <Stack.Screen
+            name={Screens.Chat}
+            component={Chat}
+            options={({ navigation }) => ({
+              headerShown: true,
+              title: t('Screens.CredentialOffer'),
+              headerLeft: () => (
+                <IconButton
+                  buttonLocation={ButtonLocation.Left}
+                  accessibilityLabel={t('Global.Back')}
+                  testID={testIdWithKey('BackButton')}
+                  onPress={() => {
+                    navigation.navigate(TabStacks.HomeStack, { screen: Screens.Home })
+                  }}
+                  icon="arrow-left"
+                />
+              ),
+            })}
+          />
+          <Stack.Screen name={Bifoldstacks.ConnectStack} component={ConnectStack} />
+          <Stack.Screen name={Bifoldstacks.ContactStack} component={ContactStack} />
+          <Stack.Screen name={Bifoldstacks.NotificationStack} component={NotificationStack} />
+          <Stack.Screen
+            name={Bifoldstacks.ConnectionStack}
+            component={DeliveryStack}
+            options={{
+              gestureEnabled: false,
+              cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+              presentation: 'modal',
+            }}
+          />
+          <Stack.Screen name={Bifoldstacks.ProofRequestsStack} component={ProofRequestStack} />
+          <Stack.Screen
+            name={Stacks.HistoryStack}
+            component={HistoryStack}
+            options={{
+              cardStyleInterpolator: forFade,
+            }}
+          />
+          <Stack.Screen name={Stacks.SettingsStack} component={SettingStack} />
+          <Stack.Screen name={Stacks.HelpCenterStack} component={HelpCenterStack} />
+          <Stack.Screen name={Stacks.AboutStack} component={AboutStack} />
+          <Stack.Screen
+            name={Screens.CredentialDetails}
+            component={CredentialDetails}
+            options={{
+              title: t('Screens.CredentialDetails'),
+              ...ScreenOptionsDictionary[Screens.CredentialDetails],
+            }}
+          />
+          <Stack.Screen
+            name={Screens.OpenIDCredentialDetails}
+            component={OpenIdCredentialDetails}
+            options={{
+              title: t('Screens.CredentialDetails'),
+              ...ScreenOptionsDictionary[Screens.OpenIDCredentialDetails],
+            }}
+          />
+        </Stack.Navigator>
+      </View>
     )
   }
 
