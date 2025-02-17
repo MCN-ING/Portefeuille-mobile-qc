@@ -44,7 +44,6 @@ const RootStack: React.FC = () => {
   const { currentStep } = useTour()
   const { t } = useTranslation()
   const theme = useTheme()
-  //const [hideElements, setHideElements] = useState<ImportantForAccessibility>('auto')
   const defaultStackOptions = useDefaultStackOptions(theme)
   const [splash, OnboardingStack, ScreenOptionsDictionary, loadState] = useServices([
     TOKENS.SCREEN_SPLASH,
@@ -52,10 +51,6 @@ const RootStack: React.FC = () => {
     TOKENS.OBJECT_SCREEN_CONFIG,
     TOKENS.LOAD_STATE,
   ])
-
-  /*useMemo(() => {
-    setHideElements(currentStep === undefined ? 'auto' : 'no-hide-descendants')
-  }, [currentStep])*/
 
   const hideElements = useMemo(() => (currentStep === undefined ? 'auto' : 'no-hide-descendants'), [currentStep])
 
