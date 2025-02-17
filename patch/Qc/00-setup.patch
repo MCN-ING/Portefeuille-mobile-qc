@@ -77,7 +77,7 @@ index 2144bce..3de2e98 100644
  	<string>en</string>
  	<key>CFBundleDisplayName</key>
 -	<string>BC Wallet</string>
-+	<string>Portefeuille QC</string>
++	<string>IdentiQc</string>
  	<key>CFBundleExecutable</key>
  	<string>$(EXECUTABLE_NAME)</string>
  	<key>CFBundleIdentifier</key>
