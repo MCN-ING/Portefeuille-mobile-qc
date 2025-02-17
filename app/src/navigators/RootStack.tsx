@@ -27,11 +27,9 @@ import Chat from '@hyperledger/aries-bifold-core/App/screens/Chat'
 import CredentialDetails from '@hyperledger/aries-bifold-core/App/screens/CredentialDetails'
 import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-verifier'
 import { CardStyleInterpolators, createStackNavigator, StackCardStyleInterpolator } from '@react-navigation/stack'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeviceEventEmitter, View } from 'react-native'
-
-import { ImportantForAccessibility } from '../types/accessibility'
 
 import AboutStack from './AboutStack'
 import HelpCenterStack from './HelpCenterStack'
@@ -46,7 +44,7 @@ const RootStack: React.FC = () => {
   const { currentStep } = useTour()
   const { t } = useTranslation()
   const theme = useTheme()
-  const [hideElements, setHideElements] = useState<ImportantForAccessibility>('auto')
+  //const [hideElements, setHideElements] = useState<ImportantForAccessibility>('auto')
   const defaultStackOptions = useDefaultStackOptions(theme)
   const [splash, OnboardingStack, ScreenOptionsDictionary, loadState] = useServices([
     TOKENS.SCREEN_SPLASH,
@@ -55,9 +53,11 @@ const RootStack: React.FC = () => {
     TOKENS.LOAD_STATE,
   ])
 
-  useMemo(() => {
+  /*useMemo(() => {
     setHideElements(currentStep === undefined ? 'auto' : 'no-hide-descendants')
-  }, [currentStep])
+  }, [currentStep])*/
+
+  const hideElements = useMemo(() => (currentStep === undefined ? 'auto' : 'no-hide-descendants'), [currentStep])
 
   useDeepLinks()
 
