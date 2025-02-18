@@ -388,8 +388,8 @@ const UseBiometry: React.FC = () => {
               accessibilityRole={'togglebutton'}
             >
               <Switch
-                trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-                thumbColor={biometryEnabled ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+                trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+                thumbColor={ColorPallet.grayscale.white}
                 ios_backgroundColor={ColorPallet.grayscale.lightGrey}
                 onValueChange={toggleSwitch}
                 value={biometryEnabled}
