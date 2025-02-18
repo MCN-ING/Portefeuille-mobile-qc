@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>ca.qc.gouv.portefeuillemobileqc</key>
-		<string>Portefeuille Qc</string>
+		<string>IdentiQc</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Signing certificate</string>
