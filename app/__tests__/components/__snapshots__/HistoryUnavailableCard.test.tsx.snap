@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistoryUnavailableCard Renders correctly 1`] = `
+<View
+  accessibilityLabel="Test Credential Credentials.Credential.
+                Credentials.IssuedByTest Issuer."
+  accessible={true}
+  style={
+    {
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": 10,
+      "elevation": 5,
+      "flexDirection": "row",
+      "minHeight": 247.5,
+      "overflow": "visible",
+      "shadowColor": "#D3D3D3",
+      "shadowOffset": {
+        "height": 2,
+        "width": 2,
+      },
+      "shadowOpacity": 0.5,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "#606060",
+        "borderBottomLeftRadius": 10,
+        "borderTopLeftRadius": 10,
+        "width": 90,
+      }
+    }
+  />
+  <View
+    style={
+      {
+        "backgroundColor": "#F2F2F2",
+        "borderBottomRightRadius": 10,
+        "borderTopRightRadius": 10,
+        "flex": 1,
+        "padding": 37.5,
+      }
+    }
+    testID="com.ariesbifold:id/CredentialCardPrimaryBody"
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "#FFFFFF",
+            "fontSize": 18,
+            "fontWeight": "bold",
+          },
+          {
+            "flexShrink": 1,
+            "fontSize": 16,
+            "lineHeight": 24,
+          },
+          {
+            "flex": 1,
+            "flexWrap": "wrap",
+            "fontSize": 14,
+            "fontWeight": "600",
+            "lineHeight": 16,
+            "maxWidth": "85%",
+          },
+        ]
+      }
+      testID="com.ariesbifold:id/CredentialName"
+    >
+      Test Credential
+    </Text>
+    <View
+      style={
+        {
+          "alignSelf": "flex-end",
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "maxWidth": "80%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "flex-end",
+            "flexDirection": "row",
+            "gap": 4,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#ffffff",
+              "borderRadius": 8,
+              "height": 90,
+              "justifyContent": "center",
+              "width": 90,
+            }
+          }
+        >
+          <Text
+            accessible={false}
+            style={
+              [
+                {
+                  "color": "#FFFFFF",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                },
+                {
+                  "alignSelf": "center",
+                  "color": "#000",
+                  "fontSize": 45,
+                },
+              ]
+            }
+            testID="com.ariesbifold:id/NoLogoText"
+          >
+            T
+          </Text>
+        </View>
+        <Text
+          style={
+            [
+              {
+                "color": "#FFFFFF",
+                "fontSize": 18,
+                "fontWeight": "normal",
+              },
+              {
+                "flexShrink": 1,
+                "fontSize": 16,
+                "lineHeight": 24,
+              },
+              {
+                "flexWrap": "wrap",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "lineHeight": 19,
+                "opacity": 0.8,
+              },
+            ]
+          }
+          testID="com.ariesbifold:id/CredentialIssuer"
+        >
+          Test Issuer
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
