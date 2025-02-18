@@ -1,4 +1,4 @@
-import { TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
@@ -36,6 +36,7 @@ const HomeFooter = () => {
       {notifications?.length > 0 && (
         <TouchableOpacity
           accessibilityRole="button"
+          testID={testIdWithKey('SeeAllNotification')}
           style={styles.footerLinkContainer}
           onPress={() => navigate(TabStacks.ActivitiesStack as never, { screen: Screens.Activities } as never)}
         >
