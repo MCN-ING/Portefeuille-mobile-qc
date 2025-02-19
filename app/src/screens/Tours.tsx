@@ -7,11 +7,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
 import { Screens, SettingStackParams } from '../navigators/navigators'
+import { BCDispatchAction, BCState } from '../store'
 
 type ToursProps = StackScreenProps<SettingStackParams>
 
 const Tours: React.FC<ToursProps> = ({ navigation }) => {
-  const [store, dispatch] = useStore()
+  const [store, dispatch] = useStore<BCState>()
 
   const { t } = useTranslation()
   const [tourEnabled, setTourEnabled] = useState(!!store.tours.enableTours)
@@ -55,6 +56,10 @@ const Tours: React.FC<ToursProps> = ({ navigation }) => {
     setTourEnabled(!tourEnabled)
   }
   const resetTours = () => {
+    dispatch({
+      type: BCDispatchAction.UPDATE_SEEN_ACTIVITIES_TOUR,
+      payload: [false],
+    })
     dispatch({
       type: DispatchAction.UPDATE_SEEN_HOME_TOUR,
       payload: [false],

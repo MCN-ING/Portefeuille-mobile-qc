@@ -2,6 +2,7 @@ import { CredentialExchangeRecord as CredentialRecord } from '@credo-ts/core'
 import { useAgent } from '@credo-ts/react-hooks'
 import {
   AttachTourStep,
+  BaseTourID,
   BifoldError,
   CredentialStack,
   DispatchAction,
@@ -74,7 +75,7 @@ const TabStack: React.FC = () => {
   const logHistoryRecord = useCallback(
     async (credential: CredentialRecord) => {
       const connection = await agent?.connections.findById(credential?.connectionId ?? '')
-      const correspondenceName = connection?.alias || connection?.theirLabel || credential.connectionId
+      const correspondenceName = connection?.alias ?? connection?.theirLabel ?? credential.connectionId
       try {
         if (!(agent && historyEnabled)) {
           logger.trace(
@@ -358,7 +359,7 @@ const TabStack: React.FC = () => {
                 HomeTabIcon,
                 focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
                 {
-                  tourID: TourID.HomeTour,
+                  tourID: BaseTourID.HomeTour,
                   index: 1,
                 }
               ),
@@ -375,7 +376,11 @@ const TabStack: React.FC = () => {
             tabBarIcon: ({ focused }) =>
               renderTabBarIcon(
                 NotificationTabIcon,
-                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor
+                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
+                {
+                  tourID: BaseTourID.HomeTour,
+                  index: 2,
+                }
               ),
           }}
         />
@@ -391,8 +396,8 @@ const TabStack: React.FC = () => {
                 AtestationTabIcon,
                 focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
                 {
-                  tourID: TourID.HomeTour,
-                  index: 2,
+                  tourID: BaseTourID.HomeTour,
+                  index: 3,
                 }
               ),
           }}

@@ -26,7 +26,7 @@ export const homeTourSteps: TourStep[] = [
           stop={stop}
           next={next}
           stepOn={1}
-          stepsOutOf={3}
+          stepsOutOf={4}
         >
           <Image
             source={require('../../assets/img/mobile-phone-scanning-laptop.jpg')}
@@ -71,7 +71,7 @@ export const homeTourSteps: TourStep[] = [
           stop={stop}
           previous={previous}
           stepOn={2}
-          stepsOutOf={3}
+          stepsOutOf={4}
         >
           <Image
             source={require('../../assets/img/notifications-screencap.png')}
@@ -105,6 +105,51 @@ export const homeTourSteps: TourStep[] = [
 
       return (
         <TourBox
+          title={t('Tour.Activities')}
+          leftText={t('Tour.Back')}
+          rightText={t('Tour.Next')}
+          onLeft={previous}
+          onRight={next}
+          currentTour={currentTour}
+          currentStep={currentStep}
+          next={next}
+          stop={stop}
+          previous={previous}
+          stepOn={3}
+          stepsOutOf={4}
+        >
+          <Image
+            source={require('../../assets/img/list-of-credentials.jpg')}
+            resizeMode={'contain'}
+            resizeMethod={'resize'}
+            style={{
+              alignSelf: 'center',
+              width: imageWidth,
+              height: imageHeight,
+            }}
+          />
+          <Text
+            style={{
+              ...TextTheme.normal,
+              color: ColorPallet.notification.infoText,
+            }}
+            allowFontScaling={false}
+          >
+            {t('Tour.ActivitiesDescription')}
+          </Text>
+        </TourBox>
+      )
+    },
+  },
+  {
+    Render: (props: RenderProps) => {
+      const { currentTour, currentStep, next, stop, previous } = props
+      const { t } = useTranslation()
+      const { ColorPallet, TextTheme } = useTheme()
+      const { imageWidth, imageHeight } = useTourImageDimensions()
+
+      return (
+        <TourBox
           title={t('Tour.YourCredentials')}
           leftText={t('Tour.Back')}
           rightText={t('Tour.Done')}
@@ -115,8 +160,8 @@ export const homeTourSteps: TourStep[] = [
           next={next}
           stop={stop}
           previous={previous}
-          stepOn={3}
-          stepsOutOf={3}
+          stepOn={4}
+          stepsOutOf={4}
         >
           <Image
             source={require('../../assets/img/list-of-credentials.jpg')}

@@ -3236,9 +3236,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-bifold-core@npm:1.0.0-alpha.438":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-bifold-core@npm:1.0.0-alpha.438"
+"@hyperledger/aries-bifold-core@npm:1.0.0-alpha.454, @hyperledger/aries-bifold-core@npm:^1.0.0-alpha.454+82da12c5":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-bifold-core@npm:1.0.0-alpha.454"
   peerDependencies:
     "@credo-ts/anoncreds": 0.5.11
     "@credo-ts/askar": 0.5.11
@@ -3314,13 +3314,13 @@ __metadata:
     uuid: ^9.0.0
   bin:
     bifold: bin/bifold
-  checksum: 3a4a4ec634a55452c5a442c7f31f3e68156ab1e24d9e3edc0d295cc79a6f910059f1cb343122620b83b1b9235272328f05feeb70d025a71cc4beb5b2f2166cf3
+  checksum: bd7013bad3fe5ae4c4b142ad201e92d3d05ba6f7f8cb30c8b00607f03156057034867f96a1bb1275d8ac7923d9e51b52d08217f3be06e4a5d2cdf26885fa8632
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-bifold-core@npm:^1.0.0-alpha.438+f9009bd8":
-  version: 1.0.0-alpha.439
-  resolution: "@hyperledger/aries-bifold-core@npm:1.0.0-alpha.439"
+"@hyperledger/aries-bifold-core@patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.454#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.454-3837dac0b4.patch":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-bifold-core@patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.454#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.454-3837dac0b4.patch::version=1.0.0-alpha.454&hash=2f26a2"
   peerDependencies:
     "@credo-ts/anoncreds": 0.5.11
     "@credo-ts/askar": 0.5.11
@@ -3396,98 +3396,16 @@ __metadata:
     uuid: ^9.0.0
   bin:
     bifold: bin/bifold
-  checksum: 205334aacca708bf8f1f65277576d10871202c9c46eb7e6c8e9b778c7ef963c2cc21520f56fa0df3c55376cb31ae530be6e290be3abd7c396a03fe4c5a52c5ca
+  checksum: f6a81193312dbe074112792c5ecb9fb076234614bd9e18dd4bf3f1d4ee9e865407d541f1ccace6e4ab5eaa1b7f4244907fd2edd6641a7b19417619e009ca1aba
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-bifold-core@patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.438#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.438-31ea1fddec.patch":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-bifold-core@patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.438#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.438-31ea1fddec.patch::version=1.0.0-alpha.438&hash=1caca3"
-  peerDependencies:
-    "@credo-ts/anoncreds": 0.5.11
-    "@credo-ts/askar": 0.5.11
-    "@credo-ts/core": 0.5.11
-    "@credo-ts/indy-sdk-to-askar-migration": 0.5.11
-    "@credo-ts/indy-vdr": 0.5.11
-    "@credo-ts/openid4vc": 0.5.11
-    "@credo-ts/push-notifications": ^0.7.0
-    "@credo-ts/question-answer": 0.5.11
-    "@credo-ts/react-hooks": ^0.6.0
-    "@credo-ts/react-native": 0.5.11
-    "@formatjs/intl-datetimeformat": 4.2.4
-    "@formatjs/intl-displaynames": 5.2.4
-    "@formatjs/intl-getcanonicallocales": 1.7.3
-    "@formatjs/intl-listformat": 6.3.4
-    "@formatjs/intl-locale": 2.4.38
-    "@formatjs/intl-numberformat": 7.2.4
-    "@formatjs/intl-pluralrules": 4.1.4
-    "@formatjs/intl-relativetimeformat": 9.3.1
-    "@hyperledger/anoncreds-react-native": 0.2.4
-    "@hyperledger/aries-askar-react-native": 0.2.3
-    "@hyperledger/aries-bifold-verifier": ^1.0.0
-    "@hyperledger/aries-oca": ^1.0.0
-    "@hyperledger/indy-vdr-react-native": 0.2.2
-    "@hyperledger/indy-vdr-shared": 0.2.2
-    "@react-native-async-storage/async-storage": 1.15.11
-    "@react-native-community/masked-view": 0.1.11
-    "@react-native-community/netinfo": ^9.3.0
-    "@react-navigation/bottom-tabs": 6.0.9
-    "@react-navigation/core": 6.1.0
-    "@react-navigation/devtools": ^6.0.8
-    "@react-navigation/native": 6.0.6
-    "@react-navigation/stack": 6.0.11
-    axios: ^1.4.0
-    base-64: ^1.0.0
-    i18next: ^21.4.0
-    lodash.flatten: ^4.4.0
-    lodash.startcase: ^4.4.0
-    moment: ^2.29.4
-    query-string: ^7.0.1
-    react: ^18.2.0
-    react-i18next: 11.13.0
-    react-native: "*"
-    react-native-animated-pagination-dots: ^0.1.72
-    react-native-argon2: ^2.0.1
-    react-native-bouncy-checkbox: ^3.0.5
-    react-native-collapsible: ^1.6.1
-    react-native-config: ^1.4.2
-    react-native-confirmation-code-field: ^7.3.0
-    react-native-device-info: ^8.4.9
-    react-native-encrypted-storage: ^4.0.2
-    react-native-fs: ^2.16.6
-    react-native-gesture-handler: ^1.10.3
-    react-native-get-random-values: ^1.7.0
-    react-native-gifted-chat: 2.4.0
-    react-native-keychain: ^8.1.1
-    react-native-localize: ^2.2.4
-    react-native-logs: ^5.1.0
-    react-native-orientation-locker: "*"
-    react-native-permissions: ^4.0.1
-    react-native-qrcode-svg: 6.2.0
-    react-native-reanimated: 3.4.2
-    react-native-safe-area-context: ^3.2.0
-    react-native-screens: ^3.24.0
-    react-native-splash-screen: ^3.3.0
-    react-native-svg: ^12.1.1
-    react-native-tcp-socket: ^6.0.6
-    react-native-toast-message: ^2.1.6
-    react-native-uuid: ^2.0.1
-    react-native-vector-icons: ^10.0.0
-    react-native-vision-camera: "*"
-    tsyringe: ^4.7.0
-    uuid: ^9.0.0
-  bin:
-    bifold: bin/bifold
-  checksum: f47a315c84f8622315bb0f217eb9d27d84d11a4a609a066d0d8f8f941a78c59da6ecb66a5453e185873ac0a1550c2de44a38d3783efe3f24972bae5b4293ea45
-  languageName: node
-  linkType: hard
-
-"@hyperledger/aries-bifold-remote-logs@npm:1.0.0-alpha.438":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-bifold-remote-logs@npm:1.0.0-alpha.438"
+"@hyperledger/aries-bifold-remote-logs@npm:1.0.0-alpha.454":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-bifold-remote-logs@npm:1.0.0-alpha.454"
   dependencies:
     "@credo-ts/core": "npm:0.5.11"
-    "@hyperledger/aries-bifold-core": "npm:^1.0.0-alpha.438+f9009bd8"
+    "@hyperledger/aries-bifold-core": "npm:^1.0.0-alpha.454+82da12c5"
     axios: "npm:^1.4.0"
     buffer: "npm:^6.0.3"
     react: "npm:18.2.0"
@@ -3500,43 +3418,43 @@ __metadata:
     react: ^18.2.0
     react-native: ^0.72.17
     react-native-logs: ^5.1.0
-  checksum: b581628bd1f22f39af0fce969d29c3283a7e2ff06c81c7cb8518d2358d6050ee8e23f65b8043cba7ab8e6364eb6de1b2f67eed24c8ca2f0b78193a87adbc2ee3
+  checksum: 44f4faa5f3c2f1dd2db9132fc3046963c88a912bfb66fd5eacd84f6617f33a3d2d496e644000b677e5451b711d7145fe024319381069f6b6d0beda4a55348035
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-bifold-verifier@npm:1.0.0-alpha.438":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-bifold-verifier@npm:1.0.0-alpha.438"
+"@hyperledger/aries-bifold-verifier@npm:1.0.0-alpha.454":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-bifold-verifier@npm:1.0.0-alpha.454"
   peerDependencies:
     "@credo-ts/anoncreds": 0.5.11
     "@credo-ts/core": 0.5.11
     "@credo-ts/react-hooks": ^0.6.0
     "@hyperledger/anoncreds-shared": 0.2.4
     react: ^18.2.0
-  checksum: b03afdadc93fbc07bcee6f1d2793708b07a09439c021869067ad89ac7b6f6a64c0a680cfa29f47ec2d93a80163f1251750f9619ed5204f478dd208188f80d0e8
+  checksum: 6d6e0b9c570e15f5551a423939e5c6ab0dd3905f5783d45149011950aeab90cfeab1e81fe7175ade9557d5d751671180293ef65a02a150052dd20126b5200d9c
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-oca@npm:1.0.0-alpha.438":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-oca@npm:1.0.0-alpha.438"
+"@hyperledger/aries-oca@npm:1.0.0-alpha.454":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-oca@npm:1.0.0-alpha.454"
   dependencies:
     "@credo-ts/anoncreds": "npm:0.5.11"
     "@credo-ts/core": "npm:0.5.11"
     axios: "npm:^1.4.0"
     lodash.startcase: "npm:^4.4.0"
     react-native-fs: "npm:^2.16.6"
-  checksum: 80a1bf5026f2c0621d6bb9024f085c0bc7f386c5d2842472097ac101a12e77cfcf6ced575ce368a326e1b2006457d0ebf3be052acd597c580adff6f0a2bf5e6f
+  checksum: 06c8adc3ae54f2a3e5875c21da0aef604880eb37719d86105250ea3e09ed2244be604e8b3f2c77614e14c56c9fb6b70a9d79ae9b1bf083e900b215681e9dafcd
   languageName: node
   linkType: hard
 
-"@hyperledger/aries-react-native-attestation@npm:1.0.0-alpha.438":
-  version: 1.0.0-alpha.438
-  resolution: "@hyperledger/aries-react-native-attestation@npm:1.0.0-alpha.438"
+"@hyperledger/aries-react-native-attestation@npm:1.0.0-alpha.454":
+  version: 1.0.0-alpha.454
+  resolution: "@hyperledger/aries-react-native-attestation@npm:1.0.0-alpha.454"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 2bdad27598c969109a503a9f0ce373cea02ac209920c9a8a5ce33152da8af702276b471aad57e1ce5a9fe9756ba87ebd2025c0fd8b8285ef6293be7c37062312
+  checksum: 240e2c426ffe3768cdb9cbe44ebdafaaca2c2b67daff12172bb6ff21ca56df86c2b904d95ceb1855fb5436e0f3e70c6ab2fea01197aa715e7c827493fb7b9242
   languageName: node
   linkType: hard
 
@@ -20218,11 +20136,11 @@ __metadata:
     "@formatjs/intl-relativetimeformat": "npm:9.3.1"
     "@hyperledger/anoncreds-react-native": "npm:0.2.4"
     "@hyperledger/aries-askar-react-native": "npm:0.2.3"
-    "@hyperledger/aries-bifold-core": "patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.438#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.438-31ea1fddec.patch"
-    "@hyperledger/aries-bifold-remote-logs": "npm:1.0.0-alpha.438"
-    "@hyperledger/aries-bifold-verifier": "npm:1.0.0-alpha.438"
-    "@hyperledger/aries-oca": "npm:1.0.0-alpha.438"
-    "@hyperledger/aries-react-native-attestation": "npm:1.0.0-alpha.438"
+    "@hyperledger/aries-bifold-core": "patch:@hyperledger/aries-bifold-core@npm%3A1.0.0-alpha.454#~/.yarn/patches/@hyperledger-aries-bifold-core-npm-1.0.0-alpha.454-3837dac0b4.patch"
+    "@hyperledger/aries-bifold-remote-logs": "npm:1.0.0-alpha.454"
+    "@hyperledger/aries-bifold-verifier": "npm:1.0.0-alpha.454"
+    "@hyperledger/aries-oca": "npm:1.0.0-alpha.454"
+    "@hyperledger/aries-react-native-attestation": "npm:1.0.0-alpha.454"
     "@hyperledger/indy-vdr-react-native": "npm:0.2.2"
     "@hyperledger/indy-vdr-shared": "npm:0.2.2"
     "@react-native-async-storage/async-storage": "npm:1.15.11"

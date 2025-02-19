@@ -1,7 +1,11 @@
-import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
-import React, { useState } from 'react'
+import { testIdWithKey, TOKENS, useServices, useStore, useTheme, useTour } from '@hyperledger/aries-bifold-core'
+import { useIsFocused } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
+
+import { BCDispatchAction, BCState } from '../../store'
+import { QCTourID, QCToursState } from '../../types/tours'
 
 import HistoryList from './HistoryList'
 import NotificationsList from './NotificationsList'
@@ -12,8 +16,32 @@ const HistoryTab = 'Historique'
 const Activities: React.FC = () => {
   const [openSwipeableId, setOpenSwipeableId] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState(NotificationTab)
+  const [store, dispatch] = useStore<BCState>()
+  const { start } = useTour()
   const { t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
+  const [{ enableTours: enableToursConfig }] = useServices([TOKENS.CONFIG])
+
+  const screenIsFocused = useIsFocused()
+
+  useEffect(() => {
+    const shouldShowTour =
+      enableToursConfig && store.tours.enableTours && !store.tours[QCToursState.SEEN_ACTIVITIES_TOUR]
+    if (shouldShowTour && screenIsFocused) {
+      start(QCTourID.ActivitiesTour)
+      dispatch({
+        type: BCDispatchAction.UPDATE_SEEN_ACTIVITIES_TOUR,
+        payload: [true],
+      })
+    }
+  }, [
+    enableToursConfig,
+    store.tours.enableTours,
+    store.tours.seenCredentialOfferTour,
+    screenIsFocused,
+    start,
+    dispatch,
+  ])
 
   const styles = StyleSheet.create({
     container: {

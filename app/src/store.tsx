@@ -66,6 +66,7 @@ enum ActivityDispatchAction {
   NOTIFICATIONS_UPDATED = 'activity/notificationsUpdated',
   ACTIVITY_MULTIPLE_DELETED = 'activity/activitiesMultipleDeleted',
   ACTIVITY_TEMPORARILY_DELETED_IDS = 'activity/activitiesTemporarilyDeletedIds',
+  UPDATE_SEEN_ACTIVITIES_TOUR = 'tours/seenActivitiesTour',
 }
 
 export enum PreferencesQCDispatchAction {
@@ -136,7 +137,7 @@ const getInitialAttestationAuthentification = async (): Promise<AttestationAuthe
       type: 'CustomNotification',
       createdAt: new Date(),
       isDismissed: false,
-      seenOnHome: false,
+      isSeenOnHome: false,
     }
     AsyncStorage.setItem(BCLocalStorageKeys.AttestationAuthentification, JSON.stringify(attestationAuthentification))
   }
@@ -210,12 +211,7 @@ const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCS
       AsyncStorage.setItem(BCLocalStorageKeys.AttestationAuthentification, JSON.stringify(attestationAuthentification))
       return newState
     }
-    case ActivityDispatchAction.ACTIVITY_TEMPORARILY_DELETED_IDS: {
-      const activities: ActivityState = (action?.payload || []).pop()
-      const newState = { ...state, activities: { ...state.activities, ...activities } }
-      AsyncStorage.setItem(BCLocalStorageKeys.Activities, JSON.stringify(newState.activities))
-      return newState
-    }
+    case ActivityDispatchAction.ACTIVITY_TEMPORARILY_DELETED_IDS:
     case ActivityDispatchAction.NOTIFICATIONS_UPDATED: {
       const activities: ActivityState = (action?.payload || []).pop()
       const newState = { ...state, activities: { ...state.activities, ...activities } }
@@ -232,6 +228,32 @@ const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCS
       })
       const newState = { ...state, activities: activitiesUpdated }
       AsyncStorage.setItem(BCLocalStorageKeys.Activities, JSON.stringify(newState.activities))
+      return newState
+    }
+    case ActivityDispatchAction.UPDATE_SEEN_ACTIVITIES_TOUR: {
+      const seenActivitiesTour = (action?.payload ?? []).pop() ?? false
+      const tours = {
+        ...state.tours,
+        seenActivitiesTour,
+      }
+
+      if (
+        seenActivitiesTour &&
+        tours.seenCredentialOfferTour &&
+        tours.seenHomeTour &&
+        tours.seenCredentialsTour &&
+        tours.seenProofRequestTour
+      ) {
+        tours.enableTours = false
+      }
+
+      const newState = {
+        ...state,
+        tours,
+      }
+
+      AsyncStorage.setItem(LocalStorageKeys.Tours, JSON.stringify(tours))
+
       return newState
     }
     case PreferencesQCDispatchAction.USE_APP_FORCED_UPDATE: {
