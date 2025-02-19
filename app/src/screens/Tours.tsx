@@ -100,8 +100,8 @@ const Tours: React.FC<ToursProps> = ({ navigation }) => {
               accessibilityRole={'switch'}
             >
               <Switch
-                trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-                thumbColor={tourEnabled ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+                trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+                thumbColor={ColorPallet.grayscale.white}
                 ios_backgroundColor={ColorPallet.grayscale.lightGrey}
                 onValueChange={toggleSwitch}
                 value={tourEnabled}

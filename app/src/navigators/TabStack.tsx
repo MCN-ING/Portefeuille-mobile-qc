@@ -11,6 +11,7 @@ import {
   TOKENS,
   connectFromScanOrDeepLink,
   testIdWithKey,
+  useActivity,
   useServices,
   useStore,
   useTheme,
@@ -71,6 +72,12 @@ const TabStack: React.FC = () => {
   const Tab = createBottomTabNavigator<TabStackParams>()
   const { ColorPallet, TabTheme, TextTheme } = useTheme()
   const showLabels = fontScale * TabTheme.tabBarTextStyle.fontSize < 18
+
+  const { appStateStatus } = useActivity()
+
+  useEffect(() => {
+    if (appStateStatus !== 'active') DeviceEventEmitter.emit(BCWalletEventTypes.ADD_HELP_PRESSED, { isActive: false })
+  }, [appStateStatus])
 
   const logHistoryRecord = useCallback(
     async (credential: CredentialRecord) => {

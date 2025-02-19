@@ -105,7 +105,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -118,7 +118,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#42803E"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={true}
             />
@@ -174,7 +174,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -187,7 +187,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -243,7 +243,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -256,7 +256,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -312,7 +312,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -325,7 +325,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -381,7 +381,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -394,7 +394,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -450,7 +450,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -463,7 +463,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -519,7 +519,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -532,7 +532,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -588,7 +588,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -601,7 +601,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
@@ -650,7 +650,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               onChange={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              onTintColor="rgba(53, 130, 63, 0.35)"
+              onTintColor="#42803E"
               style={
                 [
                   {
@@ -663,7 +663,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
                   },
                 ]
               }
-              thumbTintColor="#606060"
+              thumbTintColor="#FFFFFF"
               tintColor="#D3D3D3"
               value={false}
             />
