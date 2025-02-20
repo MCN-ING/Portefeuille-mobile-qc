@@ -21,11 +21,11 @@ index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..34c63aae5acd87005869b6994d93c381
    const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
    const [store, dispatch] = useStore()
 diff --git a/App/screens/Home.tsx b/App/screens/Home.tsx
-index dab33ca3a4c9afe30c1be636369521bbb793c8f6..cba5acf1c58a9886794f70aadf116293934e9c26 100644
+index 78cd401bd6b0e8e07d5d266274b0229403827462..fd2bbddef5191a7748f77adcbe6318a9bb4e04a6 100644
 --- a/App/screens/Home.tsx
 +++ b/App/screens/Home.tsx
-@@ -42,6 +42,8 @@ const Home: React.FC<HomeProps> = () => {
-   const [hideElements, setHideElements] = useState<ImportantForAccessibility>('auto')
+@@ -40,6 +40,8 @@ const Home: React.FC<HomeProps> = () => {
+   const [showTourPopup, setShowTourPopup] = useState(false)
    const screenIsFocused = useIsFocused()
  
 +  const [notificationItemId, setNotificationItemId] = useState<string | null>(null)
@@ -33,7 +33,7 @@ index dab33ca3a4c9afe30c1be636369521bbb793c8f6..cba5acf1c58a9886794f70aadf116293
    const styles = StyleSheet.create({
      flatlist: {
        marginBottom: 35,
-@@ -52,27 +54,49 @@ const Home: React.FC<HomeProps> = () => {
+@@ -50,27 +52,49 @@ const Home: React.FC<HomeProps> = () => {
      (item: any): React.ReactNode => {
        let component: React.ReactNode
        if (item.type === 'BasicMessageRecord') {
@@ -88,10 +88,10 @@ index dab33ca3a4c9afe30c1be636369521bbb793c8f6..cba5acf1c58a9886794f70aadf116293
  
    useEffect(() => {
 diff --git a/App/utils/helpers.ts b/App/utils/helpers.ts
-index 3ee51ab9691f55fe50f2ebc17cfe80953507545e..a124aba162a53e465366bf16ca2ffd87d7144d83 100644
+index e190a9a6577209a1c54e0b9d0a91e9eddad58d81..b075459acd78689976fe5c60755766790ad649f0 100644
 --- a/App/utils/helpers.ts
 +++ b/App/utils/helpers.ts
-@@ -55,7 +55,7 @@ import {
+@@ -56,7 +56,7 @@ import {
    getDescriptorMetadata,
  } from './anonCredsProofRequestMapper'
  import { parseCredDefFromId } from './cred-def'
@@ -100,7 +100,7 @@ index 3ee51ab9691f55fe50f2ebc17cfe80953507545e..a124aba162a53e465366bf16ca2ffd87
  
  export { parsedCredDefNameFromCredential } from './cred-def'
  
-@@ -1086,6 +1086,10 @@ export const connectFromScanOrDeepLink = async (
+@@ -1092,6 +1092,10 @@ export const connectFromScanOrDeepLink = async (
        return
      }
  
