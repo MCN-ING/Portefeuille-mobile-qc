@@ -10,7 +10,7 @@ import {
   ITheme,
   IAssets,
 } from '@hyperledger/aries-bifold-core'
-import { IInlineInputMessage } from '@hyperledger/aries-bifold-core/App/theme'
+import { IErrorColors, IInlineInputMessage } from '@hyperledger/aries-bifold-core/App/theme'
 import React from 'react'
 import { StyleSheet, ViewStyle } from 'react-native'
 
@@ -59,6 +59,11 @@ const GrayscaleColors: IGrayscaleColors = {
   white: '#FFFFFF',
 }
 
+const InlineErrorMessageColors: IErrorColors = {
+  error: '#CB381F',
+  warning: '#E0AD03',
+}
+
 const BrandColors: IBrandColors = {
   primary: '#095797',
   primaryDisabled: `rgba(9, 87, 151, ${lightOpacity})`,
@@ -82,8 +87,8 @@ const BrandColors: IBrandColors = {
   headerText: GrayscaleColors.white,
   buttonText: GrayscaleColors.white,
   tabBarInactive: GrayscaleColors.white,
-  inlineError: NotificationColors.errorText,
-  inlineWarning: NotificationColors.warnText,
+  inlineError: InlineErrorMessageColors.error,
+  inlineWarning: InlineErrorMessageColors.warning,
 }
 
 export const ColorPallet: IColorPallet = {

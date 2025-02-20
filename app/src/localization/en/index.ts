@@ -882,6 +882,8 @@ const translation = {
     ProofRequests: 'Proof requests',
     ProofRequestsDescription:
       "An organization is asking you to prove your credentials. Review what they're asking for and choose to accept or decline it.",
+    Activities: 'Notifications and history',
+    ActivitiesDescription: 'View all your notifications and history of your interactions with the wallet.',
   },
   Tips: {
     Header: 'Tips',
