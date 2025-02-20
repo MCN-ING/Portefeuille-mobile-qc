@@ -118,7 +118,7 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
           hideFieldValues={overlay.presentationFields?.length !== 0}
           fields={overlay.presentationFields || []}
           header={() => (
-            <View style={styles.headerStyle}>
+            <View style={[styles.headerStyle, { marginHorizontal: 8, marginBottom: 10 }]}>
               <HeaderText
                 title={t('History.CardDescription.CardChanged', {
                   cardName: overlay.metaOverlay?.name ?? startCaseUnicode(itemContent.message ?? ''),
