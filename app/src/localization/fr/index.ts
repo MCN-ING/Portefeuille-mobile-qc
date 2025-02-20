@@ -1051,6 +1051,7 @@ const translation = {
   },
   HelpCenter: {
     Help: 'Aide',
+    HelpListContent: "Liste des éléments d'aide",
     ButtonHelpCenter: "Revenir au centre d'aide",
     ConsultHelpCenter: "Consulter le centre d'aide",
     OptionsList: 'Cliquez pour ouvrir la liste des options',

@@ -115,12 +115,15 @@ const HelpListSlider: React.FC = () => {
   }
 
   return (
-    <Modal transparent={true} visible={addHelpPressed} onRequestClose={deactivateSlider}>
+    <Modal transparent={true} visible={addHelpPressed} onRequestClose={deactivateSlider} accessible={false}>
       <TouchableOpacity
         style={styles.outsideListener}
         onPress={deactivateSlider}
         hitSlop={hitSlop}
-        accessible={false}
+        accessible={true}
+        accessibilityLabel={t('HelpCenter.HelpListContent')}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: addHelpPressed }}
       />
       <View style={styles.centeredView}>
         {/* Suppression de l'animation d'opacité */}
