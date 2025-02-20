@@ -1,4 +1,5 @@
 import { GenericFn, testIdWithKey, ToastType, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
@@ -9,6 +10,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import { hitSlop } from '../constants'
 import { useToast } from '../hooks/toast'
 import { BCDispatchAction, BCState } from '../store'
+import { NotificationTypeEnum } from '../types/notification-list-item'
 interface EventItemProps {
   action?: GenericFn
   handleDelete?: () => Promise<void>
@@ -19,6 +21,7 @@ interface EventItemProps {
     title?: string
     body?: string
     eventTime?: string
+    type?: HistoryCardType | NotificationTypeEnum
     image: JSX.Element
   }
   openSwipeableId: string | null
@@ -139,7 +142,7 @@ const EventItem = ({
   const body = (
     <Pressable
       accessibilityRole={'button'}
-      testID={testIdWithKey(`View${event.id}`)}
+      testID={testIdWithKey(`View${event.type}`)}
       onPress={pressAction}
       hitSlop={hitSlop}
       onLongPress={() => {

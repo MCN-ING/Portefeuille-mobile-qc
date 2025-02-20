@@ -122,6 +122,7 @@ const HistoryListItem: React.FC<Props> = ({
         title: details.title,
         body: details.body,
         eventTime: details.eventTime,
+        type: content.type,
         image: activateSelection ? (
           <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: item.content.id ?? '' })} />
         ) : (

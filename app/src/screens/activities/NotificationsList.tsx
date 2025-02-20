@@ -6,12 +6,13 @@ import { View, StyleSheet, SectionList, Text } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import NotificationListItem, { NotificationTypeEnum } from '../../components/NotificationListItem'
+import NotificationListItem from '../../components/NotificationListItem'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../../hooks/notifications'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
 import { BCDispatchAction, BCState, ActivityState } from '../../store'
 import { SelectedNotificationType } from '../../types/activities'
+import { NotificationTypeEnum } from '../../types/notification-list-item'
 
 const isHome = false
 const iconSize = 24
