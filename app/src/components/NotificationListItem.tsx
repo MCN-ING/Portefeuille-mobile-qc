@@ -32,18 +32,10 @@ import MessageImg from '../assets/img/Message.svg'
 import ProofRequestImg from '../assets/img/ProofRequest.svg'
 import RevocationImg from '../assets/img/Revocation.svg'
 import { BCDispatchAction, BCState } from '../store'
+import { NotificationTypeEnum } from '../types/notification-list-item'
 
 import CustomCheckBox from './CustomCheckBox'
 import EventItem from './EventItem'
-
-export enum NotificationTypeEnum {
-  BasicMessage = 'BasicMessage',
-  CredentialOffer = 'Offer',
-  ProofRequest = 'ProofRecord',
-  Revocation = 'Revocation',
-  Custom = 'Custom',
-  Proof = 'Proof',
-}
 
 interface NotificationListItemProps {
   notificationType: NotificationTypeEnum
@@ -362,6 +354,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
         title: details.title,
         body: details.body,
         eventTime: details.eventTime,
+        type: notificationType,
         image: activateSelection ? (
           <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: notification.id })} />
         ) : (
