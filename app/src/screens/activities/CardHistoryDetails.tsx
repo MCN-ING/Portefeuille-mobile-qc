@@ -12,6 +12,7 @@ import {
   isValidAnonCredsCredential,
   buildFieldsFromAnonCredsCredential,
 } from '@hyperledger/aries-bifold-core'
+import { CredentialErrors } from '@hyperledger/aries-bifold-core/App/components/misc/CredentialCard11'
 import { HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import { BrandingOverlay } from '@hyperledger/aries-oca'
 import { Attribute, CredentialOverlay } from '@hyperledger/aries-oca/build/legacy'
@@ -23,6 +24,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import HeaderText from '../../components/HeaderText'
+import HistoryUnavailableCard from '../../components/HistoryUnavailableCard'
 import useHistoryDetailPageStyles from '../../hooks/useHistoryDetailPageStyles'
 import { HistoryStackParams, Screens } from '../../navigators/navigators'
 import { ColorPallet } from '../../theme'
@@ -118,7 +120,7 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
           hideFieldValues={overlay.presentationFields?.length !== 0}
           fields={overlay.presentationFields || []}
           header={() => (
-            <View style={styles.headerStyle}>
+            <View style={[styles.headerStyle, { marginHorizontal: 8, marginBottom: 10 }]}>
               <HeaderText
                 title={t('History.CardDescription.CardChanged', {
                   cardName: overlay.metaOverlay?.name ?? startCaseUnicode(itemContent.message ?? ''),
@@ -134,7 +136,18 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
               <Text style={styles.date}>
                 {t('History.Date.changedOn', { operation: operation })} {operationDate}
               </Text>
-              {credentialExists && <CredentialCard credential={credentialDetails as CredentialExchangeRecord} />}
+              {credentialExists ? (
+                <CredentialCard
+                  credential={credentialDetails as CredentialExchangeRecord}
+                  credentialErrors={
+                    (credentialDetails as CredentialExchangeRecord).revocationNotification?.revocationDate && [
+                      CredentialErrors.Revoked,
+                    ]
+                  }
+                />
+              ) : (
+                <HistoryUnavailableCard credentialName={itemContent.message} issuer={itemContent.correspondenceName} />
+              )}
             </View>
           )}
         />

@@ -891,6 +891,8 @@ const translation = {
     ProofRequests: 'Demandes de preuve',
     ProofRequestsDescription:
       "Une organisation vous demande de prouver vos justificatifs. Examinez ce qu'ils demandent et choisissez de l'accepter ou de le refuser.",
+    Activities: 'Notifications et historique',
+    ActivitiesDescription: 'Consultez vos activités, telles que les notifications et l’historique liés à vos actions',
   },
   Tips: {
     Header: 'Conseils',
@@ -1049,6 +1051,7 @@ const translation = {
   },
   HelpCenter: {
     Help: 'Aide',
+    HelpListContent: "Liste des éléments d'aide",
     ButtonHelpCenter: "Revenir au centre d'aide",
     ConsultHelpCenter: "Consulter le centre d'aide",
     OptionsList: 'Cliquez pour ouvrir la liste des options',

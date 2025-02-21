@@ -27,6 +27,7 @@ import Toast from 'react-native-toast-message'
 import qcwallet from './src'
 import HelpListSlider from './src/components/Help/HelpListSlider'
 import ToastConfig from './src/components/toast/ToastConfig'
+import { activitiesTourSteps } from './src/components/tours/ActivitiesTourSteps'
 import { credentialOfferTourSteps } from './src/components/tours/CredentialOfferTourSteps'
 import { credentialsTourSteps } from './src/components/tours/CredentialsTourSteps'
 import { homeTourSteps } from './src/components/tours/HomeTourSteps'
@@ -36,6 +37,14 @@ import RootStack from './src/navigators/RootStack'
 import { BCState, getInitialState, reducer } from './src/store'
 
 const { theme, localization } = qcwallet
+
+const qcTours = {
+  homeTourSteps,
+  activitiesTourSteps,
+  credentialsTourSteps,
+  credentialOfferTourSteps,
+  proofRequestTourSteps,
+}
 
 const App = (system: Container): React.FC => {
   initLanguages(localization, Locales.fr)
@@ -84,14 +93,7 @@ const App = (system: Container): React.FC => {
                         />
                         <NetInfo />
                         <ErrorModal />
-                        <TourProvider
-                          homeTourSteps={homeTourSteps}
-                          credentialsTourSteps={credentialsTourSteps}
-                          credentialOfferTourSteps={credentialOfferTourSteps}
-                          proofRequestTourSteps={proofRequestTourSteps}
-                          overlayColor={'black'}
-                          overlayOpacity={0.7}
-                        >
+                        <TourProvider tours={qcTours} overlayColor={'black'} overlayOpacity={0.7}>
                           <RootStack />
                         </TourProvider>
                         <Toast topOffset={toastTopOffset} bottomOffset={toastBottomOffset} config={ToastConfig} />

@@ -154,8 +154,8 @@ const Settings: React.FC = () => {
         <SettingRow title={t('Developer.DeveloperMode')} testID={testIdWithKey('ToggleDeveloper')} showRowSeparator>
           <Switch
             accessibilityLabel={t('Developer.Toggle')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={devMode ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleSwitch}
             value={devMode}
@@ -168,8 +168,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Settings.ToggleManageEnvironment')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={useManageEnvironment ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleManageEnvironmentSwitch}
             value={useManageEnvironment}
@@ -182,8 +182,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Verifier.Toggle')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={useVerifierCapability ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleVerifierCapabilitySwitch}
             value={useVerifierCapability}
@@ -196,8 +196,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Verifier.Toggle')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={acceptDevCredentials ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleAcceptDevCredentialsSwitch}
             value={acceptDevCredentials}
@@ -210,8 +210,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Connection.Toggle')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={useConnectionInviterCapability ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleConnectionInviterCapabilitySwitch}
             value={useConnectionInviterCapability}
@@ -224,8 +224,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Verifier.ToggleDevTemplates')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={useDevVerifierTemplates ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleDevVerifierTemplatesSwitch}
             value={useDevVerifierTemplates}
@@ -239,8 +239,8 @@ const Settings: React.FC = () => {
           >
             <Switch
               accessibilityLabel={t('NameWallet.ToggleWalletNaming')}
-              trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-              thumbColor={enableWalletNaming ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+              trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+              thumbColor={ColorPallet.grayscale.white}
               ios_backgroundColor={ColorPallet.grayscale.lightGrey}
               onValueChange={toggleWalletNamingSwitch}
               value={enableWalletNaming}
@@ -254,8 +254,8 @@ const Settings: React.FC = () => {
         >
           <Switch
             accessibilityLabel={t('Settings.TogglePreventAutoLock')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={preventAutoLock ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={togglePreventAutoLockSwitch}
             value={preventAutoLock}
@@ -264,8 +264,8 @@ const Settings: React.FC = () => {
         <SettingRow title={t('Settings.ForcedUpdates')} testID={testIdWithKey('ToggleForcedUpdatesSwitch')}>
           <Switch
             accessibilityLabel={t('Settings.ToggleForcedUpdates')}
-            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primaryDisabled }}
-            thumbColor={useAppForcedUpdate ? ColorPallet.brand.primary : ColorPallet.grayscale.mediumGrey}
+            trackColor={{ false: ColorPallet.grayscale.lightGrey, true: ColorPallet.brand.primary }}
+            thumbColor={ColorPallet.grayscale.white}
             ios_backgroundColor={ColorPallet.grayscale.lightGrey}
             onValueChange={toggleAppForcedUpdatesSwitch}
             value={useAppForcedUpdate}

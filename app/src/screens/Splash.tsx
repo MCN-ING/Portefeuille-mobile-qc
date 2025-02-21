@@ -432,7 +432,7 @@ const Splash = () => {
 
         const options = {
           config: {
-            label: store.preferences.walletName || 'Portefeuille QC',
+            label: store.preferences.walletName || 'IdentiQc',
             walletConfig: {
               id: walletSecret.id,
               key: walletSecret.key,
