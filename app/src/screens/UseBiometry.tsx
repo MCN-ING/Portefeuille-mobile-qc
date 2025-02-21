@@ -343,7 +343,13 @@ const UseBiometry: React.FC = () => {
       {showHeader && (
         <View style={{ marginTop: 25 }}>
           <View style={{ marginHorizontal: 50 }}>
-            <Progress progressPercent={100} progressText={t('Biometry.ProgressBarText')} progressFill="primary" />
+            <Progress
+              progressPercent={100}
+              progressText={t('Biometry.ProgressBarText')}
+              accessibilityLabel={t('Biometry.ProgressBarTextAccessibilityLabel')}
+              progressFill="primary"
+              progressBackground="lightGrey"
+            />
           </View>
         </View>
       )}

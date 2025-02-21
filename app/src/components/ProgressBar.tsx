@@ -6,10 +6,11 @@ import { TextTheme } from '../theme'
 
 export interface ProgressBarProps {
   progressPercent: number
+  progressBackground?: keyof (typeof ColorPallet)['grayscale']
   color?: keyof (typeof ColorPallet)['brand']
 }
 
-const ProgressBar = ({ progressPercent, color }: ProgressBarProps) => {
+const ProgressBar = ({ progressPercent, progressBackground, color }: ProgressBarProps) => {
   const { ColorPallet } = useTheme()
   const { width: windowWidth } = useWindowDimensions()
   const [progressBarScale] = useState(new Animated.Value(0))
@@ -26,7 +27,9 @@ const ProgressBar = ({ progressPercent, color }: ProgressBarProps) => {
     progressBarContainer: {
       width: '100%',
       height: 11,
-      backgroundColor: ColorPallet.brand.secondaryBackground,
+      backgroundColor: progressBackground
+        ? ColorPallet.grayscale[progressBackground]
+        : ColorPallet.brand.secondaryBackground,
       borderRadius: 4,
       overflow: 'hidden',
     },

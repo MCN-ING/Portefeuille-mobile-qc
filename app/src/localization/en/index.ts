@@ -149,6 +149,7 @@ const translation = {
     UnlockPromptTitle: 'Wallet Unlock',
     UnlockPromptDescription: 'Use biometrics to unlock your wallet',
     ProgressBarText: '3. Toggle Biometrics',
+    ProgressBarTextAccessibilityLabel: 'Step 3 out of 3 - Toggle Biometrics',
   },
   Credentials: {
     AddCredential: 'Add Credential',
@@ -336,6 +337,7 @@ const translation = {
   },
   TermsV2: {
     ProgressBarText: '1. Terms & Conditions',
+    ProgressBarTextAccessibilityLabel: 'Step 1 out of 3 - Terms & Conditions',
     Consent: {
       title: 'Consent',
       body: 'The terms of use below are for illustrative purposes only. The Quebec conditions are being drafted.',
@@ -435,6 +437,7 @@ const translation = {
       PINTooLongValidation: 'The PIN is long enough.',
     },
     ProgressBarText: '2. Securing the wallet',
+    ProgressBarTextAccessibilityLabel: 'Step 2 out of 3 - Securing the wallet',
   },
   PINEnter: {
     Title: 'Québec Wallet',

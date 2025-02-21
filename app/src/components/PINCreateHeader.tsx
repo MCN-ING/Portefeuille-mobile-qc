@@ -34,7 +34,13 @@ const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
       {!updatePin && (
         <View style={{ marginTop: 25 }}>
           <View style={{ marginHorizontal: 50 }}>
-            <Progress progressPercent={66.6666} progressText={t('PINCreate.ProgressBarText')} progressFill="primary" />
+            <Progress
+              progressPercent={66.6666}
+              progressText={t('PINCreate.ProgressBarText')}
+              accessibilityLabel={t('PINCreate.ProgressBarTextAccessibilityLabel')}
+              progressFill="primary"
+              progressBackground="lightGrey"
+            />
           </View>
         </View>
       )}
