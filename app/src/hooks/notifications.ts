@@ -97,13 +97,18 @@ export const useNotifications = ({ isHome = true }: NotificationsInputProps): No
 
     const revoked = credsDone.filter((cred: CredentialRecord) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const metadata = cred!.metadata.get(CredentialMetadata.customMetadata) as CredentialCustomMetadata
-      if (
-        cred?.revocationNotification &&
-        metadata?.revoked_seen == undefined &&
-        (metadata?.seenOnHome == undefined || !isHome)
-      ) {
-        return cred
+      if (cred?.revocationNotification) {
+        const metadata = cred.metadata.get(CredentialMetadata.customMetadata) as CredentialCustomMetadata
+        if (!metadata?.revoked_detail_dismissed) {
+          cred.metadata.set(CredentialMetadata.customMetadata, {
+            ...metadata,
+            revoked_detail_dismissed: true,
+          })
+          agent?.credentials.update(cred)
+        }
+        if (metadata?.revoked_seen == undefined && (metadata?.seenOnHome == undefined || !isHome)) {
+          return cred
+        }
       }
     })
 

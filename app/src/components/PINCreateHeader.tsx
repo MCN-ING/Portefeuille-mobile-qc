@@ -11,7 +11,7 @@ export interface PINCreateHeaderProps {
 }
 
 const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
-  const { TextTheme, ColorPallet } = useTheme()
+  const { TextTheme } = useTheme()
   const { t } = useTranslation()
   const styles = StyleSheet.create({
     containerMargin: {
@@ -23,10 +23,6 @@ const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
     },
     pinBodyParagraph: {
       ...TextTheme.normal,
-    },
-    footerLink: {
-      color: ColorPallet.brand.primary,
-      marginBottom: 32,
     },
     headerTitle: {
       marginBottom: 16,
@@ -56,8 +52,7 @@ const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
       </Text>
       <Text style={[styles.pinBodyParagraph, styles.containerMargin]}>{t('PINCreate.Warning')}</Text>
       <BulletPoint text={t('PINCreate.BulletPoint1')} />
-      <BulletPoint text={t('PINCreate.BulletPoint2')} style={{ marginBottom: !updatePin ? 16 : 32 }} />
-      {!updatePin && <Text style={[styles.pinBodyParagraph, styles.footerLink]}>{t('PINCreate.MoreInformation')}</Text>}
+      <BulletPoint text={t('PINCreate.BulletPoint2')} style={{ marginBottom: 32 }} />
     </View>
   )
 }
