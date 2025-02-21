@@ -106,7 +106,13 @@ const Terms = () => {
       {((!agreedToPreviousTerms && !agreesToCurrentTerms) || !didAuthenticate) && (
         <View style={style.progressContainer}>
           <View style={{ marginHorizontal: 50 }}>
-            <Progress progressPercent={33.3333} progressText={t('TermsV2.ProgressBarText')} progressFill="primary" />
+            <Progress
+              progressPercent={33.3333}
+              progressText={t('TermsV2.ProgressBarText')}
+              accessibilityLabel={t('TermsV2.ProgressBarTextAccessibilityLabel')}
+              progressFill="primary"
+              progressBackground="lightGrey"
+            />
           </View>
         </View>
       )}

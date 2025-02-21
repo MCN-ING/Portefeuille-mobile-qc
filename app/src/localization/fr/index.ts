@@ -155,6 +155,7 @@ const translation = {
     NoBiometricsErrorMessage: "La biométrie n'est pas activée sur cet appareil.",
     NoBiometricsErrorDetails: 'Pour résoudre ce problème, activez la biométrie dans les paramètres de votre appareil.',
     ProgressBarText: '3. Activer la biométrie',
+    ProgressBarTextAccessibilityLabel: 'Étape 3 de 3 - Activer la biométrie',
   },
   Error: {
     ReportThisProblem: 'Signaler ce problème',
@@ -291,6 +292,7 @@ const translation = {
   },
   TermsV2: {
     ProgressBarText: "1. Conditions d'utilisation",
+    ProgressBarTextAccessibilityLabel: 'Étape 1 de 3 - Conditions d’utilisation',
     Consent: {
       title: 'Consentement',
       body: "Les conditions d'utilisation ci-présente sont seulement à titre d'exemple. Les conditions québécoise sont en cours de rédaction.",
@@ -394,6 +396,7 @@ const translation = {
       PINTooLongValidation: 'Votre NIP doit contenir 6 chiffres.',
     },
     ProgressBarText: '2. Sécuriser le portefeuille',
+    ProgressBarTextAccessibilityLabel: 'Étape 2 de 3 - Sécuriser le portefeuille',
   },
   AttemptLockout: {
     Title: 'Votre portefeuille est temporairement verrouillé ',
