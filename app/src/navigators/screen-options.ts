@@ -46,7 +46,6 @@ export const getScreenOptions = () => {
   }
   defaultScreenOptionsDict[Screens.Language] = {
     ...defaultScreenOptionsDict[Screens.Language],
-    headerRight: HelpCenterButton,
   }
   defaultScreenOptionsDict[Screens.Scan] = {
     ...defaultScreenOptionsDict[Screens.Scan],
