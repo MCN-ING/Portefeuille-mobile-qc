@@ -8,10 +8,12 @@ import {
   useStore,
 } from '@hyperledger/aries-bifold-core'
 import { StackScreenProps } from '@react-navigation/stack'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { AccessibilityInfo, Linking, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import ExternalLinkIcon from '../assets/img/icons/external_link_icon.svg'
 import HeaderText from '../components/HeaderText'
 import { BCState, IASEnvironmentKeys, iasEnvironments } from '../store'
 
@@ -21,6 +23,17 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
   const { ColorPallet, TextTheme } = useTheme()
   const { t } = useTranslation()
   const [store] = useStore<BCState>()
+  const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false)
+
+  useEffect(() => {
+    const screenReaderListener = AccessibilityInfo.addEventListener('screenReaderChanged', (isActive) => {
+      setIsScreenReaderEnabled(isActive)
+    })
+
+    return () => {
+      screenReaderListener.remove()
+    }
+  }, [])
 
   const urlGestionDeCompteSag =
     iasEnvironments[Object.keys(store.developer.environment)[0] as IASEnvironmentKeys].iasPortalUrl
@@ -69,7 +82,6 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
-      paddingTop: 32,
     },
   })
 
@@ -78,7 +90,25 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       <ScrollView style={styles.container}>
         <View style={styles.section}>
           <HeaderText title={t('DefaultNotificationPage.Title')} />
-          <Text style={styles.sectionDescriptionTitle}> {t('DefaultNotificationPage.Description')}</Text>
+          <View style={{ paddingTop: 32 }}>
+            <Text
+              onPress={!isScreenReaderEnabled ? undefined : async () => await Linking.openURL(urlGestionDeCompteSag)}
+              style={[styles.sectionDescriptionTitle]}
+              accessibilityLabel={`${t('DefaultNotificationPage.DescriptionLink')}. ${t('Global.ExternalLink')}. ${t(
+                'Global.ExternalLinkHint'
+              )}. ${t('DefaultNotificationPage.DescriptionLink')} ${t('DefaultNotificationPage.Description')}`}
+            >
+              <Text
+                suppressHighlighting
+                onPress={async () => await Linking.openURL(urlGestionDeCompteSag)}
+                style={{ color: ColorPallet.brand.link }}
+              >
+                {t('DefaultNotificationPage.DescriptionLink')}{' '}
+                <ExternalLinkIcon width={TextTheme.normal.fontSize} height={TextTheme.normal.fontSize} />
+              </Text>
+              {t('DefaultNotificationPage.Description')}
+            </Text>
+          </View>
         </View>
         <View style={styles.section}>
           <Text style={styles.textSectionTitle} accessibilityRole="header">

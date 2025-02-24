@@ -17,8 +17,6 @@ import {
   useAuth,
   useTheme,
   useStore,
-  InfoBox,
-  InfoBoxType,
   testIdWithKey,
   migrateToAskar,
   getAgentModules,
@@ -34,12 +32,14 @@ import { CommonActions, useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Linking, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { Alert, Linking, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 import { CheckVersionResponse, checkVersion } from 'react-native-check-version'
 import { Config } from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import LogoQuebecBlanc from '../assets/img/LogoQuebecBlanc.svg'
+import ExternalLinkIcon from '../assets/img/icons/external_link_icon.svg'
+import { Avis, AvisType } from '../components/Avis/Avis'
 import Progress from '../components/Progress'
 import TipCarousel from '../components/TipCarousel'
 import { SplashSmallScreenWidthPercentage } from '../constants'
@@ -132,7 +132,7 @@ const Splash = () => {
   const [store, dispatch] = useStore<BCState>()
   const navigation = useNavigation()
   const { walletSecret } = useAuth()
-  const { ColorPallet } = useTheme()
+  const { ColorPallet, TextTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [stepText, setStepText] = useState<string>(t('Init.Starting'))
   const [progressPercent, setProgressPercent] = useState(0)
@@ -224,6 +224,8 @@ const Splash = () => {
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingTop: 16,
     },
     logoContainer: {
       alignItems: 'center',
@@ -556,11 +558,29 @@ const Splash = () => {
     <SafeAreaView style={styles.splashContainer}>
       <View style={styles.errorBoxContainer}>
         {initError && (
-          <InfoBox
-            notificationType={InfoBoxType.Error}
+          <Avis
+            type={AvisType.Warn}
             title={t('Error.Title2026')}
-            description={t('Error.Message2026')}
-            message={initError?.message || t('Error.Unknown')}
+            description={
+              <Text style={[TextTheme.labelSubtitle]}>
+                {t('Error.Message2026')}
+                <Text
+                  style={{
+                    color: ColorPallet.brand.link,
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>{t('Error.MessageLink2026')}</Text>
+                  <ExternalLinkIcon
+                    width={TextTheme.labelSubtitle.fontSize}
+                    height={TextTheme.labelSubtitle.fontSize}
+                  />
+                </Text>
+              </Text>
+            }
             onCallToActionLabel={t('Init.Retry')}
             onCallToActionPressed={handleErrorCallToActionPressed}
           />

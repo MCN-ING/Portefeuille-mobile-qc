@@ -7,7 +7,7 @@ import Config from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import WarningIcon from '../assets/img/icons/warning_icon.svg'
+import { Avis, AvisType } from '../components/Avis/Avis'
 import { BCDispatchAction, BCState, IASEnvironmentKeys, iasEnvironments } from '../store'
 
 interface IASEnvironmentProps {
@@ -62,20 +62,15 @@ const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModa
     <SafeAreaView style={[styles.container]}>
       <View
         style={{
-          backgroundColor: ColorPallet.notification.warn,
           marginHorizontal: 10,
           padding: 16,
-          flexDirection: 'row',
         }}
       >
-        <View style={{ flex: 1 }}>
-          <WarningIcon />
-        </View>
-        <View style={{ flex: 6 }}>
-          <Text style={[TextTheme.labelTitle, { color: ColorPallet.grayscale.darkGrey }]}>
-            {t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
-          </Text>
-        </View>
+        <Avis
+          type={AvisType.Warn}
+          primaryBackgroundColorSameAsSecondary
+          description={t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
+        />
       </View>
       <FlatList
         data={environments}
