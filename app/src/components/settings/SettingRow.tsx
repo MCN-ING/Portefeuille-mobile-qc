@@ -1,4 +1,5 @@
 import { useTheme } from '@hyperledger/aries-bifold-core'
+import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 
 import ExternalLinkIcon from '../../assets/img/icons/external_link_icon.svg'
@@ -27,6 +28,7 @@ const SettingRow = ({
   style,
 }: SectionRowProps) => {
   const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
+  const { t } = useTranslation()
   const styles = StyleSheet.create({
     rowSeparator: {
       borderBottomWidth: 1,
@@ -62,7 +64,12 @@ const SettingRow = ({
   return (
     <View style={showRowSeparator && styles.rowSeparator}>
       {onPress ? (
-        <TouchableOpacity testID={testID} onPress={onPress} accessibilityRole={accessibilityRole}>
+        <TouchableOpacity
+          testID={testID}
+          onPress={onPress}
+          accessibilityRole={accessibilityRole}
+          accessibilityHint={isExternalLink ? t('Global.ExternalLinkHint') : undefined}
+        >
           {innerView}
         </TouchableOpacity>
       ) : (
