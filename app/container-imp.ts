@@ -13,6 +13,7 @@ import {
   DispatchAction,
   defaultConfig as bifoldDefaultConfig,
 } from '@hyperledger/aries-bifold-core'
+import { minute } from '@hyperledger/aries-bifold-core/App/constants'
 import { Locales } from '@hyperledger/aries-bifold-core/App/localization'
 import { Config as BifoldConfig } from '@hyperledger/aries-bifold-core/App/types/config'
 import { InlineErrorPosition } from '@hyperledger/aries-bifold-core/App/types/error'
@@ -77,6 +78,18 @@ const defaultConfig: BifoldConfig = {
     showConnectedTime: false,
     enableEditContactName: false,
     enableCredentialList: true,
+  },
+  attemptLockoutConfig: {
+    baseRules: {
+      5: minute,
+      10: 5 * minute,
+      15: 15 * minute,
+    },
+    thresholdRules: {
+      threshold: 20,
+      increment: 5,
+      thresholdPenaltyDuration: 60 * minute,
+    },
   },
 }
 

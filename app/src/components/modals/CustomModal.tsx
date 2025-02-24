@@ -36,7 +36,6 @@ export const CustomModal = ({ title, description, primary, secondary, onDismissP
 
   const styles = StyleSheet.create({
     modalCenter: {
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       paddingHorizontal: 20,
