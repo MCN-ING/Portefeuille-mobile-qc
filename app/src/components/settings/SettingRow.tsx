@@ -41,13 +41,14 @@ const SettingRow = ({
       flex: 1,
       fontWeight: 'normal',
       flexWrap: 'wrap',
+      ...(isExternalLink && { color: ColorPallet.brand.link }),
     },
   })
 
   const innerView = (
     <View style={[styles.section, { paddingVertical: 12 }, style]}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={[styles.rowTitle, isExternalLink && { color: ColorPallet.brand.link }]}>
+        <Text style={styles.rowTitle}>
           {title} {isExternalLink && <ExternalLinkIcon />}
         </Text>
 
