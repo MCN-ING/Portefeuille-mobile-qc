@@ -63,7 +63,7 @@ const translation = {
     Loading: 'Chargement en cours',
     GoToSettings: 'Aller aux paramètres',
     ExternalLink: 'Lien externe',
-    ExternalLinkHint: 'Ce lien vous mènera à un site externe.',
+    ExternalLinkHint: 'Ce lien vous mènera à un site externe',
   },
   Language: {
     code_en: 'Anglais',

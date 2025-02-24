@@ -63,7 +63,7 @@ const translation = {
     Loading: 'Loading',
     GoToSettings: 'Go to Settings',
     ExternalLink: 'External Link',
-    ExternalLinkHint: 'This link will take you to an external site.',
+    ExternalLinkHint: 'This link will take you to an external site',
   },
   Language: {
     code_en: 'English',
