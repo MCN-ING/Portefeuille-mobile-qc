@@ -76,6 +76,9 @@ const Language = () => {
               >
                 <Text style={[TextTheme.title, { fontWeight: '400' }]}>{value}</Text>
                 <BouncyCheckbox
+                  accessibilityLabel={`${
+                    id === i18n.language ? value + ' ' + t('Language.Checked') : value + ' ' + t('Language.NotChecked')
+                  }`}
                   disableText
                   fillColor={ColorPallet.brand.secondaryBackground}
                   unfillColor={ColorPallet.brand.secondaryBackground}
