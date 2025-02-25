@@ -92,6 +92,40 @@ export const itemsDataFr = {
               },
             ],
           },
+          {
+            title: 'Tour Guidé',
+            content: [
+              {
+                title: 'Comment activé le tour guidé?',
+                screen: ['Tours'],
+                text: '',
+                visual: '',
+              },
+              {
+                title: 'Comment désactivé le tour guidé?',
+                screen: ['Tours'],
+                text: '',
+                visual: '',
+              },
+            ],
+          },
+          {
+            title: 'Contacts',
+            content: [
+              {
+                title: "Qu'est-ce qu'un contacts?",
+                screen: ['Contacts'],
+                text: '',
+                visual: '',
+              },
+              {
+                title: 'Pourquoi je ne peux supprimer un contact?',
+                screen: ['Contacts'],
+                text: '',
+                visual: '',
+              },
+            ],
+          },
         ],
       },
       {

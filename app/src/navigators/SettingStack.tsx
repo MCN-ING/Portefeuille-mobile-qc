@@ -61,6 +61,7 @@ const SettingsStack: React.FC = () => {
         component={Tours}
         options={{
           title: t('Screens.Tours'),
+          headerRight: HelpCenterButton,
         }}
       />
     </StackSettings.Navigator>
