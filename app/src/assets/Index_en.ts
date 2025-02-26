@@ -109,23 +109,6 @@ export const itemsDataEn = {
               },
             ],
           },
-          {
-            title: 'Contacts',
-            content: [
-              {
-                title: 'What is a contact?',
-                screen: ['Contacts'],
-                text: '',
-                visual: '',
-              },
-              {
-                title: "Why can't I delete a contact?",
-                screen: ['Contacts'],
-                text: '',
-                visual: '',
-              },
-            ],
-          },
         ],
       },
       {
@@ -198,6 +181,21 @@ export const itemsDataEn = {
                 title: 'How do I revoke my certificate?',
                 screen: ['Credentials'],
                 text: 'Explanation of how to revoke the certificate',
+              },
+            ],
+          },
+          {
+            title: 'Contacts',
+            content: [
+              {
+                title: 'What is a contact?',
+                screen: ['Contacts'],
+                text: '',
+              },
+              {
+                title: "Why can't I delete a contact?",
+                screen: ['Contacts'],
+                text: '',
               },
             ],
           },

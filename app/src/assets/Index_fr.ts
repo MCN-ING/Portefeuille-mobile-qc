@@ -109,23 +109,6 @@ export const itemsDataFr = {
               },
             ],
           },
-          {
-            title: 'Contacts',
-            content: [
-              {
-                title: "Qu'est-ce qu'un contacts?",
-                screen: ['Contacts'],
-                text: '',
-                visual: '',
-              },
-              {
-                title: 'Pourquoi je ne peux supprimer un contact?',
-                screen: ['Contacts'],
-                text: '',
-                visual: '',
-              },
-            ],
-          },
         ],
       },
       {
@@ -198,6 +181,23 @@ export const itemsDataFr = {
                 title: 'Comment révoquer mon attestation? ',
                 screen: ['Credentials'],
                 text: "Explication sur comment révoquer l'attestation",
+              },
+            ],
+          },
+          {
+            title: 'Contacts',
+            content: [
+              {
+                title: "Qu'est-ce qu'un contacts?",
+                screen: ['Contacts'],
+                text: '',
+                visual: '',
+              },
+              {
+                title: 'Pourquoi je ne peux supprimer un contact?',
+                screen: ['Contacts'],
+                text: '',
+                visual: '',
               },
             ],
           },
