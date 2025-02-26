@@ -19,11 +19,13 @@ const HelpCenterButton: React.FC = () => {
     container: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginRight: 15,
     },
     text: {
       ...TextTheme.label,
       color: ColorPallet.brand.headerText,
+      marginRight: 4,
+      paddingVertical: 4,
+      paddingLeft: 4,
     },
   })
   const paramData = {
