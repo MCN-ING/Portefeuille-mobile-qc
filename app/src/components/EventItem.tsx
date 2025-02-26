@@ -49,6 +49,7 @@ const EventItem = ({
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
   const [, dispatch] = useStore<BCState>()
+  const [isSwipeableOpen, setIsSwipeableOpen] = useState(false)
   useToast({ enabled: toastEnabled, options: toastOptions })
 
   const arrowIconStyles = {
@@ -115,12 +116,14 @@ const EventItem = ({
   const swipeableRef = useRef<Swipeable>(null)
 
   const handleSwipeClose = useCallback(() => {
+    setIsSwipeableOpen(false)
     if (openSwipeableId === event.id) {
       onOpenSwipeable(null) // Close the current swipeable
     }
   }, [openSwipeableId, onOpenSwipeable, event])
 
   const handleSwipeOpen = useCallback(() => {
+    setIsSwipeableOpen(true)
     onOpenSwipeable(event.id) // Call the parent function to notify which item is opened
   }, [event, onOpenSwipeable])
 
@@ -141,7 +144,6 @@ const EventItem = ({
 
   const body = (
     <Pressable
-      accessibilityRole={'button'}
       testID={testIdWithKey(`View${event.type}`)}
       onPress={pressAction}
       hitSlop={hitSlop}
@@ -216,10 +218,17 @@ const EventItem = ({
       setToastEnabled(true)
     }
     return (
-      <TouchableOpacity onPress={onDelete} accessibilityRole="button">
-        <View style={styles.rightAction}>
-          <MaterialCommunityIcon name={'trash-can-outline'} size={20} style={styles.rightActionIcon} />
-          <Text style={styles.rightActionText}>{t('Notifications.Dismiss')}</Text>
+      <TouchableOpacity accessible={isSwipeableOpen} onPress={onDelete} accessibilityRole="button">
+        <View accessible={isSwipeableOpen} style={styles.rightAction}>
+          <MaterialCommunityIcon
+            accessible={isSwipeableOpen}
+            name={'trash-can-outline'}
+            size={20}
+            style={styles.rightActionIcon}
+          />
+          <Text accessible={isSwipeableOpen} style={styles.rightActionText}>
+            {t('Notifications.Dismiss')}
+          </Text>
         </View>
       </TouchableOpacity>
     )
@@ -231,6 +240,9 @@ const EventItem = ({
       ref={swipeableRef}
       onSwipeableWillOpen={handleSwipeOpen}
       onSwipeableClose={handleSwipeClose}
+      enableTrackpadTwoFingerGesture
+      friction={2}
+      rightThreshold={40}
       renderRightActions={rightSwipeAction}
     >
       {body}

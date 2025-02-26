@@ -73,6 +73,12 @@ export const getScreenOptions = () => {
     headerRight: HelpCenterButton,
   }
 
+  defaultScreenOptionsDict[Screens.ContactDetails] = {
+    ...defaultScreenOptionsDict[Screens.ContactDetails],
+    headerBackTestID: testIdWithKey('Back'),
+    headerRight: HelpCenterButton,
+  }
+
   defaultScreenOptionsDict[Screens.WhatAreContacts] = {
     ...defaultScreenOptionsDict[Screens.WhatAreContacts],
     headerBackTestID: testIdWithKey('Back'),
