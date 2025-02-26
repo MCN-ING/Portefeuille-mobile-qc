@@ -92,6 +92,23 @@ export const itemsDataEn = {
               },
             ],
           },
+          {
+            title: 'Guided tour',
+            content: [
+              {
+                title: 'How to activate the guided tour?',
+                screen: ['Tours'],
+                text: '',
+                visual: '',
+              },
+              {
+                title: 'How to turn off the guided tour?',
+                screen: ['Tours'],
+                text: '',
+                visual: '',
+              },
+            ],
+          },
         ],
       },
       {
@@ -164,6 +181,21 @@ export const itemsDataEn = {
                 title: 'How do I revoke my certificate?',
                 screen: ['Credentials'],
                 text: 'Explanation of how to revoke the certificate',
+              },
+            ],
+          },
+          {
+            title: 'Contacts',
+            content: [
+              {
+                title: 'What is a contact?',
+                screen: ['Contacts'],
+                text: '',
+              },
+              {
+                title: "Why can't I delete a contact?",
+                screen: ['Contacts'],
+                text: '',
               },
             ],
           },
