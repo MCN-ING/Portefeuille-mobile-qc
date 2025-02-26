@@ -3,11 +3,12 @@ import { getDefaultHeaderHeight } from '@react-navigation/elements'
 import { useRoute } from '@react-navigation/native'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { DeviceEventEmitter, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { BCWalletEventTypes } from '../../events/eventTypes'
-const HelpCenterButton = () => {
+
+const HelpCenterButton: React.FC = () => {
   const { t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
   const route = useRoute()
@@ -16,9 +17,9 @@ const HelpCenterButton = () => {
   const headerHeight = getDefaultHeaderHeight(frame, false, insets.top)
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: 15,
     },
     text: {
       ...TextTheme.label,
@@ -35,13 +36,14 @@ const HelpCenterButton = () => {
   }, [])
   return (
     <TouchableOpacity
-      style={styles.container}
       onPress={activateSlider}
       accessibilityHint={t('HelpCenter.OptionsList')}
       accessibilityRole="button"
       testID={testIdWithKey('HelpCenterButton')}
     >
-      <Text style={styles.text}>{t('HelpCenter.Help')}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>{t('HelpCenter.Help')}</Text>
+      </View>
     </TouchableOpacity>
   )
 }
