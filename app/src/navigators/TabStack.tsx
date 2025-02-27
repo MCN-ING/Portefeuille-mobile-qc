@@ -1,8 +1,6 @@
 import { CredentialExchangeRecord as CredentialRecord } from '@credo-ts/core'
 import { useAgent } from '@credo-ts/react-hooks'
 import {
-  AttachTourStep,
-  BaseTourID,
   BifoldError,
   CredentialStack,
   DispatchAction,
@@ -22,7 +20,6 @@ import {
   HistoryRecord,
   RecordType,
 } from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import { TourID } from '@hyperledger/aries-bifold-core/App/types/tour'
 import { parseCredDefFromId } from '@hyperledger/aries-bifold-core/App/utils/cred-def'
 import { getCredentialIdentifiers } from '@hyperledger/aries-bifold-core/App/utils/credential'
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -329,19 +326,8 @@ const TabStack: React.FC = () => {
 
   const renderTabBar = (props: BottomTabBarProps) => <TabBar {...props} />
 
-  const renderTabBarIcon = (
-    IconComponent: React.ElementType,
-    color: string,
-    tourStep?: { tourID: TourID; index: number }
-  ) => {
-    const icon = <IconComponent height={24} color={color} />
-    return tourStep ? (
-      <AttachTourStep tourID={tourStep.tourID} index={tourStep.index}>
-        {icon}
-      </AttachTourStep>
-    ) : (
-      icon
-    )
+  const renderTabBarIcon = (IconComponent: React.ElementType, color: string) => {
+    return <IconComponent height={24} color={color} />
   }
 
   return (
@@ -364,11 +350,7 @@ const TabStack: React.FC = () => {
             tabBarIcon: ({ focused }) =>
               renderTabBarIcon(
                 HomeTabIcon,
-                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
-                {
-                  tourID: BaseTourID.HomeTour,
-                  index: 1,
-                }
+                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor
               ),
           }}
         />
@@ -383,11 +365,7 @@ const TabStack: React.FC = () => {
             tabBarIcon: ({ focused }) =>
               renderTabBarIcon(
                 NotificationTabIcon,
-                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
-                {
-                  tourID: BaseTourID.HomeTour,
-                  index: 2,
-                }
+                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor
               ),
           }}
         />
@@ -401,11 +379,7 @@ const TabStack: React.FC = () => {
             tabBarIcon: ({ focused }) =>
               renderTabBarIcon(
                 AtestationTabIcon,
-                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
-                {
-                  tourID: BaseTourID.HomeTour,
-                  index: 3,
-                }
+                focused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor
               ),
           }}
         />
