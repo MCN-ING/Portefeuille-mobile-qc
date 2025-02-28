@@ -272,6 +272,16 @@ const translation = {
       'Depuis la gestion de compte, vous devrez balayer le code QR qui vous sera présenté.\r\n\r\nVous devrez ensuite accepter l’offre d’attestation qui vous sera proposée.',
     ButtonTitle: 'Recevoir mon attestation',
   },
+  AppUpdateNotificationPage: {
+    TitleRequired: 'Mise à jour requise',
+    TitleAvailable: 'Mise à jour disponible',
+    DescriptionRequired:
+      "Pour continuer à utiliser l'application, vous devez mettre à jour votre portefeuille numérique.",
+    DescriptionAvailable:
+      'Pour avoir les dernières fonctionnalités et améliorations, veuillez mettre à jour votre portefeuille numérique.',
+    UpdateNow: 'Mettre à jour',
+    CancelUpdate: 'Ne pas mettre à jour',
+  },
   OptionsPlus: {
     PageTitle: "Plus d'option",
     ButtonParamsApp: "Paramètres de l'application",
@@ -772,6 +782,7 @@ const translation = {
     EnterPIN: 'Entrer le NIP',
     DataRetention: 'Conservation des données',
     RenameContact: 'Renommer le contact',
+    AppUpdateNotification: 'Mise à jour',
   },
   OnboardingPages: {
     FirstPageTitle: 'Bienvenue dans le portefeuille numérique du Québec',

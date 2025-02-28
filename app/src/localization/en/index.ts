@@ -200,6 +200,14 @@ const translation = {
       'From the account management, you will need to scan the QR code that will be presented to you.\r\n\r\nYou will then need to accept the certificate offer that will be proposed to you.',
     ButtonTitle: 'Receive my attestation',
   },
+  AppUpdateNotificationPage: {
+    TitleRequired: 'A required update is available',
+    TitleAvailable: 'An update is available',
+    DescriptionRequired: 'To continue using the app, you must update to the latest version.',
+    DescriptionAvailable: 'To get the latest features and improvements, update to the latest version.',
+    UpdateNow: 'Update now',
+    CancelUpdate: 'Cancel',
+  },
   OptionsPlus: {
     PageTitle: 'More options',
     ButtonParamsApp: 'Application Settings',
@@ -266,6 +274,7 @@ const translation = {
     EnterPIN: 'Enter PIN',
     DataRetention: 'Data retention',
     RenameContact: 'Edit Contact Name',
+    AppUpdateNotification: 'App Update',
   },
   Error: {
     ReportThisProblem: 'Report this problem',
