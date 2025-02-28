@@ -10,7 +10,9 @@ exports[`PINCreateHeader Component Renders correctly 1`] = `
       }
     }
   >
-    <View>
+    <View
+      accessible={true}
+    >
       <Text
         accessibilityRole="header"
         style={
