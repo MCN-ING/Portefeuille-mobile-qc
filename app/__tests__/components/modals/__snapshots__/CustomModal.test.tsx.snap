@@ -57,7 +57,7 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
       }
     >
       <View
-        accessibilityLabel="Modal"
+        accessibilityLabel="Global.Modal"
         accessibilityState={
           {
             "busy": undefined,
@@ -361,7 +361,7 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
       }
     >
       <View
-        accessibilityLabel="Modal"
+        accessibilityLabel="Global.Modal"
         accessibilityState={
           {
             "busy": undefined,
