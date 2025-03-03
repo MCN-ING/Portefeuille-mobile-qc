@@ -7,6 +7,7 @@ const translation = {
     SkipA11y: 'Sauter',
   },
   Global: {
+    Modal: 'Modale',
     Enter: 'Entrer',
     EnterPin: 'Saisir le NIP',
     '6DigitPin': 'NIP à 6 chiffres',
