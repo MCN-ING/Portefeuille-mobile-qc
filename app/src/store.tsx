@@ -178,9 +178,7 @@ const getInitialActivitiesState = async (): Promise<ActivityState> => {
 
 const getInitialAppUpdateState = async (): Promise<AppUpdate> => {
   const appUpdateString = await AsyncStorage.getItem(BCLocalStorageKeys.AppUpdate)
-  const response = await checkVersion({
-    bundleId: 'ca.bc.gov.BCWallet',
-  })
+  const response = await checkVersion()
   // Si response.version est null, on prend la version de Info.plist ou build.gradle
   const version = response.version ?? getVersion()
   const isRequired = response.updateType ? response.updateType === 'major' : false // false
