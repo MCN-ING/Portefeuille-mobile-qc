@@ -206,6 +206,7 @@ const translation = {
     DescriptionRequired: 'To continue using the app, you must update to the latest version.',
     DescriptionAvailable: 'To get the latest features and improvements, update to the latest version.',
     UpdateNow: 'Update now',
+    UpdateAvailable: 'Available update',
     CancelUpdate: 'Cancel',
   },
   OptionsPlus: {

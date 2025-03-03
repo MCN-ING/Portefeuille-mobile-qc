@@ -23,7 +23,7 @@ import {
 import { parseCredDefFromId } from '@hyperledger/aries-bifold-core/App/utils/cred-def'
 import { getCredentialIdentifiers } from '@hyperledger/aries-bifold-core/App/utils/credential'
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReducerAction, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -41,7 +41,7 @@ import { notificationsSeenOnHome } from '../utils/notificationsSeenOnHome'
 
 import ActivitiesStack from './ActivitiesStack'
 import PlusStack from './PlusStack'
-import { TabStackParams, TabStacks } from './navigators'
+import { Screens, Stacks, TabStackParams, TabStacks } from './navigators'
 
 const TabStack: React.FC = () => {
   const { fontScale } = useWindowDimensions()
@@ -71,6 +71,23 @@ const TabStack: React.FC = () => {
   const showLabels = fontScale * TabTheme.tabBarTextStyle.fontSize < 18
 
   const { appStateStatus } = useActivity()
+
+  useEffect(() => {
+    if (!store.appUpdate.dismissMinorUpdate) {
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: Stacks.AppUpdateNotificationStack,
+          params: {
+            screen: Screens.AppUpdateNotification,
+            params: {
+              isRequired: store.appUpdate.isRequired,
+              storeUrl: store.appUpdate.storeUrl,
+            },
+          },
+        })
+      )
+    }
+  }, [store.appUpdate])
 
   useEffect(() => {
     if (appStateStatus !== 'active') DeviceEventEmitter.emit(BCWalletEventTypes.ADD_HELP_PRESSED, { isActive: false })

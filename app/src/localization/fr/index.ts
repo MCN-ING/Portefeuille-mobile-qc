@@ -280,6 +280,7 @@ const translation = {
     DescriptionAvailable:
       'Pour avoir les dernières fonctionnalités et améliorations, veuillez mettre à jour votre portefeuille numérique.',
     UpdateNow: 'Mettre à jour',
+    UpdateAvailable: 'Mise à jour disponible',
     CancelUpdate: 'Ne pas mettre à jour',
   },
   OptionsPlus: {

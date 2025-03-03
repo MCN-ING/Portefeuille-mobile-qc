@@ -1,9 +1,9 @@
-import { useTheme, useStore, testIdWithKey, DispatchAction } from '@hyperledger/aries-bifold-core'
+import { useTheme, useStore, testIdWithKey, DispatchAction, Button, ButtonType } from '@hyperledger/aries-bifold-core'
 import { i18n, Locales } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, Modal } from 'react-native'
+import { ScrollView, StyleSheet, Text, Modal, View } from 'react-native'
 import { getBuildNumber, getVersion } from 'react-native-device-info'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -143,13 +143,22 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           onPress={() => {
             incrementDeveloperMenuCounter()
           }}
-          style={{ marginBottom: 32 }}
         >
           <Text style={[TextTheme.normal, { alignSelf: 'center' }]}>
             {getVersion()} {`(${getBuildNumber()})`}
           </Text>
         </SettingRow>
-
+        {store.appUpdate.updateAvailable && (
+          <View style={{ paddingTop: 12, paddingBottom: 32 }}>
+            <Button
+              buttonType={ButtonType.Secondary}
+              testID={testIdWithKey('UpdateAvailable')}
+              accessibilityLabel={t('AppUpdateNotificationPage.UpdateAvailable')}
+              title={t('AppUpdateNotificationPage.UpdateAvailable')}
+              onPress={() => {}}
+            />
+          </View>
+        )}
         {store.preferences.developerModeEnabled && <Developer />}
       </ScrollView>
     </SafeAreaView>

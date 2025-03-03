@@ -31,11 +31,11 @@ import { RemoteOCABundleResolver } from '@hyperledger/aries-oca/build/legacy'
 import { GetCredentialDefinitionRequest, GetSchemaRequest } from '@hyperledger/indy-vdr-shared'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions, useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Linking, StyleSheet, View, useWindowDimensions } from 'react-native'
-import { CheckVersionResponse, checkVersion } from 'react-native-check-version'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import { Config } from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -43,6 +43,7 @@ import LogoQuebecBlanc from '../assets/img/LogoQuebecBlanc.svg'
 import Progress from '../components/Progress'
 import TipCarousel from '../components/TipCarousel'
 import { SplashSmallScreenWidthPercentage } from '../constants'
+import { Stacks as QCStacks, Screens as QCScreens, RootStackParams } from '../navigators/navigators'
 import {
   BCState,
   BCDispatchAction,
@@ -130,13 +131,12 @@ const Splash = () => {
   const { setAgent } = useAgent()
   const { t } = useTranslation()
   const [store, dispatch] = useStore<BCState>()
-  const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const { walletSecret } = useAuth()
   const { ColorPallet } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [stepText, setStepText] = useState<string>(t('Init.Starting'))
   const [progressPercent, setProgressPercent] = useState(0)
-  const [didCheckForUpdate, setDidCheckForUpdate] = useState(false)
   const [initOnboardingCount, setInitOnboardingCount] = useState(0)
   const [initAgentCount, setInitAgentCount] = useState(0)
   const [initErrorType, setInitErrorType] = useState<InitErrorTypes>(InitErrorTypes.Onboarding)
@@ -232,42 +232,6 @@ const Splash = () => {
     },
   })
 
-  const openAppUpdateLinkUrl = async (version: CheckVersionResponse) => {
-    await Linking.openURL(version.url)
-    setDidCheckForUpdate(true)
-  }
-
-  useEffect(() => {
-    const checkForUpdates = async () => {
-      if (store.preferences.useForcedAppUpdate && !store.authentication.didAuthenticate) {
-        const version = await checkVersion({
-          bundleId: 'ca.bc.gov.BCWallet',
-        })
-
-        if (version.needsUpdate && version.updateType === 'major') {
-          setDidCheckForUpdate(false)
-          Alert.alert(t('Global.UpdateRequired.Title'), t('Global.UpdateRequired.Body'), [
-            {
-              text: t('Global.UpdateRequired.Cancel'),
-              onPress: () => {
-                setDidCheckForUpdate(true)
-              },
-            },
-            {
-              text: t('Global.UpdateRequired.Confirm'),
-              onPress: () => {
-                openAppUpdateLinkUrl(version)
-              },
-            },
-          ])
-        } else {
-          setDidCheckForUpdate(true)
-        }
-      }
-    }
-    checkForUpdates()
-  }, [store.preferences.useForcedAppUpdate])
-
   // navigation calls that occur before the screen is fully mounted will fail
   useEffect(() => {
     setMounted(true)
@@ -316,12 +280,7 @@ const Splash = () => {
   useEffect(() => {
     try {
       setStep(0)
-      if (
-        !mounted ||
-        store.authentication.didAuthenticate ||
-        !store.stateLoaded ||
-        (!didCheckForUpdate && store.preferences.useForcedAppUpdate)
-      ) {
+      if (!mounted || store.authentication.didAuthenticate || !store.stateLoaded) {
         if (!store.stateLoaded) {
           setStep(1)
         }
@@ -394,7 +353,7 @@ const Splash = () => {
       setInitErrorType(InitErrorTypes.Onboarding)
       setInitError(e as Error)
     }
-  }, [mounted, store.authentication.didAuthenticate, initOnboardingCount, store.stateLoaded, didCheckForUpdate])
+  }, [mounted, store.authentication.didAuthenticate, initOnboardingCount, store.stateLoaded, store.appUpdate])
 
   useEffect(() => {
     const initAgent = async (): Promise<void> => {
@@ -533,7 +492,22 @@ const Splash = () => {
       }
     }
 
-    initAgent()
+    if (store.appUpdate?.isRequired && store.authentication.didAuthenticate) {
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: QCStacks.AppUpdateNotificationStack,
+          params: {
+            screen: QCScreens.AppUpdateNotification,
+            params: {
+              isRequired: store.appUpdate.isRequired,
+              storeUrl: store.appUpdate.storeUrl,
+            },
+          },
+        })
+      )
+    } else {
+      initAgent()
+    }
   }, [
     mounted,
     store.authentication.didAuthenticate,
@@ -541,6 +515,7 @@ const Splash = () => {
     store.onboarding.didConsiderBiometry,
     walletSecret,
     initAgentCount,
+    store.appUpdate,
   ])
 
   const handleErrorCallToActionPressed = () => {

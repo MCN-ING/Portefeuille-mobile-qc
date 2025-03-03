@@ -1,4 +1,4 @@
-import { useTheme, Button, ButtonType, testIdWithKey, Stacks } from '@hyperledger/aries-bifold-core'
+import { useTheme, Button, ButtonType, testIdWithKey, Stacks, useStore } from '@hyperledger/aries-bifold-core'
 import { CommonActions } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
 import { AppUpdateNotificationParams, Screens } from '../navigators/navigators'
+import { BCDispatchAction, BCState } from '../store'
 
 type DefaultProps = StackScreenProps<AppUpdateNotificationParams, Screens.AppUpdateNotification>
 
@@ -18,6 +19,7 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) =>
 
   const { TextTheme } = useTheme()
   const { t } = useTranslation()
+  const [, dispatch] = useStore<BCState>()
 
   const styles = StyleSheet.create({
     safeArea: {
@@ -40,6 +42,19 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) =>
 
   const openAppUpdateLinkUrl = async () => {
     await Linking.openURL(storeUrl)
+  }
+
+  const cancelUpdate = () => {
+    dispatch({
+      type: BCDispatchAction.APP_UPDATE_DISMISS_MINOR,
+      payload: [true],
+    })
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: Stacks.TabStack }],
+      })
+    )
   }
 
   return (
@@ -70,14 +85,7 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) =>
             testID={testIdWithKey('CancelUpdate')}
             accessibilityLabel={t('AppUpdateNotificationPage.CancelUpdate')}
             title={t('AppUpdateNotificationPage.CancelUpdate')}
-            onPress={() =>
-              navigation.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [{ name: Stacks.TabStack }],
-                })
-              )
-            }
+            onPress={cancelUpdate}
           />
         )}
       </View>
