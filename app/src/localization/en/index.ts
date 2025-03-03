@@ -7,6 +7,7 @@ const translation = {
     SkipA11y: 'Skip',
   },
   Global: {
+    Modal: 'Modal',
     Enter: 'Enter',
     EnterPin: 'Enter Pin',
     '6DigitPin': '6 Digit Pin',

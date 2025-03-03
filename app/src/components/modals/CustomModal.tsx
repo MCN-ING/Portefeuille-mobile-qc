@@ -78,7 +78,7 @@ export const CustomModal = ({ title, description, primary, secondary, onDismissP
     <Modal transparent accessibilityViewIsModal testID={testIdWithKey('CustomModal')}>
       <TouchableOpacity onPress={onDismissPressed} accessible={false}>
         <View style={styles.modalCenter}>
-          <TouchableWithoutFeedback accessible={true} accessibilityLabel="Modal">
+          <TouchableWithoutFeedback accessible={true} accessibilityLabel={t('Global.Modal')}>
             <View style={styles.container}>
               <View style={styles.titleContainer}>
                 <HeaderText title={title} />
