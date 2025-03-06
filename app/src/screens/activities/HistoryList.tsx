@@ -16,6 +16,7 @@ import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import HistoryListItem from '../../components/HistoryListItem'
+import SearchTextBox from '../../components/SearchTextBox'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
 import { RootStackParams, Screens, Stacks } from '../../navigators/navigators'
@@ -94,6 +95,7 @@ const HistoryList: React.FC<{
   const { agent } = useAgent()
   const [loadHistory] = useServices([TOKENS.FN_LOAD_HISTORY])
   const [isLoading, setIsLoading] = useState(true)
+  const [inputSearchValue, setInputSearchValue] = useState('')
 
   useEffect(() => {
     const updatedRecords = historyRecords.filter((record) => {
@@ -288,12 +290,12 @@ const HistoryList: React.FC<{
   const handleDelete = async (id: string) => {
     setFilteredRecords((prevRecords) => prevRecords.filter((record) => record.content.id !== id))
   }
-
   const renderItem = useCallback(
     ({ item }: { item: CustomRecord }) => (
       <View style={styles.historyContainer}>
         <HistoryListItem
           item={item}
+          searchValue={inputSearchValue}
           selected={(selectedHistory?.filter((selected) => selected.id === item?.content.id)?.length ?? 0) > 0}
           setSelected={(item) => {
             if ((selectedHistory?.filter((selected) => selected.id === item.id)?.length ?? 0) > 0) {
@@ -394,9 +396,18 @@ const HistoryList: React.FC<{
       <View style={styles.sectionSeparator} />
     </View>
   )
+  const handleInputChange = (value: string) => {
+    setInputSearchValue(value)
+  }
 
+  const handleImagePress = () => {
+    setToastEnabled(true)
+  }
   return (
     <View style={styles.container}>
+      <View>
+        <SearchTextBox onChange={handleInputChange} onPress={handleImagePress} />
+      </View>
       <SectionList
         style={styles.sectionList}
         sections={sections}

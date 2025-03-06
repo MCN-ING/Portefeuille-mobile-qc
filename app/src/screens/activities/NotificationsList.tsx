@@ -6,7 +6,9 @@ import { View, StyleSheet, SectionList, Text } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import FilterActivity from '../../components/FilterActivity'
 import NotificationListItem from '../../components/NotificationListItem'
+import SearchTextBox from '../../components/SearchTextBox'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../../hooks/notifications'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
@@ -83,6 +85,7 @@ const NotificationsList: React.FC<{
   const { ColorPallet, TextTheme } = useTheme()
 
   const [selectedNotification, setSelectedNotification] = useState<SelectedNotificationType[] | null>(null)
+  const [inputSearchValue, setInputSearchValue] = useState('')
   useMultiSelectActive(selectedNotification)
   const hasCanceledRef = useRef(false)
 
@@ -211,6 +214,15 @@ const NotificationsList: React.FC<{
       zIndex: 99,
       backgroundColor: ColorPallet.brand.primaryBackground,
     },
+    headerInputSection: {
+      height: 100,
+    },
+    searchSection: {
+      height: '50%',
+    },
+    sortSection: {
+      height: '50%',
+    },
     actionButtonContainer: {
       margin: 25,
     },
@@ -229,6 +241,7 @@ const NotificationsList: React.FC<{
             notification={item}
             isHome={isHome}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -288,6 +301,7 @@ const NotificationsList: React.FC<{
             isHome={isHome}
             customNotification={customNotification}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -315,6 +329,7 @@ const NotificationsList: React.FC<{
             notification={item}
             isHome={isHome}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -346,9 +361,23 @@ const NotificationsList: React.FC<{
       <View style={styles.sectionSeparator} />
     </View>
   )
+  const handleInputChange = (value: string) => {
+    setInputSearchValue(value)
+  }
+  const handleImagePress = () => {
+    setToastEnabled(false)
+  }
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerInputSection}>
+        <View style={styles.searchSection}>
+          <SearchTextBox onChange={handleInputChange} onPress={handleImagePress} />
+        </View>
+        <View style={styles.sortSection}>
+          <FilterActivity />
+        </View>
+      </View>
       <SectionList
         style={styles.sectionList}
         sections={setions}
