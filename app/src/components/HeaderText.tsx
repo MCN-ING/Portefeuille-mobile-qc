@@ -21,7 +21,7 @@ const HeaderText = ({ title, isHeader = true }: Props) => {
     },
   })
   return (
-    <View>
+    <View accessible={true}>
       <Text style={[style.headerText]} accessibilityRole={`${isHeader ? 'header' : 'text'}`}>
         {title}
       </Text>
