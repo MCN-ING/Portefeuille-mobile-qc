@@ -370,6 +370,7 @@ const translation = {
     PinChangeSuccessMessage:
       'Votre NIP a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau NIP.',
     EnterOldPINTitle: 'Entrez votre ancien NIP',
+    EnterOldPIN: 'Saisir NIP actuel',
     NewPIN: 'nouveau',
     RememberChangePIN: 'Changez votre NIP pour sécuriser votre portefeuille.',
     Message: {
