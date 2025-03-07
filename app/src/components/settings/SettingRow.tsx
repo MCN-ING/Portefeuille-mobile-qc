@@ -1,5 +1,8 @@
 import { useTheme } from '@hyperledger/aries-bifold-core'
+import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
+
+import ExternalLinkIcon from '../../assets/img/icons/external_link_icon.svg'
 
 interface SectionRowProps {
   title: string
@@ -7,6 +10,7 @@ interface SectionRowProps {
   children?: JSX.Element
   showRowSeparator?: boolean
   accessibilityRole?: AccessibilityRole
+  isExternalLink?: boolean
   onPress?: () => void
   rowIcon?: JSX.Element
   style?: StyleProp<ViewStyle>
@@ -19,10 +23,12 @@ const SettingRow = ({
   children,
   showRowSeparator,
   accessibilityRole = 'button',
+  isExternalLink = false,
   rowIcon,
   style,
 }: SectionRowProps) => {
   const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
+  const { t } = useTranslation()
   const styles = StyleSheet.create({
     rowSeparator: {
       borderBottomWidth: 1,
@@ -37,13 +43,16 @@ const SettingRow = ({
       flex: 1,
       fontWeight: 'normal',
       flexWrap: 'wrap',
+      ...(isExternalLink && { color: ColorPallet.brand.link }),
     },
   })
 
   const innerView = (
     <View style={[styles.section, { paddingVertical: 12 }, style]}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={styles.rowTitle}>{title}</Text>
+        <Text style={styles.rowTitle}>
+          {title} {isExternalLink && <ExternalLinkIcon />}
+        </Text>
 
         {children}
 
@@ -55,7 +64,12 @@ const SettingRow = ({
   return (
     <View style={showRowSeparator && styles.rowSeparator}>
       {onPress ? (
-        <TouchableOpacity testID={testID} onPress={onPress} accessibilityRole={accessibilityRole}>
+        <TouchableOpacity
+          testID={testID}
+          onPress={onPress}
+          accessibilityRole={accessibilityRole}
+          accessibilityHint={isExternalLink ? t('Global.ExternalLinkHint') : undefined}
+        >
           {innerView}
         </TouchableOpacity>
       ) : (

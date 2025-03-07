@@ -63,6 +63,8 @@ const translation = {
     },
     Loading: 'Loading',
     GoToSettings: 'Go to Settings',
+    ExternalLink: 'External Link',
+    ExternalLinkHint: 'This link will take you to an external site',
   },
   Language: {
     code_en: 'English',
@@ -278,8 +280,9 @@ const translation = {
     Message2022: 'There was a problem extracting the did repository.',
     Title2025: 'BCSC Authentication',
     Message2025: 'There was a problem reported by BCSC.',
-    Title2026: 'Oops! Something went wrong',
-    Message2026: 'The app has encountered a problem. Try restarting the app.',
+    Title2026: 'Technical problem',
+    Message2026:
+      'A problem is preventing the application from opening. Please restart the application. if this persists, please contact the customer service.',
     NoMessage: 'No Message',
     Title2024: 'BCSC Authentication',
     Message2024: 'The authentication request was canceled.',
@@ -934,7 +937,7 @@ const translation = {
     YouConnected: 'You connected with',
   },
   Init: {
-    Retry: 'Retry',
+    Retry: 'Restart the application',
     Starting: 'Starting...',
     CheckingAuth: 'Checking authentication...',
     FetchingPreferences: 'Fetching preferences...',
