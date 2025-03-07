@@ -194,9 +194,8 @@ const translation = {
   },
   DefaultNotificationPage: {
     Title: 'Request your Authentication Attestation',
-    DescriptionLink: 'The Authentication Attestation',
     Description:
-      ' is a attestation that will allow you to identify yourself more quickly with government services using the Government Authentication Service.',
+      'The Authentication Attestation is a attestation that will allow you to identify yourself more quickly with government services using the Government Authentication Service.',
     SAGConnexion: 'Step 1 - Log in to the Government Authentication Service',
     SAGConnexionDescription: 'You must authenticate yourself with the service.',
     ANIGRequest: 'Step 2 - Request the attestation',
@@ -283,8 +282,7 @@ const translation = {
     Message2025: 'There was a problem reported by BCSC.',
     Title2026: 'Technical problem',
     Message2026:
-      'A problem is preventing the application from opening. Please restart the application. if this persists, please contact ',
-    MessageLink2026: 'the customer service ',
+      'A problem is preventing the application from opening. Please restart the application. if this persists, please contact the customer service.',
     NoMessage: 'No Message',
     Title2024: 'BCSC Authentication',
     Message2024: 'The authentication request was canceled.',

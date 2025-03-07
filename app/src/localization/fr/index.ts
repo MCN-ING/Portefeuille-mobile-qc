@@ -172,8 +172,7 @@ const translation = {
     Message2025: 'Un problème a été signalé par BCSC.',
     Title2026: 'Problème technique',
     Message2026:
-      "Un problème empêche l'ouverture de l'application. Veuillez rédemarrer l'application. Si cela persiste, veuillez communiquez avec ",
-    MessageLink2026: 'le service à la clientèle ',
+      "Un problème empêche l'ouverture de l'application. Veuillez rédemarrer l'application. Si cela persiste, veuillez communiquez avec le service à la clientèle.",
     NoMessage: 'Aucun message.',
     Unknown: 'Erreur inconnue',
     Problem: 'Un problème est survenu',
@@ -268,9 +267,8 @@ const translation = {
   },
   DefaultNotificationPage: {
     Title: 'Demander son Attestation d’authentification',
-    DescriptionLink: "L'Attestation d’authentification",
     Description:
-      ' est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.',
+      "L'Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.",
     SAGConnexion: 'Étape 1 - Connexion au Service d’authentication gouvernementale',
     SAGConnexionDescription: 'Vous devez vous authentifier auprès du service.',
     ANIGRequest: 'Étape 2 - Demander l’attestation',
