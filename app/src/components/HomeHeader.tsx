@@ -1,4 +1,4 @@
-import { Screens, Stacks, useNetwork, useTheme } from '@hyperledger/aries-bifold-core'
+import { Screens, Stacks, testIdWithKey, useNetwork, useTheme } from '@hyperledger/aries-bifold-core'
 import { ConnectStackParams } from '@hyperledger/aries-bifold-core/App/types/navigators'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -76,7 +76,11 @@ const HomeHeader = () => {
     <View style={styles.container}>
       <HeaderText title={t('Home.Welcome')} isHeader={false} />
       <View style={styles.ScanQrCodeContainer}>
-        <TouchableWithoutFeedback onPress={handleNavigation} accessibilityRole="button">
+        <TouchableWithoutFeedback
+          onPress={handleNavigation}
+          accessibilityRole="button"
+          testID={testIdWithKey('ScanQrCode')}
+        >
           <View style={styles.ScanQrCodeInnerContainer}>
             <View style={styles.imgContainer}>
               <HomeImg />
