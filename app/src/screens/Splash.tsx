@@ -42,7 +42,7 @@ import { Avis, AvisType } from '../components/Avis/Avis'
 import Progress from '../components/Progress'
 import TipCarousel from '../components/TipCarousel'
 import { SplashSmallScreenWidthPercentage } from '../constants'
-import { Stacks as QCStacks, Screens as QCScreens, RootStackParams } from '../navigators/navigators'
+import { Screens as QCScreens, RootStackParams } from '../navigators/navigators'
 import {
   BCState,
   BCDispatchAction,
@@ -76,8 +76,9 @@ const resumeOnboardingAt = (
     enableWalletNaming?: boolean
     enablePushNotifications?: boolean
     showPreface?: boolean
+    showAppNotification?: boolean
   }
-): Screens => {
+): Screens | QCScreens => {
   const termsVer = params.termsVersion ?? true
   if (
     (state.didSeePreface || !params.showPreface) &&
@@ -116,6 +117,10 @@ const resumeOnboardingAt = (
 
   if (state.didSeePreface || !params.showPreface) {
     return Screens.Onboarding
+  }
+
+  if (params.showAppNotification) {
+    return QCScreens.AppUpdateNotification
   }
 
   return Screens.Preface
@@ -281,6 +286,7 @@ const Splash = () => {
   useEffect(() => {
     try {
       setStep(0)
+
       if (!mounted || store.authentication.didAuthenticate || !store.stateLoaded) {
         if (!store.stateLoaded) {
           setStep(1)
@@ -343,6 +349,7 @@ const Splash = () => {
               name: resumeOnboardingAt(store.onboarding, {
                 enableWalletNaming: store.preferences.enableWalletNaming,
                 termsVersion: TermsVersion,
+                showAppNotification: store.appUpdate?.updateAvailable,
               }),
             },
           ],
@@ -359,6 +366,16 @@ const Splash = () => {
   useEffect(() => {
     const initAgent = async (): Promise<void> => {
       try {
+        if (store.appUpdate?.updateAvailable && (!store.appUpdate?.dismissMinorUpdate || store.appUpdate?.isRequired)) {
+          navigation.dispatch(
+            CommonActions.navigate({
+              name: QCScreens.AppUpdateNotification,
+              params: { isRequired: store.appUpdate.isRequired, storeUrl: store.appUpdate.storeUrl },
+            })
+          )
+          return
+        }
+
         if (
           !mounted ||
           !store.authentication.didAuthenticate ||
@@ -493,22 +510,7 @@ const Splash = () => {
       }
     }
 
-    if (store.appUpdate?.isRequired && store.authentication.didAuthenticate) {
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: QCStacks.AppUpdateNotificationStack,
-          params: {
-            screen: QCScreens.AppUpdateNotification,
-            params: {
-              isRequired: store.appUpdate.isRequired,
-              storeUrl: store.appUpdate.storeUrl,
-            },
-          },
-        })
-      )
-    } else {
-      initAgent()
-    }
+    initAgent()
   }, [
     mounted,
     store.authentication.didAuthenticate,

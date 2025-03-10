@@ -24,8 +24,6 @@ const AppUpdateNotificationStack: React.FC = () => {
         component={AppUpdateNotification}
         options={{
           title: t('Screens.AppUpdateNotification'),
-          presentation: 'modal',
-          headerLeft: () => null,
         }}
       />
     </Stack.Navigator>

@@ -155,7 +155,12 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
               testID={testIdWithKey('UpdateAvailable')}
               accessibilityLabel={t('AppUpdateNotificationPage.UpdateAvailable')}
               title={t('AppUpdateNotificationPage.UpdateAvailable')}
-              onPress={() => {}}
+              onPress={() =>
+                navigation.getParent()?.navigate(Stacks.AppUpdateNotificationStack, {
+                  screen: Screens.AppUpdateNotification,
+                  params: { isRequired: store.appUpdate.isRequired, storeUrl: store.appUpdate.storeUrl },
+                })
+              }
             />
           </View>
         )}
