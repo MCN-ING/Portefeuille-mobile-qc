@@ -46,6 +46,7 @@ const HelpCenter: React.FC = () => {
         testID={testIdWithKey('Accessibility')}
         accessibilityRole="link"
         rowIcon={arrowIcon}
+        isExternalLink
         onPress={notImplemented}
       />
       <SettingRow
@@ -54,6 +55,7 @@ const HelpCenter: React.FC = () => {
         testID={testIdWithKey('TermsOfUse')}
         accessibilityRole="link"
         rowIcon={arrowIcon}
+        isExternalLink
         onPress={notImplemented}
       />
       <SettingRow
@@ -61,6 +63,7 @@ const HelpCenter: React.FC = () => {
         testID={testIdWithKey('PrivacyPolicy')}
         accessibilityRole="link"
         rowIcon={arrowIcon}
+        isExternalLink
         onPress={notImplemented}
       />
       <View style={[styles.sectionCopyright]}>

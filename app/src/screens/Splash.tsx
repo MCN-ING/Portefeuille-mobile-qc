@@ -17,8 +17,6 @@ import {
   useAuth,
   useTheme,
   useStore,
-  InfoBox,
-  InfoBoxType,
   testIdWithKey,
   migrateToAskar,
   getAgentModules,
@@ -40,6 +38,7 @@ import { Config } from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import LogoQuebecBlanc from '../assets/img/LogoQuebecBlanc.svg'
+import { Avis, AvisType } from '../components/Avis/Avis'
 import Progress from '../components/Progress'
 import TipCarousel from '../components/TipCarousel'
 import { SplashSmallScreenWidthPercentage } from '../constants'
@@ -224,6 +223,8 @@ const Splash = () => {
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingTop: 16,
     },
     logoContainer: {
       alignItems: 'center',
@@ -531,11 +532,10 @@ const Splash = () => {
     <SafeAreaView style={styles.splashContainer}>
       <View style={styles.errorBoxContainer}>
         {initError && (
-          <InfoBox
-            notificationType={InfoBoxType.Error}
+          <Avis
+            type={AvisType.Warn}
             title={t('Error.Title2026')}
             description={t('Error.Message2026')}
-            message={initError?.message || t('Error.Unknown')}
             onCallToActionLabel={t('Init.Retry')}
             onCallToActionPressed={handleErrorCallToActionPressed}
           />

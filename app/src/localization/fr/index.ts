@@ -7,6 +7,7 @@ const translation = {
     SkipA11y: 'Sauter',
   },
   Global: {
+    Modal: 'Modale',
     Enter: 'Entrer',
     EnterPin: 'Saisir le NIP',
     '6DigitPin': 'NIP à 6 chiffres',
@@ -62,6 +63,8 @@ const translation = {
     },
     Loading: 'Chargement en cours',
     GoToSettings: 'Aller aux paramètres',
+    ExternalLink: 'Lien externe',
+    ExternalLinkHint: 'Ce lien vous mènera à un site externe',
   },
   Language: {
     code_en: 'Anglais',
@@ -167,8 +170,9 @@ const translation = {
     Message2022: "Un problème est survenu lors de l'extraction du référentiel de l'identité numérique.",
     Title2025: 'Authentification BCSC',
     Message2025: 'Un problème a été signalé par BCSC.',
-    Title2026: 'Oups! Un problème est survenu.',
-    Message2026: "Un problème est survenu. Veuillez redémarrer l'application.",
+    Title2026: 'Problème technique',
+    Message2026:
+      "Un problème empêche l'ouverture de l'application. Veuillez rédemarrer l'application. Si cela persiste, veuillez communiquez avec le service à la clientèle.",
     NoMessage: 'Aucun message.',
     Unknown: 'Erreur inconnue',
     Problem: 'Un problème est survenu',
@@ -264,7 +268,7 @@ const translation = {
   DefaultNotificationPage: {
     Title: 'Demander son Attestation d’authentification',
     Description:
-      'L’Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.',
+      "L'Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.",
     SAGConnexion: 'Étape 1 - Connexion au Service d’authentication gouvernementale',
     SAGConnexionDescription: 'Vous devez vous authentifier auprès du service.',
     ANIGRequest: 'Étape 2 - Demander l’attestation',
@@ -380,6 +384,7 @@ const translation = {
     PinChangeSuccessMessage:
       'Votre NIP a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau NIP.',
     EnterOldPINTitle: 'Entrez votre ancien NIP',
+    EnterOldPIN: 'Saisir NIP actuel',
     NewPIN: 'nouveau',
     RememberChangePIN: 'Changez votre NIP pour sécuriser votre portefeuille.',
     Message: {
@@ -955,7 +960,7 @@ const translation = {
     YouConnected: 'Vous êtes connecté avec',
   },
   Init: {
-    Retry: 'Réessayer',
+    Retry: "Rédemarrer l'application",
     Starting: 'Débuter...',
     CheckingAuth: 'Vérification de l’authentification...',
     FetchingPreferences: 'Récupération des préférences...',
