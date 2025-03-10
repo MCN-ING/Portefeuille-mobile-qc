@@ -62,6 +62,8 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   }
 
   const arrowIcon = <Assets.svg.iconChevronRight accessible={false} {...icon} />
+  const environment = Object.keys(store.developer.environment)[0]
+
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <Modal
@@ -133,16 +135,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             <Text
               style={[TextTheme.label, { fontWeight: 'normal', color: ColorPallet.brand.link, alignSelf: 'center' }]}
             >
-              {Object.keys(store.developer.environment)[0]}
+              {environment}
             </Text>
           </SettingRow>
         )}
         <SettingRow
           title={t('Settings.Version')}
           testID={testIdWithKey('Version')}
-          onPress={() => {
-            incrementDeveloperMenuCounter()
-          }}
+          onPress={environment !== 'PRODUCTION' ? incrementDeveloperMenuCounter : undefined}
         >
           <Text style={[TextTheme.normal, { alignSelf: 'center' }]}>
             {getVersion()} {`(${getBuildNumber()})`}
