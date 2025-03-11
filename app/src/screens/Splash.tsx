@@ -366,7 +366,7 @@ const Splash = () => {
   useEffect(() => {
     const initAgent = async (): Promise<void> => {
       try {
-        if (store.appUpdate?.updateAvailable && (!store.appUpdate?.dismissMinorUpdate || store.appUpdate?.isRequired)) {
+        if (store.appUpdate?.updateAvailable && (!store.appUpdate?.dismissAppUpdate || store.appUpdate?.isRequired)) {
           navigation.dispatch(
             CommonActions.navigate({
               name: QCScreens.AppUpdateNotification,

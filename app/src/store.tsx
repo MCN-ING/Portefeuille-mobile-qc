@@ -33,7 +33,7 @@ export type AppUpdate = {
   version: string
   isRequired: boolean
   storeUrl: string
-  dismissMinorUpdate: boolean
+  dismissAppUpdate: boolean
   updateAvailable: boolean
 }
 
@@ -184,15 +184,16 @@ const getInitialAppUpdateState = async (): Promise<AppUpdate> => {
   const version = response.version ?? getVersion()
 
   // Si la mise à jour disponible est de type mineur ou patch, celle-ci n'est pas requise
-  const isRequired = response.updateType ? response.updateType === 'major' : false
+  const isMajorUpdate = response.updateType === 'major'
+  const isMinorUpdate = response.updateType === 'minor'
 
   let appUpdate: AppUpdate = {
     version,
-    isRequired,
+    isRequired: isMajorUpdate,
     // Si response.url est null, le storeUrl sera celui de l'App Store ou du Play Store
     storeUrl:
       response.url ?? Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com' : 'https://play.google.com/store/apps',
-    dismissMinorUpdate: true,
+    dismissAppUpdate: true,
     updateAvailable: false,
   }
 
@@ -200,8 +201,8 @@ const getInitialAppUpdateState = async (): Promise<AppUpdate> => {
     const storedAppUpdate = JSON.parse(appUpdateString) as AppUpdate
     if (storedAppUpdate.version !== version) {
       appUpdate.updateAvailable = true
-      if (!isRequired) {
-        appUpdate.dismissMinorUpdate = false
+      if (isMajorUpdate || isMinorUpdate) {
+        appUpdate.dismissAppUpdate = false
       }
       AsyncStorage.setItem(BCLocalStorageKeys.AppUpdate, JSON.stringify(appUpdate))
     } else {
@@ -235,8 +236,8 @@ export const getInitialState = async (): Promise<BCState> => {
 const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCState => {
   switch (action.type) {
     case AppUpdateDispatchAction.APP_UPDATE_DISMISS_MINOR: {
-      const dismissMinorUpdate = (action?.payload || []).pop()
-      const appUpdate = { ...state.appUpdate, dismissMinorUpdate }
+      const dismissAppUpdate = (action?.payload || []).pop()
+      const appUpdate = { ...state.appUpdate, dismissAppUpdate }
 
       const newState = { ...state, appUpdate }
       AsyncStorage.setItem(BCLocalStorageKeys.AppUpdate, JSON.stringify(appUpdate))
