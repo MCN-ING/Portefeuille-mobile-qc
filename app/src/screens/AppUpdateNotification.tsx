@@ -57,7 +57,7 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) =>
 
   const cancelUpdate = useCallback(() => {
     dispatch({
-      type: BCDispatchAction.APP_UPDATE_DISMISS_MINOR,
+      type: BCDispatchAction.APP_UPDATE_DISMISS,
       payload: [true],
     })
 

@@ -75,7 +75,7 @@ enum AttestationAuthentificationDispatchAction {
 }
 
 enum AppUpdateDispatchAction {
-  APP_UPDATE_DISMISS_MINOR = 'appUpdate/dismissMinorUpdate',
+  APP_UPDATE_DISMISS = 'appUpdate/dismiss',
 }
 
 enum ActivityDispatchAction {
@@ -235,7 +235,7 @@ export const getInitialState = async (): Promise<BCState> => {
 
 const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCState => {
   switch (action.type) {
-    case AppUpdateDispatchAction.APP_UPDATE_DISMISS_MINOR: {
+    case AppUpdateDispatchAction.APP_UPDATE_DISMISS: {
       const dismissAppUpdate = (action?.payload || []).pop()
       const appUpdate = { ...state.appUpdate, dismissAppUpdate }
 
