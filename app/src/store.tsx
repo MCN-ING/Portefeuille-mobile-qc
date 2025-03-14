@@ -8,7 +8,10 @@ import {
 } from '@hyperledger/aries-bifold-core'
 import { Preferences } from '@hyperledger/aries-bifold-core/lib/typescript/App/types/state'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Platform } from 'react-native'
+import { checkVersion } from 'react-native-check-version'
 import Config from 'react-native-config'
+import { getVersion } from 'react-native-device-info'
 
 export type IASEnvironmentKeys = 'PRODUCTION' | 'INTEGRATION' | 'FORMATION' | 'ACCEPTATION'
 
@@ -24,6 +27,14 @@ export type IASEnvironment = {
 export type Developer = {
   environment: IASEnvironment
   remoteLoggingEnabled: boolean
+}
+
+export type AppUpdate = {
+  version: string
+  isRequired: boolean
+  storeUrl: string
+  dismissAppUpdate: boolean
+  updateAvailable: boolean
 }
 
 export interface AttestationAuthentification {
@@ -49,6 +60,7 @@ export interface QCPreferences extends Preferences {
 export interface BCState extends BifoldState {
   developer: Developer
   attestationAuthentification: AttestationAuthentification
+  appUpdate: AppUpdate
   preferences: QCPreferences
   activities: ActivityState
 }
@@ -60,6 +72,10 @@ enum DeveloperDispatchAction {
 enum AttestationAuthentificationDispatchAction {
   ATTESTATION_AUTHENTIFICATION_DISMISS = 'attestationAuthentification/attestationAuthentificationDismiss',
   ATTESTATION_AUTHENTIFICATION_SEEN_ON_HOME = 'attestationAuthentification/attestationAuthentificationSeenOnHome',
+}
+
+enum AppUpdateDispatchAction {
+  APP_UPDATE_DISMISS = 'appUpdate/dismiss',
 }
 
 enum ActivityDispatchAction {
@@ -77,12 +93,14 @@ export enum PreferencesQCDispatchAction {
 export type BCDispatchAction =
   | DeveloperDispatchAction
   | AttestationAuthentificationDispatchAction
+  | AppUpdateDispatchAction
   | PreferencesQCDispatchAction
   | ActivityDispatchAction
 
 export const BCDispatchAction = {
   ...DeveloperDispatchAction,
   ...AttestationAuthentificationDispatchAction,
+  ...AppUpdateDispatchAction,
   ...PreferencesQCDispatchAction,
   ...ActivityDispatchAction,
 }
@@ -121,6 +139,7 @@ const developerState: Developer = {
 
 export enum BCLocalStorageKeys {
   AttestationAuthentification = 'AttestationAuthentification',
+  AppUpdate = 'AppUpdate',
   Environment = 'Environment',
   GenesisTransactions = 'GenesisTransactions',
   Activities = 'Activities',
@@ -157,9 +176,49 @@ const getInitialActivitiesState = async (): Promise<ActivityState> => {
   return activities
 }
 
+const getInitialAppUpdateState = async (): Promise<AppUpdate> => {
+  const appUpdateString = await AsyncStorage.getItem(BCLocalStorageKeys.AppUpdate)
+  const response = await checkVersion()
+
+  // Si response.version est null, on prend la version de Info.plist ou build.gradle
+  const version = response.version ?? getVersion()
+
+  // Si la mise à jour disponible est de type mineur ou patch, celle-ci n'est pas requise
+  const isMajorUpdate = response.updateType === 'major'
+  const isMinorUpdate = response.updateType === 'minor'
+
+  let appUpdate: AppUpdate = {
+    version,
+    isRequired: isMajorUpdate,
+    // Si response.url est null, le storeUrl sera celui de l'App Store ou du Play Store
+    storeUrl:
+      response.url ?? Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com' : 'https://play.google.com/store/apps',
+    dismissAppUpdate: true,
+    updateAvailable: false,
+  }
+
+  if (appUpdateString) {
+    const storedAppUpdate = JSON.parse(appUpdateString) as AppUpdate
+    if (storedAppUpdate.version !== version) {
+      appUpdate.updateAvailable = true
+      if (isMajorUpdate || isMinorUpdate) {
+        appUpdate.dismissAppUpdate = false
+      }
+      AsyncStorage.setItem(BCLocalStorageKeys.AppUpdate, JSON.stringify(appUpdate))
+    } else {
+      appUpdate = storedAppUpdate
+    }
+  } else {
+    AsyncStorage.setItem(BCLocalStorageKeys.AppUpdate, JSON.stringify(appUpdate))
+  }
+
+  return appUpdate
+}
+
 export const getInitialState = async (): Promise<BCState> => {
   const attestationAuthentification = await getInitialAttestationAuthentification()
   const activities = await getInitialActivitiesState()
+  const appUpdate = await getInitialAppUpdateState()
   return {
     ...defaultState,
     developer: developerState,
@@ -170,11 +229,20 @@ export const getInitialState = async (): Promise<BCState> => {
       useManageEnvironment: defaultEnv !== 'PRODUCTION',
     },
     activities,
+    appUpdate,
   }
 }
 
 const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCState => {
   switch (action.type) {
+    case AppUpdateDispatchAction.APP_UPDATE_DISMISS: {
+      const dismissAppUpdate = (action?.payload || []).pop()
+      const appUpdate = { ...state.appUpdate, dismissAppUpdate }
+
+      const newState = { ...state, appUpdate }
+      AsyncStorage.setItem(BCLocalStorageKeys.AppUpdate, JSON.stringify(appUpdate))
+      return newState
+    }
     case DeveloperDispatchAction.UPDATE_ENVIRONMENT: {
       // fallback
       const environment: IASEnvironmentKeys = (action?.payload || [defaultEnv]).pop()

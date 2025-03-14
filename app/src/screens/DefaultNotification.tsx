@@ -69,7 +69,6 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
-      paddingTop: 32,
     },
   })
 
@@ -78,7 +77,9 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       <ScrollView style={styles.container}>
         <View style={styles.section}>
           <HeaderText title={t('DefaultNotificationPage.Title')} />
-          <Text style={styles.sectionDescriptionTitle}> {t('DefaultNotificationPage.Description')}</Text>
+          <View style={{ paddingTop: 32 }}>
+            <Text style={styles.sectionDescriptionTitle}> {t('DefaultNotificationPage.Description')}</Text>
+          </View>
         </View>
         <View style={styles.section}>
           <Text style={styles.textSectionTitle} accessibilityRole="header">

@@ -63,6 +63,8 @@ const translation = {
     },
     Loading: 'Chargement en cours',
     GoToSettings: 'Aller aux paramètres',
+    ExternalLink: 'Lien externe',
+    ExternalLinkHint: 'Ce lien vous mènera à un site externe',
   },
   Language: {
     code_en: 'Anglais',
@@ -168,8 +170,9 @@ const translation = {
     Message2022: "Un problème est survenu lors de l'extraction du référentiel de l'identité numérique.",
     Title2025: 'Authentification BCSC',
     Message2025: 'Un problème a été signalé par BCSC.',
-    Title2026: 'Oups! Un problème est survenu.',
-    Message2026: "Un problème est survenu. Veuillez redémarrer l'application.",
+    Title2026: 'Problème technique',
+    Message2026:
+      "Un problème empêche l'ouverture de l'application. Veuillez rédemarrer l'application. Si cela persiste, veuillez communiquez avec le service à la clientèle.",
     NoMessage: 'Aucun message.',
     Unknown: 'Erreur inconnue',
     Problem: 'Un problème est survenu',
@@ -265,13 +268,24 @@ const translation = {
   DefaultNotificationPage: {
     Title: 'Demander son Attestation d’authentification',
     Description:
-      'L’Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.',
+      "L'Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.",
     SAGConnexion: 'Étape 1 - Connexion au Service d’authentication gouvernementale',
     SAGConnexionDescription: 'Vous devez vous authentifier auprès du service.',
     ANIGRequest: 'Étape 2 - Demander l’attestation',
     ANIGAcceptDescription:
       'Depuis la gestion de compte, vous devrez balayer le code QR qui vous sera présenté.\r\n\r\nVous devrez ensuite accepter l’offre d’attestation qui vous sera proposée.',
     ButtonTitle: 'Recevoir mon attestation',
+  },
+  AppUpdateNotificationPage: {
+    TitleRequired: 'Mise à jour requise',
+    TitleAvailable: 'Mise à jour disponible',
+    DescriptionRequired:
+      "Pour continuer à utiliser l'application, vous devez mettre à jour votre portefeuille numérique.",
+    DescriptionAvailable:
+      'Pour avoir les dernières fonctionnalités et améliorations, veuillez mettre à jour votre portefeuille numérique.',
+    UpdateNow: 'Mettre à jour',
+    UpdateAvailable: 'Mise à jour disponible',
+    CancelUpdate: 'Ne pas mettre à jour',
   },
   OptionsPlus: {
     PageTitle: "Plus d'option",
@@ -774,6 +788,7 @@ const translation = {
     EnterPIN: 'Entrer le NIP',
     DataRetention: 'Conservation des données',
     RenameContact: 'Renommer le contact',
+    AppUpdateNotification: 'Mise à jour',
   },
   OnboardingPages: {
     FirstPageTitle: 'Bienvenue dans le portefeuille numérique du Québec',
@@ -945,7 +960,7 @@ const translation = {
     YouConnected: 'Vous êtes connecté avec',
   },
   Init: {
-    Retry: 'Réessayer',
+    Retry: "Rédemarrer l'application",
     Starting: 'Débuter...',
     CheckingAuth: 'Vérification de l’authentification...',
     FetchingPreferences: 'Récupération des préférences...',

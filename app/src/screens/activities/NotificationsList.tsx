@@ -80,7 +80,7 @@ const NotificationsList: React.FC<{
     }
   }, [toastEnabled])
 
-  const [setions, setSections] = useState<SectionType[]>([])
+  const [sections, setSections] = useState<SectionType[]>([])
   const { t } = useTranslation()
   const { ColorPallet, TextTheme } = useTheme()
 
@@ -377,7 +377,7 @@ const NotificationsList: React.FC<{
       </View>
       <SectionList
         style={styles.sectionList}
-        sections={setions}
+        sections={sections}
         keyExtractor={(item: NotificationType) => item.id}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

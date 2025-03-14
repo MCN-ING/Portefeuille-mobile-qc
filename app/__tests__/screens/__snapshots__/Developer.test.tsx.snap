@@ -98,6 +98,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Developer.DeveloperMode
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Developer.Toggle"
@@ -167,6 +168,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Settings.ManageEnvironment
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Settings.ToggleManageEnvironment"
@@ -236,6 +238,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Verifier.UseVerifierCapability
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Verifier.Toggle"
@@ -305,6 +308,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Verifier.AcceptDevCredentials
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Verifier.Toggle"
@@ -374,6 +378,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Connection.UseConnectionInviterCapability
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Connection.Toggle"
@@ -443,6 +448,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Verifier.UseDevVerifierTemplates
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Verifier.ToggleDevTemplates"
@@ -512,6 +518,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               NameWallet.EnableWalletNaming
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="NameWallet.ToggleWalletNaming"
@@ -581,6 +588,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Settings.PreventAutoLock
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Settings.TogglePreventAutoLock"
@@ -643,6 +651,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
               }
             >
               Settings.ForcedUpdates
+               
             </Text>
             <RCTSwitch
               accessibilityLabel="Settings.ToggleForcedUpdates"

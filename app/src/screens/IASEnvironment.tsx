@@ -1,5 +1,5 @@
-import { useTheme, useStore, Button, ButtonType, testIdWithKey } from '@hyperledger/aries-bifold-core'
-import React from 'react'
+import { useTheme, useStore, Button, ButtonType, testIdWithKey, DispatchAction } from '@hyperledger/aries-bifold-core'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
@@ -7,7 +7,7 @@ import Config from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import WarningIcon from '../assets/img/icons/warning_icon.svg'
+import { Avis, AvisType } from '../components/Avis/Avis'
 import { BCDispatchAction, BCState, IASEnvironmentKeys, iasEnvironments } from '../store'
 
 interface IASEnvironmentProps {
@@ -43,39 +43,44 @@ const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModa
     },
   })
 
-  const handleEnvironmentChange = (environment: IASEnvironmentKeys) => {
-    dispatch({
-      type: BCDispatchAction.UPDATE_ENVIRONMENT,
-      payload: [environment],
-    })
-
-    if (environment === 'PRODUCTION') {
+  const handleEnvironmentChange = useCallback(
+    (environment: IASEnvironmentKeys) => {
       dispatch({
-        type: BCDispatchAction.USE_MANAGE_ENVIRONMENT,
-        payload: [false],
+        type: BCDispatchAction.UPDATE_ENVIRONMENT,
+        payload: [environment],
       })
-    }
-    shouldDismissModal()
-  }
+
+      if (environment === 'PRODUCTION') {
+        dispatch({
+          type: BCDispatchAction.USE_MANAGE_ENVIRONMENT,
+          payload: [false],
+        })
+
+        if (store.preferences.developerModeEnabled) {
+          dispatch({
+            type: DispatchAction.ENABLE_DEVELOPER_MODE,
+            payload: [false],
+          })
+        }
+      }
+      shouldDismissModal()
+    },
+    [dispatch, store.preferences.developerModeEnabled, shouldDismissModal]
+  )
 
   return (
     <SafeAreaView style={[styles.container]}>
       <View
         style={{
-          backgroundColor: ColorPallet.notification.warn,
           marginHorizontal: 10,
           padding: 16,
-          flexDirection: 'row',
         }}
       >
-        <View style={{ flex: 1 }}>
-          <WarningIcon />
-        </View>
-        <View style={{ flex: 6 }}>
-          <Text style={[TextTheme.labelTitle, { color: ColorPallet.grayscale.darkGrey }]}>
-            {t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
-          </Text>
-        </View>
+        <Avis
+          type={AvisType.Warn}
+          primaryBackgroundColorSameAsSecondary
+          description={t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
+        />
       </View>
       <FlatList
         data={environments}

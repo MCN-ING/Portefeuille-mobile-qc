@@ -1,9 +1,9 @@
-import { useTheme, useStore, testIdWithKey, DispatchAction } from '@hyperledger/aries-bifold-core'
+import { useTheme, useStore, testIdWithKey, DispatchAction, Button, ButtonType } from '@hyperledger/aries-bifold-core'
 import { i18n, Locales } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, Modal } from 'react-native'
+import { ScrollView, StyleSheet, Text, Modal, View } from 'react-native'
 import { getBuildNumber, getVersion } from 'react-native-device-info'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -62,6 +62,8 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   }
 
   const arrowIcon = <Assets.svg.iconChevronRight accessible={false} {...icon} />
+  const environment = Object.keys(store.developer.environment)[0]
+
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <Modal
@@ -133,23 +135,35 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             <Text
               style={[TextTheme.label, { fontWeight: 'normal', color: ColorPallet.brand.link, alignSelf: 'center' }]}
             >
-              {Object.keys(store.developer.environment)[0]}
+              {environment}
             </Text>
           </SettingRow>
         )}
         <SettingRow
           title={t('Settings.Version')}
           testID={testIdWithKey('Version')}
-          onPress={() => {
-            incrementDeveloperMenuCounter()
-          }}
-          style={{ marginBottom: 32 }}
+          onPress={environment !== 'PRODUCTION' ? incrementDeveloperMenuCounter : undefined}
         >
           <Text style={[TextTheme.normal, { alignSelf: 'center' }]}>
             {getVersion()} {`(${getBuildNumber()})`}
           </Text>
         </SettingRow>
-
+        {store.appUpdate.updateAvailable && (
+          <View style={{ paddingTop: 12, paddingBottom: 32 }}>
+            <Button
+              buttonType={ButtonType.Secondary}
+              testID={testIdWithKey('UpdateAvailable')}
+              accessibilityLabel={t('AppUpdateNotificationPage.UpdateAvailable')}
+              title={t('AppUpdateNotificationPage.UpdateAvailable')}
+              onPress={() =>
+                navigation.getParent()?.navigate(Stacks.AppUpdateNotificationStack, {
+                  screen: Screens.AppUpdateNotification,
+                  params: { isRequired: store.appUpdate.isRequired, storeUrl: store.appUpdate.storeUrl },
+                })
+              }
+            />
+          </View>
+        )}
         {store.preferences.developerModeEnabled && <Developer />}
       </ScrollView>
     </SafeAreaView>
