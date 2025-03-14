@@ -33,10 +33,10 @@ const Plus = () => {
       marginVertical: 8,
     },
     button: {
-      paddingBottom: 24,
+      gap: 24,
     },
     section: {
-      paddingBottom: 16,
+      paddingVertical: 16,
     },
     sectionCopyright: {
       flex: 1,
@@ -67,8 +67,7 @@ const Plus = () => {
               title={t('OptionsPlus.ButtonContacts')}
               onPress={() => navigation.navigate(BifoldStacks.ContactStack, { screen: BifoldScreens.Contacts })}
             />
-          </View>
-          <View style={styles.button}>
+
             <Button
               buttonType={ButtonType.Secondary}
               testID={testIdWithKey('AppParams')}
@@ -76,8 +75,7 @@ const Plus = () => {
               title={t('OptionsPlus.ButtonParamsApp')}
               onPress={() => navigation.navigate(Stacks.SettingsStack, { screen: Screens.Settings })}
             />
-          </View>
-          <View style={styles.button}>
+
             <Button
               buttonType={ButtonType.Secondary}
               testID={testIdWithKey('HelpCenter')}
@@ -85,8 +83,7 @@ const Plus = () => {
               title={t('OptionsPlus.ButtonHelpCenter')}
               onPress={() => navigation.navigate(Stacks.HelpCenterStack, { screen: Screens.HelpCenter })}
             />
-          </View>
-          <View style={styles.button}>
+
             <Button
               buttonType={ButtonType.Secondary}
               testID={testIdWithKey('About')}

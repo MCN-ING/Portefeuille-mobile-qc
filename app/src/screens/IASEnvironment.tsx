@@ -1,5 +1,5 @@
-import { useTheme, useStore, Button, ButtonType, testIdWithKey } from '@hyperledger/aries-bifold-core'
-import React from 'react'
+import { useTheme, useStore, Button, ButtonType, testIdWithKey, DispatchAction } from '@hyperledger/aries-bifold-core'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
@@ -43,20 +43,30 @@ const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModa
     },
   })
 
-  const handleEnvironmentChange = (environment: IASEnvironmentKeys) => {
-    dispatch({
-      type: BCDispatchAction.UPDATE_ENVIRONMENT,
-      payload: [environment],
-    })
-
-    if (environment === 'PRODUCTION') {
+  const handleEnvironmentChange = useCallback(
+    (environment: IASEnvironmentKeys) => {
       dispatch({
-        type: BCDispatchAction.USE_MANAGE_ENVIRONMENT,
-        payload: [false],
+        type: BCDispatchAction.UPDATE_ENVIRONMENT,
+        payload: [environment],
       })
-    }
-    shouldDismissModal()
-  }
+
+      if (environment === 'PRODUCTION') {
+        dispatch({
+          type: BCDispatchAction.USE_MANAGE_ENVIRONMENT,
+          payload: [false],
+        })
+
+        if (store.preferences.developerModeEnabled) {
+          dispatch({
+            type: DispatchAction.ENABLE_DEVELOPER_MODE,
+            payload: [false],
+          })
+        }
+      }
+      shouldDismissModal()
+    },
+    [dispatch, store.preferences.developerModeEnabled, shouldDismissModal]
+  )
 
   return (
     <SafeAreaView style={[styles.container]}>

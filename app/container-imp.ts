@@ -35,6 +35,7 @@ import PINCreateHeader from './src/components/PINCreateHeader'
 import ConnectionAlert from './src/components/modals/ConnectionAlert'
 import { PINValidationRules } from './src/constants'
 import { useNotifications } from './src/hooks/notifications'
+import OnboardingStack from './src/navigators/OnboardingStack'
 import TermsStack from './src/navigators/TermsStack'
 import { getScreenOptions } from './src/navigators/screen-options'
 import DefaultNotification from './src/screens/DefaultNotification'
@@ -52,6 +53,7 @@ import {
   getInitialState,
   QCPreferences,
   ActivityState,
+  AppUpdate,
 } from './src/store'
 
 export interface AppState {
@@ -120,6 +122,7 @@ export class AppContainer implements Container {
     // Example: Replacing button in core with custom button
     this._container.registerInstance(TOKENS.UTIL_LEDGERS, allLedgers)
     this._container.registerInstance(TOKENS.SCREEN_ONBOARDING_PAGES, pages)
+    this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
     this._container.registerInstance(TOKENS.OBJECT_SCREEN_CONFIG, defaultScreenOptionsDict)
     this._container.registerInstance(TOKENS.SCREEN_TERMS, { screen: TermsStack, version: TermsVersion })
     this._container.registerInstance(TOKENS.COMPONENT_PIN_CREATE_HEADER, PINCreateHeader)
@@ -184,6 +187,7 @@ export class AppContainer implements Container {
       let onboarding = initialState.onboarding
       let attestationAuthentificationDissmissed = initialState.attestationAuthentification
       let activities = initialState.activities
+      let appUpdate = initialState.appUpdate
       let { environment } = initialState.developer
 
       await Promise.all([
@@ -201,6 +205,7 @@ export class AppContainer implements Container {
           (val) => (attestationAuthentificationDissmissed = val)
         ),
         loadState<ActivityState>(BCLocalStorageKeys.Activities, (val) => (activities = val)),
+        loadState<AppUpdate>(BCLocalStorageKeys.AppUpdate, (val) => (appUpdate = val)),
         loadState<IASEnvironment>(BCLocalStorageKeys.Environment, (val) => (environment = val)),
       ])
       const state: BCState = {
@@ -215,6 +220,7 @@ export class AppContainer implements Container {
           ...attestationAuthentificationDissmissed,
         },
         activities,
+        appUpdate,
         developer: {
           ...initialState.developer,
           environment,

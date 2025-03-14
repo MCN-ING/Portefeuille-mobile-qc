@@ -32,6 +32,7 @@ import { useTranslation } from 'react-i18next'
 import { DeviceEventEmitter, View } from 'react-native'
 
 import AboutStack from './AboutStack'
+import AppUpdateNotificationStack from './AppUpdateNotificationStack'
 import HelpCenterStack from './HelpCenterStack'
 import HistoryStack from './HistoryStack'
 import SettingStack from './SettingStack'
@@ -97,6 +98,7 @@ const RootStack: React.FC = () => {
         >
           <Stack.Screen name={Screens.Splash} component={splash} />
           <Stack.Screen name={Bifoldstacks.TabStack} component={TabStack} />
+          <Stack.Screen name={Stacks.AppUpdateNotificationStack} component={AppUpdateNotificationStack} />
           <Stack.Screen
             name={Screens.Chat}
             component={Chat}
