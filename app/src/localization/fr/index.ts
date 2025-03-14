@@ -1123,6 +1123,28 @@ const translation = {
       Added: 'ajouté',
     },
   },
+  Filters: {
+    SearchPlaceHolder: 'Rechercher une activité',
+    Display: 'Afficher',
+    DisplayPlaceHolder: 'Sélectionner un x',
+    Filters: 'Filtres',
+    DeleteFilters: 'Effacer les filtres',
+    ActivityType: 'Type d’activité',
+    CredentialOffer: 'Offre d’attestation',
+    ProofRequestAccepted: "Partage d'information accepté",
+    ProofrequestDeclined: "Partage d'information refusé",
+    CredentialOfferReceived: "Offre d'attestation reçue",
+    InfoRequest: "Demande d'information",
+    Update: 'Mise à jour',
+    CredentialRevoked: 'Attestation révoquée',
+    AddContact: "Ajout d'un contact",
+    RemoveContact: "Suppression d'un contact",
+    EditParams: "Modification des paramètres de l'application",
+    NewestFirst: 'Plus récent en premier',
+    OldestFirst: 'Plus vieux en premier',
+    ContactAToZ: 'Par contact A-Z',
+    ContactZToA: 'Par contact Z-A',
+  },
 }
 
 export default translation

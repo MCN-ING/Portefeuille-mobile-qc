@@ -6,7 +6,7 @@ import { View, StyleSheet, SectionList, Text } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import FilterActivity from '../../components/FilterActivity'
+import NotificationFilter from '../../components/NotificationFilter'
 import NotificationListItem from '../../components/NotificationListItem'
 import SearchTextBox from '../../components/SearchTextBox'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../../hooks/notifications'
@@ -364,18 +364,15 @@ const NotificationsList: React.FC<{
   const handleInputChange = (value: string) => {
     setInputSearchValue(value)
   }
-  const handleImagePress = () => {
-    setToastEnabled(false)
-  }
 
   return (
     <View style={styles.container}>
       <View style={styles.headerInputSection}>
         <View style={styles.searchSection}>
-          <SearchTextBox onChange={handleInputChange} onPress={handleImagePress} />
+          <SearchTextBox onChange={handleInputChange} />
         </View>
         <View style={styles.sortSection}>
-          <FilterActivity />
+          <NotificationFilter />
         </View>
       </View>
       <SectionList

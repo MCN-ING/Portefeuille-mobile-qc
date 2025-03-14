@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 
 import Magnifier from '../assets/img/magnifier.svg'
 import { TextTheme, ColorPallet } from '../theme'
 
-const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) => void; onPress: () => void }) => {
+const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) => void; onPress?: () => void }) => {
   const [text, setText] = useState('')
+  const { t } = useTranslation()
 
   const handleTextChange = (inputText: string) => {
     setText(inputText)
@@ -23,9 +25,7 @@ const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) =>
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
-      borderRadius: 5,
-      borderColor: '#ccc',
-
+      borderColor: ColorPallet.grayscale.mediumGrey,
       height: 40,
       width: '100%',
     },
@@ -33,7 +33,7 @@ const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) =>
       flex: 1,
       height: '100%',
       paddingHorizontal: 10,
-      ...TextTheme.caption,
+      ...TextTheme.labelTitle,
     },
     imageButton: {
       backgroundColor: ColorPallet.brand.primary,
@@ -47,7 +47,12 @@ const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) =>
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} value={text} onChangeText={handleTextChange} placeholder="Entrez du texte" />
+        <TextInput
+          style={styles.input}
+          value={text}
+          onChangeText={handleTextChange}
+          placeholder={t('Filters.SearchPlaceHolder')}
+        />
         <TouchableOpacity onPress={onPress} style={styles.imageButton}>
           <Magnifier />
         </TouchableOpacity>

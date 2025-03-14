@@ -1090,6 +1090,28 @@ const translation = {
       Added: 'added',
     },
   },
+  Filters: {
+    SearchPlaceHolder: 'Search for an activity',
+    Display: 'Display',
+    DisplayPlaceHolder: 'Select a x option',
+    Filters: 'Filters',
+    DeleteFilters: 'Clears filters',
+    ActivityType: 'Activity type',
+    CredentialOffer: 'Credential offer',
+    ProofRequestAccepted: 'Proof request accepted',
+    ProofrequestDeclined: 'Proof request declined',
+    CredentialOfferReceived: 'Credential Offer Received',
+    InfoRequest: 'Information Request',
+    Update: 'Update',
+    CredentialRevoked: 'Credential Revoked',
+    AddContact: 'Add a contact',
+    RemoveContact: "Contact's deletion",
+    EditParams: 'Edit application settings',
+    NewestFirst: 'Newest first',
+    OldestFirst: 'Oldest first',
+    ContactAToZ: 'By contact A-Z',
+    ContactZToA: 'By contact Z-A',
+  },
 }
 
 export default translation

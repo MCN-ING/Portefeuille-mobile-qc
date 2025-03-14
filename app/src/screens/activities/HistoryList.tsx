@@ -15,6 +15,7 @@ import { View, StyleSheet, SectionList, Text, ActivityIndicator, RefreshControl 
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import HistoryFilter from '../../components/HistoryFilter'
 import HistoryListItem from '../../components/HistoryListItem'
 import SearchTextBox from '../../components/SearchTextBox'
 import { useToast } from '../../hooks/toast'
@@ -209,6 +210,15 @@ const HistoryList: React.FC<{
       color: ColorPallet.grayscale.darkGrey,
       fontSize: 16,
     },
+    headerInputSection: {
+      height: 100,
+    },
+    searchSection: {
+      height: '50%',
+    },
+    sortSection: {
+      height: '50%',
+    },
   })
 
   const handleViewDetails = async (item: CustomRecord) => {
@@ -399,14 +409,15 @@ const HistoryList: React.FC<{
   const handleInputChange = (value: string) => {
     setInputSearchValue(value)
   }
-
-  const handleImagePress = () => {
-    setToastEnabled(true)
-  }
   return (
     <View style={styles.container}>
-      <View>
-        <SearchTextBox onChange={handleInputChange} onPress={handleImagePress} />
+      <View style={styles.headerInputSection}>
+        <View style={styles.searchSection}>
+          <SearchTextBox onChange={handleInputChange} />
+        </View>
+        <View style={styles.sortSection}>
+          <HistoryFilter />
+        </View>
       </View>
       <SectionList
         style={styles.sectionList}
