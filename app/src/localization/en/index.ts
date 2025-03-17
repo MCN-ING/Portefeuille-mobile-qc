@@ -224,7 +224,8 @@ const translation = {
     DaysOpen: 'Monday to Friday',
     OpeningHours: 'From 8 a.m. to 6 p.m.',
     PhoneNumber: '1 877 644-4545',
-    TollFreeNumber: '1 800 361-9596 (ATS number for the hearing impaired)',
+    TollFreeNumber: '1 800 361-9596',
+    TollFreeNumberDescription: ' (ATS number for the hearing impaired)',
     Copyright: '© Government of Quebec',
   },
   Screens: {
@@ -433,6 +434,8 @@ const translation = {
       CrossPatternValidation: 'A pattern of cross was detected in your PIN. Please try again.',
       OddOrEvenSequenceValidation: 'An odd or even sequence was detected in your PIN. Please try again.',
       NoRepetitionOfTheSameNumbersValidation: "The PIN can't have a repetition of the same digit. Please try again.",
+      MaxAdjacentNumberRepetitionValidation:
+        'Adjacent numbers repeating times are more than allowed. Please try again.',
       NoRepetitionOfTheTwoSameNumbersValidation:
         'A repeated two-digit sequence was detected in your PIN. Please try again.',
       NoSeriesOfNumbersValidation: 'A series was detected in your PIN. Please try again.',
@@ -445,11 +448,14 @@ const translation = {
       CrossPatternValidation: 'Does not contain a pattern of cross.',
       OddOrEvenSequenceValidation: 'Does not contain an odd or even sequence.',
       NoRepetitionOfTheSameNumbersValidation: 'Does not contain the same repeating number.',
+      MaxAdjacentNumberRepetitionValidation: 'Adjacent numbers repeating times are limited.',
       NoRepetitionOfTheTwoSameNumbersValidation: 'Does not contain repeating two-digit sequence.',
       NoSeriesOfNumbersValidation: 'Does not contain a series of numbers (123).',
       PINOnlyContainDigitsValidation: 'Must contain only digits.',
       PINTooShortValidation: 'The PIN is long enough.',
       PINTooLongValidation: 'The PIN is long enough.',
+      CheckIcon: 'Criteria met',
+      ClearIcon: 'Criteria not met',
     },
     ProgressBarText: '2. Securing the wallet',
     ProgressBarTextAccessibilityLabel: 'Step 2 out of 3 - Securing the wallet',
