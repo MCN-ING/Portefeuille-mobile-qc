@@ -7,6 +7,7 @@ const translation = {
     SkipA11y: 'Skip',
   },
   Global: {
+    Modal: 'Modal',
     Enter: 'Enter',
     EnterPin: 'Enter Pin',
     '6DigitPin': '6 Digit Pin',
@@ -62,6 +63,8 @@ const translation = {
     },
     Loading: 'Loading',
     GoToSettings: 'Go to Settings',
+    ExternalLink: 'External Link',
+    ExternalLinkHint: 'This link will take you to an external site',
     redirect: 'Return to browser',
   },
   Language: {
@@ -201,6 +204,15 @@ const translation = {
       'From the account management, you will need to scan the QR code that will be presented to you.\r\n\r\nYou will then need to accept the certificate offer that will be proposed to you.',
     ButtonTitle: 'Receive my attestation',
   },
+  AppUpdateNotificationPage: {
+    TitleRequired: 'A required update is available',
+    TitleAvailable: 'An update is available',
+    DescriptionRequired: 'To continue using the app, you must update to the latest version.',
+    DescriptionAvailable: 'To get the latest features and improvements, update to the latest version.',
+    UpdateNow: 'Update now',
+    UpdateAvailable: 'Available update',
+    CancelUpdate: 'Cancel',
+  },
   OptionsPlus: {
     PageTitle: 'More options',
     ButtonParamsApp: 'Application Settings',
@@ -213,7 +225,8 @@ const translation = {
     DaysOpen: 'Monday to Friday',
     OpeningHours: 'From 8 a.m. to 6 p.m.',
     PhoneNumber: '1 877 644-4545',
-    TollFreeNumber: '1 800 361-9596 (ATS number for the hearing impaired)',
+    TollFreeNumber: '1 800 361-9596',
+    TollFreeNumberDescription: ' (ATS number for the hearing impaired)',
     Copyright: '© Government of Quebec',
   },
   Screens: {
@@ -267,6 +280,7 @@ const translation = {
     EnterPIN: 'Enter PIN',
     DataRetention: 'Data retention',
     RenameContact: 'Edit Contact Name',
+    AppUpdateNotification: 'App Update',
   },
   Error: {
     ReportThisProblem: 'Report this problem',
@@ -278,8 +292,9 @@ const translation = {
     Message2022: 'There was a problem extracting the did repository.',
     Title2025: 'BCSC Authentication',
     Message2025: 'There was a problem reported by BCSC.',
-    Title2026: 'Oops! Something went wrong',
-    Message2026: 'The app has encountered a problem. Try restarting the app.',
+    Title2026: 'Technical problem',
+    Message2026:
+      'A problem is preventing the application from opening. Please restart the application. if this persists, please contact the customer service.',
     NoMessage: 'No Message',
     Title2024: 'BCSC Authentication',
     Message2024: 'The authentication request was canceled.',
@@ -413,12 +428,15 @@ const translation = {
     PinChangeSuccessTitle: 'Successfully changed your PIN',
     PinChangeSuccessMessage: 'Your PIN was successsfully changed. You can now log in with your new PIN.',
     EnterOldPINTitle: 'Enter your old PIN',
+    EnterOldPIN: 'Enter your old PIN',
     NewPIN: 'new',
     RememberChangePIN: 'Change your PIN to secure your wallet.',
     Message: {
       CrossPatternValidation: 'A pattern of cross was detected in your PIN. Please try again.',
       OddOrEvenSequenceValidation: 'An odd or even sequence was detected in your PIN. Please try again.',
       NoRepetitionOfTheSameNumbersValidation: "The PIN can't have a repetition of the same digit. Please try again.",
+      MaxAdjacentNumberRepetitionValidation:
+        'Adjacent numbers repeating times are more than allowed. Please try again.',
       NoRepetitionOfTheTwoSameNumbersValidation:
         'A repeated two-digit sequence was detected in your PIN. Please try again.',
       NoSeriesOfNumbersValidation: 'A series was detected in your PIN. Please try again.',
@@ -431,11 +449,14 @@ const translation = {
       CrossPatternValidation: 'Does not contain a pattern of cross.',
       OddOrEvenSequenceValidation: 'Does not contain an odd or even sequence.',
       NoRepetitionOfTheSameNumbersValidation: 'Does not contain the same repeating number.',
+      MaxAdjacentNumberRepetitionValidation: 'Adjacent numbers repeating times are limited.',
       NoRepetitionOfTheTwoSameNumbersValidation: 'Does not contain repeating two-digit sequence.',
       NoSeriesOfNumbersValidation: 'Does not contain a series of numbers (123).',
       PINOnlyContainDigitsValidation: 'Must contain only digits.',
       PINTooShortValidation: 'The PIN is long enough.',
       PINTooLongValidation: 'The PIN is long enough.',
+      CheckIcon: 'Criteria met',
+      ClearIcon: 'Criteria not met',
     },
     ProgressBarText: '2. Securing the wallet',
     ProgressBarTextAccessibilityLabel: 'Step 2 out of 3 - Securing the wallet',
@@ -933,7 +954,7 @@ const translation = {
     YouConnected: 'You connected with',
   },
   Init: {
-    Retry: 'Retry',
+    Retry: 'Restart the application',
     Starting: 'Starting...',
     CheckingAuth: 'Checking authentication...',
     FetchingPreferences: 'Fetching preferences...',

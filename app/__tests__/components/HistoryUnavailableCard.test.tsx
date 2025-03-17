@@ -1,7 +1,8 @@
-import React from 'react'
-import { render } from '@testing-library/react-native'
-import HistoryUnavailableCard from '../../src/components/HistoryUnavailableCard'
 import { testIdWithKey } from '@hyperledger/aries-bifold-core'
+import { render } from '@testing-library/react-native'
+import React from 'react'
+
+import HistoryUnavailableCard from '../../src/components/HistoryUnavailableCard'
 
 describe('HistoryUnavailableCard Component', () => {
   it('renders correctly with provided props', () => {

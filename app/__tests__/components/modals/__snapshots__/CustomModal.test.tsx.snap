@@ -57,6 +57,7 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
       }
     >
       <View
+        accessibilityLabel="Global.Modal"
         accessibilityState={
           {
             "busy": undefined,
@@ -66,7 +67,7 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
             "selected": undefined,
           }
         }
-        accessible={false}
+        accessible={true}
         focusable={false}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -98,7 +99,9 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
             }
           }
         >
-          <View>
+          <View
+            accessible={true}
+          >
             <Text
               accessibilityRole="header"
               style={
@@ -358,6 +361,7 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
       }
     >
       <View
+        accessibilityLabel="Global.Modal"
         accessibilityState={
           {
             "busy": undefined,
@@ -367,7 +371,7 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
             "selected": undefined,
           }
         }
-        accessible={false}
+        accessible={true}
         focusable={false}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -399,7 +403,9 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
             }
           }
         >
-          <View>
+          <View
+            accessible={true}
+          >
             <Text
               accessibilityRole="header"
               style={

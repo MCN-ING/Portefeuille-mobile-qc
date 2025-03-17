@@ -1,11 +1,18 @@
 import { StoreProvider } from '@hyperledger/aries-bifold-core'
 import { render } from '@testing-library/react-native'
 import React from 'react'
+import { CheckVersionResponse } from 'react-native-check-version'
 
 import Developer from '../../src/screens/Developer'
 import { getInitialState, reducer } from '../../src/store'
 
 const mockNavigation = jest.fn()
+
+jest.mock('react-native-check-version', () => {
+  return {
+    checkVersion: jest.fn().mockResolvedValue({} as CheckVersionResponse),
+  }
+})
 
 jest.mock('react-native-device-info', () => {
   return {

@@ -7,6 +7,7 @@ const translation = {
     SkipA11y: 'Sauter',
   },
   Global: {
+    Modal: 'Modale',
     Enter: 'Entrer',
     EnterPin: 'Saisir le NIP',
     '6DigitPin': 'NIP à 6 chiffres',
@@ -62,6 +63,8 @@ const translation = {
     },
     Loading: 'Chargement en cours',
     GoToSettings: 'Aller aux paramètres',
+    ExternalLink: 'Lien externe',
+    ExternalLinkHint: 'Ce lien vous mènera à un site externe',
     redirect: 'Retourner au navigateur',
   },
   Language: {
@@ -168,8 +171,9 @@ const translation = {
     Message2022: "Un problème est survenu lors de l'extraction du référentiel de l'identité numérique.",
     Title2025: 'Authentification BCSC',
     Message2025: 'Un problème a été signalé par BCSC.',
-    Title2026: 'Oups! Un problème est survenu.',
-    Message2026: "Un problème est survenu. Veuillez redémarrer l'application.",
+    Title2026: 'Problème technique',
+    Message2026:
+      "Un problème empêche l'ouverture de l'application. Veuillez rédemarrer l'application. Si cela persiste, veuillez communiquez avec le service à la clientèle.",
     NoMessage: 'Aucun message.',
     Unknown: 'Erreur inconnue',
     Problem: 'Un problème est survenu',
@@ -265,13 +269,24 @@ const translation = {
   DefaultNotificationPage: {
     Title: 'Demander son Attestation d’authentification',
     Description:
-      'L’Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.',
+      "L'Attestation d’authentification est une attestation qui vous permettra de vous identifier plus rapidement auprès des services gouvernementaux utilisant le Service d’authentification gouvernementale.",
     SAGConnexion: 'Étape 1 - Connexion au Service d’authentication gouvernementale',
     SAGConnexionDescription: 'Vous devez vous authentifier auprès du service.',
     ANIGRequest: 'Étape 2 - Demander l’attestation',
     ANIGAcceptDescription:
       'Depuis la gestion de compte, vous devrez balayer le code QR qui vous sera présenté.\r\n\r\nVous devrez ensuite accepter l’offre d’attestation qui vous sera proposée.',
     ButtonTitle: 'Recevoir mon attestation',
+  },
+  AppUpdateNotificationPage: {
+    TitleRequired: 'Mise à jour requise',
+    TitleAvailable: 'Mise à jour disponible',
+    DescriptionRequired:
+      "Pour continuer à utiliser l'application, vous devez mettre à jour votre portefeuille numérique.",
+    DescriptionAvailable:
+      'Pour avoir les dernières fonctionnalités et améliorations, veuillez mettre à jour votre portefeuille numérique.',
+    UpdateNow: 'Mettre à jour',
+    UpdateAvailable: 'Mise à jour disponible',
+    CancelUpdate: 'Ne pas mettre à jour',
   },
   OptionsPlus: {
     PageTitle: "Plus d'option",
@@ -285,7 +300,8 @@ const translation = {
     DaysOpen: 'Du lundi au vendredi',
     OpeningHours: 'De 8h à 18h',
     PhoneNumber: '1 877 644-4545',
-    TollFreeNumber: '1 800 361-9596 (numéro ATS pour malentendants)',
+    TollFreeNumber: '1 800 361-9596',
+    TollFreeNumberDescription: ' (numéro ATS pour malentendants)',
     Copyright: '© Gouvernement du Québec',
   },
   StatusMessages: {
@@ -370,6 +386,7 @@ const translation = {
     PinChangeSuccessMessage:
       'Votre NIP a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau NIP.',
     EnterOldPINTitle: 'Entrez votre ancien NIP',
+    EnterOldPIN: 'Saisir NIP actuel',
     NewPIN: 'nouveau',
     RememberChangePIN: 'Changez votre NIP pour sécuriser votre portefeuille.',
     Message: {
@@ -377,24 +394,28 @@ const translation = {
       OddOrEvenSequenceValidation: 'Votre NIP contient une suite paire ou impaire. Veuillez choisir un autre NIP. ',
       NoRepetitionOfTheTwoSameNumbersValidation:
         'Votre NIP contient une répétition de deux chiffres (p. ex.: 1212). Veuillez choisir un autre NIP.',
+      MaxAdjacentNumberRepetitionValidation:
+        'Votre NIP contient une répétition de trois (3) chiffres (p. ex.: 222). Veuillez choisir un autre NIP.',
       NoRepetitionOfTheSameNumbersValidation:
         'Votre NIP contient une répétition de trois (3) chiffres (p. ex.: 222). Veuillez choisir un autre NIP. ',
       NoSeriesOfNumbersValidation: 'Une série de nombres consécutifs a été détectée dans votre NIP.',
       PINOnlyContainDigitsValidation: 'Votre NIP doit contenir six (6) chiffres. Veuillez choisir un nouveau NIP.',
       PINTooShortValidation: 'Votre NIP doit contenir six (6) chiffres. Veuillez choisir un nouveau NIP.',
       PINTooLongValidation: 'Votre NIP doit contenir six (6) chiffres. Veuillez choisir un nouveau NIP.',
-      AncienPINIncorrect: 'Votre ancien NIP est incorrect. Veuillez réessayer.',
       OldPINIncorrect: "L'ancien NIP est incorrect. Veuillez réessayer.",
     },
     Helper: {
       CrossPatternValidation: 'Ne doit pas contenir une séquence en forme de croix.',
       OddOrEvenSequenceValidation: 'Ne doit pas contenir de série paire ou impaire.',
       NoRepetitionOfTheTwoSameNumbersValidation: 'Ne doit pas contenir de répétition de deux chiffres. (ex: 1212)',
+      MaxAdjacentNumberRepetitionValidation: 'Ne doit pas contenir de répétition. (ex: 222)',
       NoRepetitionOfTheSameNumbersValidation: 'Ne doit pas contenir de répétition. (ex: 222)',
       NoSeriesOfNumbersValidation: 'Ne doit pas contenir de série. (ex: 123)',
       PINOnlyContainDigitsValidation: 'Doit contenir des chiffres seulement.',
       PINTooShortValidation: 'Votre NIP doit contenir 6 chiffres.',
       PINTooLongValidation: 'Votre NIP doit contenir 6 chiffres.',
+      CheckIcon: 'Critère respecté',
+      ClearIcon: 'Critère non-respecté',
     },
     ProgressBarText: '2. Sécuriser le portefeuille',
     ProgressBarTextAccessibilityLabel: 'Étape 2 de 3 - Sécuriser le portefeuille',
@@ -773,6 +794,7 @@ const translation = {
     EnterPIN: 'Entrer le NIP',
     DataRetention: 'Conservation des données',
     RenameContact: 'Renommer le contact',
+    AppUpdateNotification: 'Mise à jour',
   },
   OnboardingPages: {
     FirstPageTitle: 'Bienvenue dans le portefeuille numérique du Québec',
@@ -944,7 +966,7 @@ const translation = {
     YouConnected: 'Vous êtes connecté avec',
   },
   Init: {
-    Retry: 'Réessayer',
+    Retry: "Rédemarrer l'application",
     Starting: 'Débuter...',
     CheckingAuth: 'Vérification de l’authentification...',
     FetchingPreferences: 'Récupération des préférences...',

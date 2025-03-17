@@ -31,6 +31,8 @@ const ProgressBar = ({ progressPercent, progressBackground, color }: ProgressBar
         ? ColorPallet.grayscale[progressBackground]
         : ColorPallet.brand.secondaryBackground,
       borderRadius: 4,
+      borderWidth: 1,
+      borderColor: ColorPallet.grayscale.white,
       overflow: 'hidden',
     },
     progressBar: {
