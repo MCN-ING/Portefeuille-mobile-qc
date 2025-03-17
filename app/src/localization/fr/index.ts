@@ -62,6 +62,7 @@ const translation = {
     },
     Loading: 'Chargement en cours',
     GoToSettings: 'Aller aux paramètres',
+    redirect: 'Retourner au navigateur',
   },
   Language: {
     code_en: 'Anglais',

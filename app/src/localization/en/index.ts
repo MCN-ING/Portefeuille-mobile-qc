@@ -62,6 +62,7 @@ const translation = {
     },
     Loading: 'Loading',
     GoToSettings: 'Go to Settings',
+    redirect: 'Return to browser',
   },
   Language: {
     code_en: 'English',
