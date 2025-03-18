@@ -170,7 +170,9 @@ jobs:
           elif [[ "$BRANCH_NAME" == "acceptation" ]]; then
             echo "ENVIRONMENT=ACCEPTATION" >>.env
           elif [[ "$BRANCH_NAME" == "integration" ]]; then
-            echo "ENVIRONMENT=INTEGRATION" >>.env
+            echo "ENVIRONMENT=INTEGRATION-QA" >>.env
+          elif [[ "$BRANCH_NAME" == "develop" ]]; then
+            echo "ENVIRONMENT=DEV-INTEGRATION" >>.env
           else
             echo "ENVIRONMENT=${ENVIRONMENT}" >>.env
           fi
@@ -278,7 +280,9 @@ jobs:
           elif [[ "$BRANCH_NAME" == "acceptation" ]]; then
             echo "ENVIRONMENT=ACCEPTATION" >>.env
           elif [[ "$BRANCH_NAME" == "integration" ]]; then
-            echo "ENVIRONMENT=INTEGRATION" >>.env
+            echo "ENVIRONMENT=INTEGRATION-QA" >>.env
+          elif [[ "$BRANCH_NAME" == "develop" ]]; then
+            echo "ENVIRONMENT=DEV-INTEGRATION" >>.env
           else
             echo "ENVIRONMENT=${ENVIRONMENT}" >>.env
           fi

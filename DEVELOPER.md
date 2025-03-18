@@ -100,7 +100,7 @@ In the `./app/` directory copy the .env.example `cp .env.sample .env`
 MEDIATOR_URL=<url>
 MEDIATOR_URL_DEV=<url>
 OCA_URL=<url>
-ENVIRONMENT=INTEGRATION
+ENVIRONMENT=DEV-INTEGRATION
 ```
 
 ### Adding ledger configurations
