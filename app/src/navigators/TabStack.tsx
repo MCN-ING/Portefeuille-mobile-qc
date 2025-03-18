@@ -135,7 +135,7 @@ const TabStack: React.FC = () => {
         }
       */
 
-      const deeplinkParts = deepLink.split('&redirect=')
+      const deeplinkParts = deepLink.split('redirect=')
       const newDeepLink = deeplinkParts[0]
       const redirect = deeplinkParts[1]
 
