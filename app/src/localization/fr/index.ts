@@ -65,6 +65,7 @@ const translation = {
     GoToSettings: 'Aller aux paramètres',
     ExternalLink: 'Lien externe',
     ExternalLinkHint: 'Ce lien vous mènera à un site externe',
+    Redirect: 'Retourner au navigateur',
   },
   Language: {
     code_en: 'Anglais',

@@ -1,12 +1,12 @@
 diff --git a/App/components/listItems/NotificationListItem.tsx b/App/components/listItems/NotificationListItem.tsx
-index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..34c63aae5acd87005869b6994d93c38185d6f186 100644
+index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..9bc37bb8c12dd2e10a9b02c5f25139ff5ab00fcc 100644
 --- a/App/components/listItems/NotificationListItem.tsx
 +++ b/App/components/listItems/NotificationListItem.tsx
 @@ -49,6 +49,8 @@ export interface NotificationListItemProps {
    notificationType: NotificationType
    notification: BasicMessageRecord | CredentialExchangeRecord | ProofExchangeRecord | CustomNotificationRecord
    customNotification?: CustomNotification
-+  openSwipeableId?: string | null
++  openSwipeableId?: string | null,
 +  onOpenSwipeable?: (id: string | null) => void
  }
  
@@ -20,20 +20,142 @@ index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..34c63aae5acd87005869b6994d93c381
  }) => {
    const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
    const [store, dispatch] = useStore()
+diff --git a/App/screens/Connection.tsx b/App/screens/Connection.tsx
+index 237e122dfe5537b74c9a40709b78a6867d9cabe8..f98586baef57d4c771e39130e57d2d60bedbcffb 100644
+--- a/App/screens/Connection.tsx
++++ b/App/screens/Connection.tsx
+@@ -51,7 +51,7 @@ const GoalCodes = {
+ } as const
+ 
+ const Connection: React.FC<ConnectionProps> = ({ navigation, route }) => {
+-  const { oobRecordId, openIDUri, openIDPresentationUri, proofId, credentialId } = route.params
++  const { oobRecordId, openIDUri, openIDPresentationUri, proofId, credentialId, redirectQueryParam } = route.params
+   const [
+     logger,
+     { useNotifications },
+@@ -380,11 +380,11 @@ const Connection: React.FC<ConnectionProps> = ({ navigation, route }) => {
+     }
+ 
+     if (state.shouldShowProofComponent) {
+-      return <ProofRequest proofId={proofId ?? state.notificationRecord.id} navigation={navigation} />
++      return <ProofRequest redirect={redirectQueryParam} proofId={proofId ?? state.notificationRecord.id} navigation={navigation} />
+     }
+ 
+     if (state.shouldShowOfferComponent) {
+-      return <CredentialOffer credentialId={credentialId ?? state.notificationRecord.id} navigation={navigation} />
++      return <CredentialOffer redirect={redirectQueryParam} credentialId={credentialId ?? state.notificationRecord.id} navigation={navigation} />
+     }
+   }
+ 
+diff --git a/App/screens/CredentialOffer.tsx b/App/screens/CredentialOffer.tsx
+index 738affd93b926560ec4312436b3bab9642a0d08e..3425a80ab473d73056f9bd73e5cd38c014e9f5cf 100644
+--- a/App/screens/CredentialOffer.tsx
++++ b/App/screens/CredentialOffer.tsx
+@@ -40,9 +40,10 @@ import { BaseTourID } from '../types/tour'
+ type CredentialOfferProps = {
+   navigation: any
+   credentialId: string
++  redirect?: string
+ }
+ 
+-const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentialId }) => {
++const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentialId, redirect }) => {
+   const { agent } = useAppAgent()
+   const { t, i18n } = useTranslation()
+   const { TextTheme, ColorPallet } = useTheme()
+@@ -90,6 +91,16 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentia
+     },
+   })
+ 
++  useEffect(() => {
++    if(redirect && credential && agent) {
++      const redirectMetadata = credential?.metadata.get('redirect')
++      if(!redirectMetadata?.deeplink){
++        credential.metadata.set('redirect', {'deeplink': redirect})
++        agent?.credentials.update(credential)
++      }
++    }
++  }, [redirect, credential, agent])
++
+   useEffect(() => {
+     const shouldShowTour = enableToursConfig && store.tours.enableTours && !store.tours.seenCredentialOfferTour
+     if (shouldShowTour && screenIsFocused) {
+diff --git a/App/screens/CredentialOfferAccept.tsx b/App/screens/CredentialOfferAccept.tsx
+index bdeb1b5aae158bf4f2802819356974869e9bebeb..3c6c7ebc57f84905332d258bb8d2b076920d90ff 100644
+--- a/App/screens/CredentialOfferAccept.tsx
++++ b/App/screens/CredentialOfferAccept.tsx
+@@ -3,7 +3,7 @@ import { useCredentialById } from '@credo-ts/react-hooks'
+ import { useNavigation } from '@react-navigation/native'
+ import React, { useCallback, useEffect, useState } from 'react'
+ import { useTranslation } from 'react-i18next'
+-import { AccessibilityInfo, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
++import { AccessibilityInfo, Linking, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
+ import { SafeAreaView } from 'react-native-safe-area-context'
+ 
+ import Button, { ButtonType } from '../components/buttons/Button'
+@@ -31,6 +31,7 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+   const [credentialDeliveryStatus, setCredentialDeliveryStatus] = useState<DeliveryStatus>(DeliveryStatus.Pending)
+   const [timerDidFire, setTimerDidFire] = useState<boolean>(false)
+   const [timer, setTimer] = useState<NodeJS.Timeout>()
++  const [redirect, setRedirect] = useState<string | undefined>(undefined)
+   const credential = useCredentialById(credentialId)
+   const navigation = useNavigation()
+   const { ListItems } = useTheme()
+@@ -63,6 +64,13 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+     },
+   })
+ 
++  useEffect(() => {
++    const metadata = credential?.metadata.get('redirect')
++    if (metadata?.deeplink) {
++      setRedirect(metadata.deeplink)
++    }
++  }, [credential])
++
+   if (!credential && !confirmationOnly) {
+     throw new Error('Unable to fetch credential from Credo')
+   }
+@@ -169,12 +177,26 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+ 
+           {credentialDeliveryStatus === DeliveryStatus.Completed && (
+             <View>
++              {redirect && (
++                <View style={{ marginBottom: 20 }}>
++                  <Button
++                    title={t('Global.Redirect')}
++                    accessibilityLabel={t('Global.Redirect')}
++                    testID={testIdWithKey('redirectDeeplink')}
++                    onPress={() => {
++                      Linking.openURL(redirect)
++                      onDoneTouched()
++                    }}
++                    buttonType={ButtonType.ModalPrimary}
++                  />
++                </View>
++              )}
+               <Button
+                 title={t('Global.Done')}
+                 accessibilityLabel={t('Global.Done')}
+                 testID={testIdWithKey('Done')}
+                 onPress={onDoneTouched}
+-                buttonType={ButtonType.ModalPrimary}
++                buttonType={redirect ? ButtonType.ModalSecondary: ButtonType.ModalPrimary}
+               />
+             </View>
+           )}
 diff --git a/App/screens/Home.tsx b/App/screens/Home.tsx
-index 78cd401bd6b0e8e07d5d266274b0229403827462..fd2bbddef5191a7748f77adcbe6318a9bb4e04a6 100644
+index 78cd401bd6b0e8e07d5d266274b0229403827462..5903153eb77654e9326d63ad497ff5c7c0057ca1 100644
 --- a/App/screens/Home.tsx
 +++ b/App/screens/Home.tsx
-@@ -40,6 +40,8 @@ const Home: React.FC<HomeProps> = () => {
+@@ -39,6 +39,7 @@ const Home: React.FC<HomeProps> = () => {
+   const { start, stop } = useTour()
    const [showTourPopup, setShowTourPopup] = useState(false)
    const screenIsFocused = useIsFocused()
- 
 +  const [notificationItemId, setNotificationItemId] = useState<string | null>(null)
-+
+ 
    const styles = StyleSheet.create({
      flatlist: {
-       marginBottom: 35,
-@@ -50,27 +52,49 @@ const Home: React.FC<HomeProps> = () => {
+@@ -50,27 +51,49 @@ const Home: React.FC<HomeProps> = () => {
      (item: any): React.ReactNode => {
        let component: React.ReactNode
        if (item.type === 'BasicMessageRecord') {
@@ -87,27 +209,97 @@ index 78cd401bd6b0e8e07d5d266274b0229403827462..fd2bbddef5191a7748f77adcbe6318a9
    )
  
    useEffect(() => {
-diff --git a/App/utils/helpers.ts b/App/utils/helpers.ts
-index e190a9a6577209a1c54e0b9d0a91e9eddad58d81..b075459acd78689976fe5c60755766790ad649f0 100644
---- a/App/utils/helpers.ts
-+++ b/App/utils/helpers.ts
-@@ -56,7 +56,7 @@ import {
-   getDescriptorMetadata,
- } from './anonCredsProofRequestMapper'
- import { parseCredDefFromId } from './cred-def'
--import { isOpenIdCredentialOffer, isOpenIdPresentationRequest } from './parsers'
-+import { InvitationQrTypes, isOpenIdCredentialOffer, isOpenIdPresentationRequest } from './parsers'
+diff --git a/App/screens/ProofRequest.tsx b/App/screens/ProofRequest.tsx
+index dc8cefab84e9ca8d4aceb5c25b4247b95cfd5d1b..ab1690a5378675d2494c906b4b512a95aa391afc 100644
+--- a/App/screens/ProofRequest.tsx
++++ b/App/screens/ProofRequest.tsx
+@@ -69,6 +69,7 @@ import { BaseTourID } from '../types/tour'
+ type ProofRequestProps = {
+   navigation: any
+   proofId: string
++  redirect?: string
+ }
  
- export { parsedCredDefNameFromCredential } from './cred-def'
+ type CredentialListProps = {
+@@ -78,7 +79,7 @@ type CredentialListProps = {
+   missing: boolean
+ }
  
-@@ -1092,6 +1092,10 @@ export const connectFromScanOrDeepLink = async (
-       return
-     }
- 
-+    if (uri.startsWith(InvitationQrTypes.DIDCOMM) && !(uri.includes('c_i=') || uri.includes('oob=') || uri.includes('oobUrl=') || uri.includes('d_m='))) {
-+      uri = uri.replace(InvitationQrTypes.DIDCOMM, InvitationQrTypes.HTTPS)
+-const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, proofId }) => {
++const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, proofId, redirect }) => {
+   const { agent } = useAppAgent()
+   const { t } = useTranslation()
+   const { assertNetworkConnected } = useNetwork()
+@@ -168,6 +169,16 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, proofId }) => {
+       textDecorationLine: 'underline',
+     },
+   })
++  
++  useEffect(() => {
++    if(redirect && proof && agent) {
++      const redirectMetadata = proof?.metadata.get('redirect')
++      if(!redirectMetadata?.deeplink){
++        proof.metadata.set('redirect', {'deeplink': redirect})
++        agent?.proofs.update(proof)
++      }
 +    }
-+
-     const aUrl = processBetaUrlIfRequired(uri)
-     const receivedInvitation = await connectFromInvitation(aUrl, agent, implicitInvitations, reuseConnection)
++  }, [redirect, proof, agent])
  
+   useEffect(() => {
+     if (!attestationMonitor) {
+diff --git a/App/screens/ProofRequestAccept.tsx b/App/screens/ProofRequestAccept.tsx
+index 140697652c7665dd8b287395389b7f02416285ff..ffb1e35f4541cd2b05d59c68bd127b1793404a4d 100644
+--- a/App/screens/ProofRequestAccept.tsx
++++ b/App/screens/ProofRequestAccept.tsx
+@@ -3,7 +3,7 @@ import { useProofById } from '@credo-ts/react-hooks'
+ import { useNavigation } from '@react-navigation/native'
+ import React, { useEffect, useState } from 'react'
+ import { useTranslation } from 'react-i18next'
+-import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
++import { Linking, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
+ import { SafeAreaView } from 'react-native-safe-area-context'
+ 
+ import Button, { ButtonType } from '../components/buttons/Button'
+@@ -25,6 +25,7 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+   const navigation = useNavigation()
+   const { ColorPallet, TextTheme } = useTheme()
+   const { SendingProof, SentProof } = useAnimatedComponents()
++  const [redirect, setRedirect] = useState<string | undefined>(undefined)
+ 
+   const styles = StyleSheet.create({
+     container: {
+@@ -53,6 +54,13 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+     },
+   })
+ 
++  useEffect(() => {
++    const metadata = proof?.metadata.get('redirect')
++    if (metadata?.deeplink) {
++      setRedirect(metadata.deeplink)
++    }
++  }, [proof])
++
+   if (!proof && !confirmationOnly) {
+     throw new Error('Unable to fetch proof from Credo')
+   }
+@@ -112,6 +120,20 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+ 
+         <View style={styles.controlsContainer}>
+           <View>
++            {redirect && (
++              <View style={{ marginBottom: 20 }}>
++                <Button
++                  title={t('Global.Redirect')}
++                  accessibilityLabel={t('Global.Redirect')}
++                  testID={testIdWithKey('redirectDeeplink')}
++                  onPress={() => {
++                    Linking.openURL(redirect)
++                    onBackToHomeTouched()
++                  }}
++                  buttonType={ButtonType.ModalPrimary}
++                />
++              </View>
++            )}
+             <Button
+               title={t('Loading.BackToHome')}
+               accessibilityLabel={t('Loading.BackToHome')}
