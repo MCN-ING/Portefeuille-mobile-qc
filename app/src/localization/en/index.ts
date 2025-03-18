@@ -65,7 +65,7 @@ const translation = {
     GoToSettings: 'Go to Settings',
     ExternalLink: 'External Link',
     ExternalLinkHint: 'This link will take you to an external site',
-    redirect: 'Return to browser',
+    Redirect: 'Return to browser',
   },
   Language: {
     code_en: 'English',
