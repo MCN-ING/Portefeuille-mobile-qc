@@ -1,15 +1,19 @@
+import { useTheme } from '@hyperledger/aries-bifold-core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, Text, FlatList, StyleSheet, ListRenderItem } from 'react-native'
 
-import CustomCheckBox from './CustomCheckBox'
+import { SelectedFilterType } from '../types/activities'
 
-const CheckBoxList: React.FC<{
-  data: Array<{ id: string; title: string }>
+import CustomCheckBox from './CustomCheckBox'
+interface CheckBoxListProps {
+  data: SelectedFilterType[]
   selectedItems: { [key: string]: boolean }
   handleSelect: (id: string) => void
-}> = ({ data, selectedItems, handleSelect }) => {
+}
+const CheckBoxList: React.FC<CheckBoxListProps> = ({ data, selectedItems, handleSelect }) => {
   const { t } = useTranslation()
+  const { TextTheme } = useTheme()
   const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
@@ -20,17 +24,14 @@ const CheckBoxList: React.FC<{
     title: {
       flex: 1,
       fontSize: 18,
-      color: '#333',
+      color: TextTheme.labelTitle.color,
       paddingLeft: 10,
     },
   })
 
-  const renderItem: ListRenderItem<{ id: string; title: string }> = ({ item }) => (
+  const renderItem: ListRenderItem<SelectedFilterType> = ({ item }) => (
     <View style={styles.row}>
-      <CustomCheckBox
-        selected={selectedItems[item.id] || false} // Vérifie si l'élément est sélectionné
-        setSelected={() => handleSelect(item.id)} // Met à jour l'état dans le parent
-      />
+      <CustomCheckBox selected={selectedItems[item.id] || false} setSelected={() => handleSelect(item.id)} />
       <Text style={styles.title}>{t(item.title)}</Text>
     </View>
   )

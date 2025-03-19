@@ -19,13 +19,7 @@ const DisplayTypeList = ({ resetSelectedValue }: { resetSelectedValue: boolean }
   const inputRef = useRef(null)
   const chevron = isVisible ? <ChevronUp /> : <ChevronDown />
 
-  /*const items = [
-    { id: '1', title: t('Filters.NewestFirst'), content: '...' },
-    { id: '2', title: t('Filters.OldestFirst'), content: '...' },
-    { id: '3', title: t('Filters.ContactAToZ'), content: '...' },
-    { id: '4', title: t('Filters.ContactZToA'), content: '...' },
-  ]*/
-  const items = Filters.DisplayTypeOptions
+  const items = Filters.SortOptions
 
   useEffect(() => {
     setSelectedValue('')
@@ -95,9 +89,9 @@ const DisplayTypeList = ({ resetSelectedValue }: { resetSelectedValue: boolean }
     },
     centeredView: {
       position: 'absolute',
-      top: inputPosition.top - 9,
-      left: 54,
-      right: 54,
+      top: inputPosition.top - 30,
+      left: 28,
+      right: 28,
       justifyContent: 'flex-start',
       zIndex: 2,
     },
@@ -137,7 +131,6 @@ const DisplayTypeList = ({ resetSelectedValue }: { resetSelectedValue: boolean }
         />
         <View>{chevron}</View>
       </TouchableOpacity>
-      {/* Animation de la liste déroulante */}
       <Modal transparent={true} visible={isVisible} onRequestClose={toggleDropdown} accessible={false}>
         <TouchableOpacity
           style={styles.outsideListener}
@@ -147,8 +140,6 @@ const DisplayTypeList = ({ resetSelectedValue }: { resetSelectedValue: boolean }
           accessibilityRole="button"
         />
         <View style={styles.centeredView}>
-          {/* Suppression de l'animation d'opacité */}
-
           <View style={styles.modalView}>
             <View>
               <FlatList

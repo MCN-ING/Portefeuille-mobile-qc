@@ -6,12 +6,24 @@ import {
   HistoryRecord,
   RecordType,
 } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { getDefaultHeaderHeight, Header, HeaderBackButton } from '@react-navigation/elements'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text, ActivityIndicator, RefreshControl } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  SectionList,
+  Text,
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  TextInput,
+  Modal,
+} from 'react-native'
+import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -78,6 +90,7 @@ const HistoryList: React.FC<{
 }> = ({ openSwipeableId, handleOpenSwipeable }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
+  //const navigationActivity = useNavigation<StackNavigationProp<FiltersStackParams>>()
   const { ColorPallet, TextTheme } = useTheme()
   const [historyRecords, setHistoryRecords] = useState<CustomRecord[]>([])
   const [filteredRecords, setFilteredRecords] = useState<CustomRecord[]>([])
@@ -85,6 +98,11 @@ const HistoryList: React.FC<{
   const [selectedHistory, setSelectedHistory] = useState<SelectedHistoryType[] | null>(null)
 
   useMultiSelectActive(selectedHistory)
+
+  const frame = useSafeAreaFrame()
+  const insets = useSafeAreaInsets()
+  const headerHeight = getDefaultHeaderHeight(frame, false, insets.top)
+  const [canSeeFilters, setCanSeeFilters] = useState(false)
 
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
@@ -210,11 +228,30 @@ const HistoryList: React.FC<{
       color: ColorPallet.grayscale.darkGrey,
       fontSize: 16,
     },
+    inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '92%',
+      paddingHorizontal: 10,
+      paddingLeft: 10,
+      backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    },
+    input: {
+      flex: 1,
+      height: 40,
+      ...TextTheme.labelTitle,
+      color: TextTheme.labelTitle.color,
+    },
     headerInputSection: {
       height: 100,
+      width: '100%',
+      alignItems: 'center',
     },
     searchSection: {
       height: '50%',
+      width: '100%',
+      paddingBottom: 20,
     },
     sortSection: {
       height: '50%',
@@ -415,10 +452,25 @@ const HistoryList: React.FC<{
         <View style={styles.searchSection}>
           <SearchTextBox onChange={handleInputChange} />
         </View>
-        <View style={styles.sortSection}>
-          <HistoryFilter />
-        </View>
+        <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
+          <TextInput style={styles.input} value={t('Filters.Title')} editable={false} pointerEvents="none" />
+        </TouchableOpacity>
       </View>
+      <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
+        <Header
+          title={t('Screens.Filters')}
+          headerStyle={{ height: headerHeight }}
+          headerLeft={() => (
+            <HeaderBackButton
+              onPress={() => setCanSeeFilters(false)}
+              tintColor="white"
+              style={{ marginTop: insets.top }}
+              labelVisible={false}
+            />
+          )}
+        />
+        <HistoryFilter />
+      </Modal>
       <SectionList
         style={styles.sectionList}
         sections={sections}

@@ -37,6 +37,7 @@ export enum Screens {
   ProofHistoryDetails = 'ProofHistoryDetails',
   Tours = 'Tours',
   AppUpdateNotification = 'AppUpdateNotification',
+  ActivitiesFilters = 'ActivitiesFilters',
 }
 
 export enum Stacks {
@@ -44,6 +45,7 @@ export enum Stacks {
   HelpCenterStack = 'Help Center Stack',
   AboutStack = 'About Stack',
   ActivitiesStack = 'Activities Stack',
+  FiltersStack = 'Filters Stack',
   HistoryStack = 'History Stack',
   AppUpdateNotificationStack = 'AppUpdateNotification Stack',
 }
@@ -68,6 +70,7 @@ export type RootStackParams = {
   [Stacks.HistoryStack]: NavigatorScreenParams<HistoryStackParams>
   [Stacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
   [Stacks.HelpCenterStack]: NavigatorScreenParams<HelpCenterStackParams>
+  [Stacks.FiltersStack]: NavigatorScreenParams<FiltersStackParams>
   [Stacks.AboutStack]: NavigatorScreenParams<AboutStackParams>
   [BifoldScreens.CredentialDetails]: { credentialId: string }
   [BifoldScreens.OpenIDCredentialDetails]: { credentialId: string }
@@ -128,6 +131,10 @@ export type AboutStackParams = {
 
 export type ActivitiesStackParams = {
   [Screens.Activities]: undefined
+}
+
+export type FiltersStackParams = {
+  [Screens.ActivitiesFilters]: { activeTab: string }
 }
 export type OptionsPlusStackParams = {
   [Screens.OptionsPlus]: undefined

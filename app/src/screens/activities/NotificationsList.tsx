@@ -1,17 +1,19 @@
 import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text } from 'react-native'
+import { View, StyleSheet, SectionList, Text, TouchableOpacity, TextInput } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import NotificationFilter from '../../components/NotificationFilter'
 import NotificationListItem from '../../components/NotificationListItem'
 import SearchTextBox from '../../components/SearchTextBox'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../../hooks/notifications'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
+import { RootStackParams, Screens, Stacks } from '../../navigators/navigators'
 import { BCDispatchAction, BCState, ActivityState } from '../../store'
 import { SelectedNotificationType } from '../../types/activities'
 import { NotificationTypeEnum } from '../../types/notification-list-item'
@@ -69,6 +71,7 @@ const NotificationsList: React.FC<{
   const [{ customNotificationConfig: customNotification, useNotifications }] = useServices([TOKENS.NOTIFICATIONS])
   const notifications = useNotifications({ isHome } as NotificationsInputProps)
   const [store, dispatch] = useStore<BCState>()
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
 
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
@@ -214,11 +217,30 @@ const NotificationsList: React.FC<{
       zIndex: 99,
       backgroundColor: ColorPallet.brand.primaryBackground,
     },
+    inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '92%',
+      paddingHorizontal: 10,
+      paddingLeft: 10,
+      backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    },
+    input: {
+      flex: 1,
+      height: 40,
+      ...TextTheme.labelTitle,
+      color: TextTheme.labelTitle.color,
+    },
     headerInputSection: {
       height: 100,
+      width: '100%',
+      alignItems: 'center',
     },
     searchSection: {
       height: '50%',
+      width: '100%',
+      paddingBottom: 20,
     },
     sortSection: {
       height: '50%',
@@ -371,9 +393,17 @@ const NotificationsList: React.FC<{
         <View style={styles.searchSection}>
           <SearchTextBox onChange={handleInputChange} />
         </View>
-        <View style={styles.sortSection}>
-          <NotificationFilter />
-        </View>
+        <TouchableOpacity
+          style={styles.inputContainer}
+          onPress={() =>
+            navigation.navigate(Stacks.FiltersStack, {
+              screen: Screens.ActivitiesFilters,
+              params: { activeTab: 'Notification' },
+            })
+          }
+        >
+          <TextInput style={styles.input} value={t('Filters.Title')} editable={false} pointerEvents="none" />
+        </TouchableOpacity>
       </View>
       <SectionList
         style={styles.sectionList}
