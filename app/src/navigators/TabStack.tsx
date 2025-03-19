@@ -7,7 +7,6 @@ import {
   EventTypes,
   HomeStack,
   TOKENS,
-  connectFromScanOrDeepLink,
   testIdWithKey,
   useActivity,
   useServices,
@@ -37,6 +36,7 @@ import PlusTabIcon from '../assets/img/icons/plus.svg'
 import { BCWalletEventTypes } from '../events/eventTypes'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../hooks/notifications'
 import { BCDispatchAction, BCState, ActivityState } from '../store'
+import { connectFromScanOrDeepLink } from '../utils/helper'
 import { notificationsSeenOnHome } from '../utils/notificationsSeenOnHome'
 
 import ActivitiesStack from './ActivitiesStack'
@@ -135,15 +135,21 @@ const TabStack: React.FC = () => {
         }
       */
 
+      const deeplinkParts = deepLink.split('redirect=')
+      const newDeepLink = deeplinkParts[0]
+      const redirect = deeplinkParts[1]
+
       try {
+        // eslint-disable-next-line
         await connectFromScanOrDeepLink(
-          deepLink,
+          newDeepLink,
           agent,
           logger,
           navigation,
           true, // isDeepLink
           enableImplicitInvitations,
-          enableReuseConnections
+          enableReuseConnections,
+          redirect
         )
       } catch (err: unknown) {
         const error = new BifoldError(

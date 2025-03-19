@@ -33,7 +33,7 @@ import HomeHeader from './src/components/HomeHeader'
 import NotificationListItem from './src/components/NotificationListItem'
 import PINCreateHeader from './src/components/PINCreateHeader'
 import ConnectionAlert from './src/components/modals/ConnectionAlert'
-import { PINValidationRules } from './src/constants'
+import { pinValidationRules } from './src/constants'
 import { useNotifications } from './src/hooks/notifications'
 import OnboardingStack from './src/navigators/OnboardingStack'
 import TermsStack from './src/navigators/TermsStack'
@@ -62,7 +62,7 @@ export interface AppState {
 
 const defaultConfig: BifoldConfig = {
   ...bifoldDefaultConfig,
-  PINSecurity: { rules: PINValidationRules, displayHelper: true },
+  PINSecurity: { rules: pinValidationRules, displayHelper: true },
   enableChat: false,
   enableTours: true,
   supportedLanguages: [Locales.en, Locales.fr],

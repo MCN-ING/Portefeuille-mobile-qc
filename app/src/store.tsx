@@ -13,7 +13,7 @@ import { checkVersion } from 'react-native-check-version'
 import Config from 'react-native-config'
 import { getVersion } from 'react-native-device-info'
 
-export type IASEnvironmentKeys = 'PRODUCTION' | 'INTEGRATION' | 'FORMATION' | 'ACCEPTATION'
+export type IASEnvironmentKeys = 'PRODUCTION' | 'INTEGRATION-QA' | 'DEV-INTEGRATION' | 'FORMATION' | 'ACCEPTATION'
 
 export type IASEnvironmentValue = {
   iasAgentInviteUrl: string
@@ -121,7 +121,12 @@ export const iasEnvironments = {
     iasPortalUrl:
       'https://auth-acceptation.dev.authentification.si.gouv.qc.ca/realms/sqin/protocol/openid-connect/auth?client_id=account-console&redirect_uri=https://auth-acceptation.dev.authentification.si.gouv.qc.ca/gestion-compte&state=a6d71a3a-338d-44c7-8b02-24b9ad04156b&response_mode=fragment&response_type=code&scope=openid&nonce=3eea77b7-2358-49e4-8078-44aff14eed45&code_challenge=J3kdWtd_BP2iyCM3doBtDf9-beSyU1uYEg_0Zl5gHuw&code_challenge_method=S256',
   },
-  INTEGRATION: {
+  'INTEGRATION-QA': {
+    iasAgentInviteUrl: Config.MEDIATOR_URL_DEV ?? '',
+    iasPortalUrl:
+      'https://auth-aq.dev.authentification.si.gouv.qc.ca/realms/sqin/login-actions/authenticate?execution=9acad6a1-bede-4109-b927-61dfb2c1c524&client_id=account-console&tab_id=dTEpLZYMhd0',
+  },
+  'DEV-INTEGRATION': {
     iasAgentInviteUrl: Config.MEDIATOR_URL_DEV ?? '',
     iasPortalUrl:
       'https://auth-dev-integration.dev.authentification.si.gouv.qc.ca/realms/sqin/protocol/openid-connect/auth?client_id=account-console&redirect_uri=https://auth-dev-integration.dev.authentification.si.gouv.qc.ca/gestion-compte&state=a6d71a3a-338d-44c7-8b02-24b9ad04156b&response_mode=fragment&response_type=code&scope=openid&nonce=3eea77b7-2358-49e4-8078-44aff14eed45&code_challenge=J3kdWtd_BP2iyCM3doBtDf9-beSyU1uYEg_0Zl5gHuw&code_challenge_method=S256',
