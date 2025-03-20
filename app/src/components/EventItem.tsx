@@ -2,7 +2,7 @@ import { GenericFn, testIdWithKey, ToastType, useStore, useTheme } from '@hyperl
 import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { Swipeable } from 'react-native-gesture-handler'
 import { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -143,7 +143,8 @@ const EventItem = ({
   }, [openSwipeableId, swipeableRef.current])
 
   const body = (
-    <Pressable
+    <TouchableWithoutFeedback
+      accessibilityRole="button"
       testID={testIdWithKey(`View${event.type}`)}
       onPress={pressAction}
       hitSlop={hitSlop}
@@ -151,16 +152,16 @@ const EventItem = ({
         setSelected?.({ id: event.id, deleteAction: handleDelete })
       }}
     >
-      <View style={[styles.container]} testID={testIdWithKey('NotificationListItem')} accessible={true}>
+      <View style={[styles.container]}>
         {event.image}
         <View style={styles.infoContainer}>
-          <Text style={[styles.headerText]} testID={testIdWithKey('HeaderText')}>
+          <Text style={[styles.headerText]} testID={testIdWithKey(`${event.type}HeaderText`)}>
             {event.title}
           </Text>
-          <Text style={[styles.bodyText]} testID={testIdWithKey('BodyText')}>
+          <Text style={[styles.bodyText]} testID={testIdWithKey(`${event.type}BodyText`)}>
             {event.body}
           </Text>
-          <Text style={styles.bodyEventTime} testID={testIdWithKey('BodyEventTime')}>
+          <Text style={styles.bodyEventTime} testID={testIdWithKey(`${event.type}BodyEventTime`)}>
             {event.eventTime}
           </Text>
         </View>
@@ -168,7 +169,7 @@ const EventItem = ({
           <Assets.svg.iconChevronRight {...arrowIconStyles} />
         </View>
       </View>
-    </Pressable>
+    </TouchableWithoutFeedback>
   )
 
   const rightSwipeAction = () => {
