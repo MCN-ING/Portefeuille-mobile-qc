@@ -241,6 +241,7 @@ const EventItem = ({
       ) : (
         <Swipeable
           ref={swipeableRef}
+          testID={testIdWithKey(`Swipeable`)}
           onSwipeableWillOpen={handleSwipeOpen}
           onSwipeableClose={handleSwipeClose}
           enableTrackpadTwoFingerGesture
