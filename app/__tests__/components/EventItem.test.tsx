@@ -73,7 +73,7 @@ describe('EventItem Component', () => {
         deleteMessage="Activities.NotificationsDeleted"
       />
     )
-    fireEvent(getByTestId(testIdWithKey('NotificationTouchable')), 'onSwipeableWillOpen')
+    fireEvent(getByTestId(testIdWithKey('Swipeable')), 'onSwipeableWillOpen')
     expect(mockOnOpenSwipeable).toHaveBeenCalledTimes(1)
   })
 })
