@@ -1,18 +1,26 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
-import React, { useState } from 'react'
+import { Button, ButtonType, testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native'
 
 import Filters from '../assets/ActivityFilterConfig'
 
 import CheckBoxList from './CheckBoxList'
 import DisplayTypeList from './DisplayTypeList'
 
-const NotificationFilter = () => {
-  const { ColorPallet, TextTheme } = useTheme()
+const NotificationFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean) => void }) => {
+  const { ColorPallet } = useTheme()
   const { t } = useTranslation()
+  const [canSeeButtonApply, setCanSeeButtonApply] = useState<boolean>(false)
+  const [canSeeButtonClose, setCanSeeButtonClose] = useState<boolean>(true)
+  const [canSeeButtonCancel, setCanSeeButtonCancel] = useState<boolean>(false)
+  const [canSeeButtonDelete, setCanSeeButtonDelete] = useState<boolean>(false)
   const [resetSelectedValue, setResetSelectedValue] = useState<boolean>(false)
   const [selectedItems, setSelectedItems] = useState<{ [key: string]: boolean }>({})
+  const [selectedListItem, setSelectedListItem] = useState<{ [key: string]: boolean }>({})
+
+  const isAnyItemSelected = Object.values(selectedItems).includes(true)
+  const isAnyListItemSelected = Object.values(selectedListItem).includes(true)
 
   const items = Filters.NotificationOptions
 
@@ -22,29 +30,31 @@ const NotificationFilter = () => {
       [id]: !prevState[id],
     }))
   }
+  const handleListItemSelect = (item: { title: string }) => {
+    setSelectedListItem({ [item.title]: true }) // Update the selected item
+  }
+
   const handleDeselectAll = () => {
     setSelectedItems({})
+    setSelectedListItem({})
     setResetSelectedValue(!resetSelectedValue)
+    setCanSeeButtonDelete(false)
   }
+  useEffect(() => {
+    if (isAnyItemSelected || isAnyListItemSelected) {
+      setCanSeeButtonApply(true)
+      setCanSeeButtonCancel(true)
+      setCanSeeButtonDelete(true)
+      setCanSeeButtonClose(false)
+    }
+  }, [isAnyItemSelected, isAnyListItemSelected])
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
     },
     innerContainer: {
-      marginVertical: 24,
-    },
-    title: {
-      ...TextTheme.labelTitle,
-      color: TextTheme.labelTitle.color,
-      paddingVertical: 20,
-      padding: 10,
-    },
-    subTitle: {
-      ...TextTheme.labelSubtitle,
-      color: TextTheme.labelTitle.color,
-
-      padding: 10,
+      bottom: 10,
     },
     dropdownItem: {
       padding: 10,
@@ -59,23 +69,80 @@ const NotificationFilter = () => {
     },
     checkBoxList: {
       paddingVertical: 20,
+      paddingHorizontal: 8,
+    },
+    buttonSection: {
+      paddingHorizontal: 16,
+    },
+    button: {
+      paddingBottom: 16,
     },
   })
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <TouchableOpacity style={styles.dropdownItem} onPress={handleDeselectAll}>
-          <Text style={styles.deleteFilter}>{t('Filters.DeleteFilters')}</Text>
-        </TouchableOpacity>
-        <View style={styles.displaySort}>
-          <DisplayTypeList resetSelectedValue={resetSelectedValue} />
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.innerContainer}>
+          <View style={styles.displaySort}>
+            <DisplayTypeList onSelect={handleListItemSelect} resetSelectedValue={resetSelectedValue} />
+          </View>
+          <View style={styles.checkBoxList}>
+            <CheckBoxList data={items} selectedItems={selectedItems} handleSelect={handleSelectItem} />
+          </View>
         </View>
-        <View style={styles.checkBoxList}>
-          <CheckBoxList data={items} selectedItems={selectedItems} handleSelect={handleSelectItem} />
+        <View style={styles.buttonSection}>
+          {canSeeButtonClose && (
+            <View style={styles.button}>
+              <Button
+                buttonType={ButtonType.Primary}
+                testID={testIdWithKey('Close')}
+                accessibilityLabel={t('Filters.ButtonClose')}
+                title={t('Filters.ButtonClose')}
+                onPress={() => {
+                  setCanSeeFilters(false)
+                }}
+              />
+            </View>
+          )}
+          {canSeeButtonDelete && (
+            <View style={styles.button}>
+              <Button
+                buttonType={ButtonType.Secondary}
+                testID={testIdWithKey('Delete')}
+                accessibilityLabel={t('Filters.ButtonDeleteFilters')}
+                title={t('Filters.ButtonDeleteFilters')}
+                onPress={handleDeselectAll}
+              />
+            </View>
+          )}
+          {canSeeButtonApply && (
+            <View style={styles.button}>
+              <Button
+                buttonType={ButtonType.Primary}
+                testID={testIdWithKey('Apply')}
+                accessibilityLabel={t('Filters.ButtonApplyFilters')}
+                title={t('Filters.ButtonApplyFilters')}
+                onPress={() => {
+                  setCanSeeFilters(false)
+                }}
+              />
+            </View>
+          )}
+          {canSeeButtonCancel && (
+            <Button
+              buttonType={ButtonType.Secondary}
+              testID={testIdWithKey('Cancel')}
+              accessibilityLabel={t('Filters.ButtonCancel')}
+              title={t('Filters.ButtonCancel')}
+              onPress={() => {
+                setCanSeeFilters(false)
+                handleDeselectAll
+              }}
+            />
+          )}
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

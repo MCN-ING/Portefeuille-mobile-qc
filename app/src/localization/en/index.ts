@@ -1134,6 +1134,11 @@ const translation = {
     OldestFirst: 'Oldest first',
     ContactAToZ: 'By contact A-Z',
     ContactZToA: 'By contact Z-A',
+    DisplayOrder: 'Display Order',
+    ButtonApplyFilters: 'Apply Filters',
+    ButtonDeleteFilters: 'Delete Filters',
+    ButtonClose: 'Close',
+    ButtonCancel: 'Cancel',
   },
 }
 

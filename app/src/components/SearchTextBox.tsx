@@ -8,6 +8,7 @@ import { TextTheme, ColorPallet } from '../theme'
 const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) => void; onPress?: () => void }) => {
   const [text, setText] = useState('')
   const { t } = useTranslation()
+  const placeHolderTextColor = { ...TextTheme.labelTitle }
 
   const handleTextChange = (inputText: string) => {
     setText(inputText)
@@ -51,6 +52,7 @@ const SearchTextBox = ({ onChange, onPress }: { onChange: (inputText: string) =>
           style={styles.input}
           value={text}
           onChangeText={handleTextChange}
+          placeholderTextColor={placeHolderTextColor.color}
           placeholder={t('Filters.SearchPlaceHolder')}
         />
         <TouchableOpacity onPress={onPress} style={styles.imageButton}>

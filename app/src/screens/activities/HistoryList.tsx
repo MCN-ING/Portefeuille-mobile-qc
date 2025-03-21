@@ -1,12 +1,23 @@
 import { useAgent } from '@credo-ts/react-hooks'
-import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonType,
+  IconButton,
+  ToastType,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+  ButtonLocation,
+} from '@hyperledger/aries-bifold-core'
 import {
   CustomRecord,
   HistoryCardType,
   HistoryRecord,
   RecordType,
 } from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import { getDefaultHeaderHeight, Header, HeaderBackButton } from '@react-navigation/elements'
+import { testIdWithKey } from '@hyperledger/aries-bifold-core/App/utils/testable'
+import { getDefaultHeaderHeight, Header } from '@react-navigation/elements'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
@@ -20,7 +31,6 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
-  TextInput,
   Modal,
 } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -90,7 +100,6 @@ const HistoryList: React.FC<{
 }> = ({ openSwipeableId, handleOpenSwipeable }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
-  //const navigationActivity = useNavigation<StackNavigationProp<FiltersStackParams>>()
   const { ColorPallet, TextTheme } = useTheme()
   const [historyRecords, setHistoryRecords] = useState<CustomRecord[]>([])
   const [filteredRecords, setFilteredRecords] = useState<CustomRecord[]>([])
@@ -233,13 +242,16 @@ const HistoryList: React.FC<{
       justifyContent: 'center',
       alignItems: 'center',
       width: '92%',
-      paddingHorizontal: 10,
-      paddingLeft: 10,
+      top: 1,
+      bottom: 10,
+      height: 40,
       backgroundColor: ColorPallet.grayscale.veryLightGrey,
     },
     input: {
       flex: 1,
       height: 40,
+      paddingVertical: 5,
+      left: 10,
       ...TextTheme.labelTitle,
       color: TextTheme.labelTitle.color,
     },
@@ -453,23 +465,30 @@ const HistoryList: React.FC<{
           <SearchTextBox onChange={handleInputChange} />
         </View>
         <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
-          <TextInput style={styles.input} value={t('Filters.Title')} editable={false} pointerEvents="none" />
+          <Text style={styles.input}>{t('Filters.Title')}</Text>
         </TouchableOpacity>
       </View>
       <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
-        <Header
-          title={t('Screens.Filters')}
-          headerStyle={{ height: headerHeight }}
-          headerLeft={() => (
-            <HeaderBackButton
-              onPress={() => setCanSeeFilters(false)}
-              tintColor="white"
-              style={{ marginTop: insets.top }}
-              labelVisible={false}
-            />
-          )}
-        />
-        <HistoryFilter />
+        <View>
+          <Header
+            title={t('Screens.ActivitiesFilters')}
+            headerTitleStyle={{ marginTop: insets.top, ...TextTheme.headerTitle }}
+            headerTitleAlign={'center'}
+            headerStyle={{ height: headerHeight }}
+            headerRight={() => (
+              <View style={{ marginTop: insets.top }}>
+                <IconButton
+                  buttonLocation={ButtonLocation.Right}
+                  accessibilityLabel={t('Global.Close')}
+                  testID={testIdWithKey('CloseFilters')}
+                  onPress={() => setCanSeeFilters(false)}
+                  icon={'close'}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <HistoryFilter setCanSeeFilters={setCanSeeFilters} />
       </Modal>
       <SectionList
         style={styles.sectionList}
