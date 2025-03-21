@@ -37,7 +37,7 @@ const EventItem = ({
   event,
   openSwipeableId,
   onOpenSwipeable,
-  activateSelection,
+  activateSelection = false,
   setSelected,
   isRead = true,
   isHome,
@@ -143,33 +143,23 @@ const EventItem = ({
   }, [openSwipeableId, swipeableRef.current])
 
   const body = (
-    <TouchableWithoutFeedback
-      accessibilityRole="button"
-      testID={testIdWithKey(`View${event.type}`)}
-      onPress={pressAction}
-      hitSlop={hitSlop}
-      onLongPress={() => {
-        setSelected?.({ id: event.id, deleteAction: handleDelete })
-      }}
-    >
-      <View style={[styles.container]}>
-        {event.image}
-        <View style={styles.infoContainer}>
-          <Text style={[styles.headerText]} testID={testIdWithKey(`${event.type}HeaderText`)}>
-            {event.title}
-          </Text>
-          <Text style={[styles.bodyText]} testID={testIdWithKey(`${event.type}BodyText`)}>
-            {event.body}
-          </Text>
-          <Text style={styles.bodyEventTime} testID={testIdWithKey(`${event.type}BodyEventTime`)}>
-            {event.eventTime}
-          </Text>
-        </View>
-        <View style={styles.arrowContainer}>
-          <Assets.svg.iconChevronRight {...arrowIconStyles} />
-        </View>
+    <View style={[styles.container]}>
+      {event.image}
+      <View style={styles.infoContainer}>
+        <Text style={[styles.headerText]} testID={testIdWithKey(`HeaderText`)}>
+          {event.title}
+        </Text>
+        <Text style={[styles.bodyText]} testID={testIdWithKey(`BodyText`)}>
+          {event.body}
+        </Text>
+        <Text style={styles.bodyEventTime} testID={testIdWithKey(`BodyEventTime`)}>
+          {event.eventTime}
+        </Text>
       </View>
-    </TouchableWithoutFeedback>
+      <View style={styles.arrowContainer}>
+        <Assets.svg.iconChevronRight {...arrowIconStyles} />
+      </View>
+    </View>
   )
 
   const rightSwipeAction = () => {
@@ -234,21 +224,32 @@ const EventItem = ({
       </TouchableOpacity>
     )
   }
-  return activateSelection ? (
-    <>{body}</>
-  ) : (
-    <Swipeable
-      testID={testIdWithKey(`Swipeable`)}
-      ref={swipeableRef}
-      onSwipeableWillOpen={handleSwipeOpen}
-      onSwipeableClose={handleSwipeClose}
-      enableTrackpadTwoFingerGesture
-      friction={2}
-      rightThreshold={40}
-      renderRightActions={rightSwipeAction}
+  return (
+    <TouchableWithoutFeedback
+      accessibilityRole="button"
+      testID={testIdWithKey(`${event.type}Touchable`)}
+      onPress={pressAction}
+      hitSlop={hitSlop}
+      onLongPress={() => {
+        setSelected?.({ id: event.id, deleteAction: handleDelete })
+      }}
     >
-      {body}
-    </Swipeable>
+      {activateSelection ? (
+        body
+      ) : (
+        <Swipeable
+          ref={swipeableRef}
+          onSwipeableWillOpen={handleSwipeOpen}
+          onSwipeableClose={handleSwipeClose}
+          enableTrackpadTwoFingerGesture
+          friction={2}
+          rightThreshold={40}
+          renderRightActions={rightSwipeAction}
+        >
+          {body}
+        </Swipeable>
+      )}
+    </TouchableWithoutFeedback>
   )
 }
 

@@ -45,7 +45,7 @@ describe('EventItem Component', () => {
       />
     )
 
-    fireEvent.press(getByTestId(testIdWithKey('ViewNotification')))
+    fireEvent.press(getByTestId(testIdWithKey('NotificationTouchable')))
     expect(mockAction).toHaveBeenCalled()
   })
 
@@ -60,7 +60,7 @@ describe('EventItem Component', () => {
       />
     )
 
-    fireEvent(getByTestId(testIdWithKey('ViewNotification')), 'onLongPress')
+    fireEvent(getByTestId(testIdWithKey('NotificationTouchable')), 'onLongPress')
     expect(mockSetSelected).toHaveBeenCalledWith({ id: '1', deleteAction: undefined })
   })
 
@@ -73,7 +73,7 @@ describe('EventItem Component', () => {
         deleteMessage="Activities.NotificationsDeleted"
       />
     )
-    fireEvent(getByTestId(testIdWithKey('Swipeable')), 'onSwipeableWillOpen')
-    expect(mockOnOpenSwipeable).toHaveBeenCalled()
+    fireEvent(getByTestId(testIdWithKey('NotificationTouchable')), 'onSwipeableWillOpen')
+    expect(mockOnOpenSwipeable).toHaveBeenCalledTimes(1)
   })
 })
