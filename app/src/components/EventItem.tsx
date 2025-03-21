@@ -2,7 +2,7 @@ import { GenericFn, testIdWithKey, ToastType, useStore, useTheme } from '@hyperl
 import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Swipeable } from 'react-native-gesture-handler'
 import { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -224,8 +224,10 @@ const EventItem = ({
       </TouchableOpacity>
     )
   }
+
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
+      activeOpacity={1}
       accessibilityRole="button"
       testID={testIdWithKey(`${event.type}Touchable`)}
       onPress={pressAction}
@@ -249,7 +251,7 @@ const EventItem = ({
           {body}
         </Swipeable>
       )}
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   )
 }
 
