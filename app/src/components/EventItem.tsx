@@ -238,6 +238,7 @@ const EventItem = ({
     <>{body}</>
   ) : (
     <Swipeable
+      testID={testIdWithKey(`Swipeable`)}
       ref={swipeableRef}
       onSwipeableWillOpen={handleSwipeOpen}
       onSwipeableClose={handleSwipeClose}
