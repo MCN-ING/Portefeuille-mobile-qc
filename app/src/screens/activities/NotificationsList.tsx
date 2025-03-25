@@ -1,12 +1,27 @@
-import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonLocation,
+  ButtonType,
+  IconButton,
+  testIdWithKey,
+  ToastType,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+} from '@hyperledger/aries-bifold-core'
+import { getDefaultHeaderHeight, Header } from '@react-navigation/elements'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text } from 'react-native'
+import { View, StyleSheet, SectionList, Text, Modal, TouchableOpacity } from 'react-native'
+import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import NotificationFilter from '../../components/NotificationFilter'
 import NotificationListItem from '../../components/NotificationListItem'
+import SearchTextBox from '../../components/SearchTextBox'
 import { NotificationReturnType, NotificationsInputProps, NotificationType } from '../../hooks/notifications'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
@@ -68,6 +83,11 @@ const NotificationsList: React.FC<{
   const notifications = useNotifications({ isHome } as NotificationsInputProps)
   const [store, dispatch] = useStore<BCState>()
 
+  const frame = useSafeAreaFrame()
+  const insets = useSafeAreaInsets()
+  const headerHeight = getDefaultHeaderHeight(frame, false, insets.top)
+  const [canSeeFilters, setCanSeeFilters] = useState(false)
+
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
   useToast({ enabled: toastEnabled, options: toastOptions })
@@ -83,6 +103,7 @@ const NotificationsList: React.FC<{
   const { ColorPallet, TextTheme } = useTheme()
 
   const [selectedNotification, setSelectedNotification] = useState<SelectedNotificationType[] | null>(null)
+  const [inputSearchValue, setInputSearchValue] = useState('')
   useMultiSelectActive(selectedNotification)
   const hasCanceledRef = useRef(false)
 
@@ -199,6 +220,24 @@ const NotificationsList: React.FC<{
       ...TextTheme.labelSubtitle,
       color: ColorPallet.grayscale.mediumGrey,
     },
+    inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '92%',
+      top: 1,
+      bottom: 10,
+      height: 40,
+      backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    },
+    input: {
+      flex: 1,
+      height: 40,
+      paddingVertical: 5,
+      left: 10,
+      ...TextTheme.labelTitle,
+      color: TextTheme.labelTitle.color,
+    },
     selectionMultiActionContainer: {
       width: '100%',
       maxHeight: 200,
@@ -210,6 +249,19 @@ const NotificationsList: React.FC<{
       bottom: 0,
       zIndex: 99,
       backgroundColor: ColorPallet.brand.primaryBackground,
+    },
+    headerInputSection: {
+      height: 100,
+      width: '100%',
+      alignItems: 'center',
+    },
+    searchSection: {
+      height: '50%',
+      width: '100%',
+      paddingBottom: 20,
+    },
+    sortSection: {
+      height: '50%',
     },
     actionButtonContainer: {
       margin: 25,
@@ -229,6 +281,7 @@ const NotificationsList: React.FC<{
             notification={item}
             isHome={isHome}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -288,6 +341,7 @@ const NotificationsList: React.FC<{
             isHome={isHome}
             customNotification={customNotification}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -315,6 +369,7 @@ const NotificationsList: React.FC<{
             notification={item}
             isHome={isHome}
             activateSelection={selectedNotification != null}
+            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -346,9 +401,42 @@ const NotificationsList: React.FC<{
       <View style={styles.sectionSeparator} />
     </View>
   )
+  const handleInputChange = (value: string) => {
+    setInputSearchValue(value)
+  }
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerInputSection}>
+        <View style={styles.searchSection}>
+          <SearchTextBox onChange={handleInputChange} />
+        </View>
+        <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
+          <Text style={styles.input}>{t('Filters.Title')}</Text>
+        </TouchableOpacity>
+      </View>
+      <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
+        <View>
+          <Header
+            title={t('Screens.ActivitiesFilters')}
+            headerTitleStyle={{ marginTop: insets.top, ...TextTheme.headerTitle }}
+            headerTitleAlign={'center'}
+            headerStyle={{ height: headerHeight }}
+            headerRight={() => (
+              <View style={{ marginTop: insets.top }}>
+                <IconButton
+                  buttonLocation={ButtonLocation.Right}
+                  accessibilityLabel={t('Global.Close')}
+                  testID={testIdWithKey('CloseFilters')}
+                  onPress={() => setCanSeeFilters(false)}
+                  icon={'close'}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <NotificationFilter setCanSeeFilters={setCanSeeFilters} />
+      </Modal>
       <SectionList
         style={styles.sectionList}
         sections={sections}

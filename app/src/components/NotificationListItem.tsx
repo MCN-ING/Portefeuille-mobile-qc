@@ -52,6 +52,7 @@ interface NotificationListItemProps {
   selected?: boolean
   setSelected?: ({ id, deleteAction }: { id: string; deleteAction?: () => Promise<void> }) => void
   activateSelection?: boolean
+  searchValue?: string
   isHome?: boolean
 }
 
@@ -77,6 +78,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   selected,
   setSelected,
   activateSelection,
+  searchValue,
   isHome = true,
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
@@ -95,7 +97,6 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     body: undefined,
     eventTime: undefined,
   })
-
   const styles = StyleSheet.create({
     icon: {
       width: 24,
@@ -202,20 +203,26 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
       switch (notificationType) {
         case NotificationTypeEnum.BasicMessage:
-          resolve({
-            title: t('Home.NewMessage'),
-            body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
-            eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
-          })
+          // eslint-disable-next-line no-case-declarations
+          const body = theirLabel || ''
+          if (body.includes(searchValue || '')) {
+            resolve({
+              title: t('Home.NewMessage'),
+              body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
+              eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
+            })
+          }
           break
         case NotificationTypeEnum.CredentialOffer: {
           const credentialId = (notification as CredentialExchangeRecord).id
           agent?.credentials.findById(credentialId).then((cred) => {
-            resolve({
-              title: t('CredentialOffer.NewCredentialOffer'),
-              body: theirLabel,
-              eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
-            })
+            if (body.includes(searchValue || '')) {
+              resolve({
+                title: t('CredentialOffer.NewCredentialOffer'),
+                body: theirLabel,
+                eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
+              })
+            }
           })
           break
         }

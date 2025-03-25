@@ -21,6 +21,7 @@ interface Props {
   selected?: boolean
   setSelected?: ({ id }: { id: string }) => void
   activateSelection?: boolean
+  searchValue: string | null
   onDelete: (id: string) => void
   onViewDetails: () => void
 }

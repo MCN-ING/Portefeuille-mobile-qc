@@ -46,12 +46,6 @@ module.exports = {
       },
     ],
     'import/no-cycle': 'error',
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: false,
-      },
-    ],
   },
   globals: {
     require: true,

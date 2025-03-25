@@ -44,6 +44,7 @@ export enum Stacks {
   HelpCenterStack = 'Help Center Stack',
   AboutStack = 'About Stack',
   ActivitiesStack = 'Activities Stack',
+  FiltersStack = 'Filters Stack',
   HistoryStack = 'History Stack',
   AppUpdateNotificationStack = 'AppUpdateNotification Stack',
 }
@@ -129,6 +130,7 @@ export type AboutStackParams = {
 export type ActivitiesStackParams = {
   [Screens.Activities]: undefined
 }
+
 export type OptionsPlusStackParams = {
   [Screens.OptionsPlus]: undefined
 }

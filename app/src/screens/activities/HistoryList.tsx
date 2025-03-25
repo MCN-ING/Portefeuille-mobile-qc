@@ -1,21 +1,45 @@
 import { useAgent } from '@credo-ts/react-hooks'
-import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonType,
+  IconButton,
+  ToastType,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+  ButtonLocation,
+} from '@hyperledger/aries-bifold-core'
 import {
   CustomRecord,
   HistoryCardType,
   HistoryRecord,
   RecordType,
 } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { testIdWithKey } from '@hyperledger/aries-bifold-core/App/utils/testable'
+import { getDefaultHeaderHeight, Header } from '@react-navigation/elements'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text, ActivityIndicator, RefreshControl } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  SectionList,
+  Text,
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  Modal,
+} from 'react-native'
+import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import HistoryFilter from '../../components/HistoryFilter'
 import HistoryListItem from '../../components/HistoryListItem'
+import SearchTextBox from '../../components/SearchTextBox'
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
 import { RootStackParams, Screens, Stacks } from '../../navigators/navigators'
@@ -84,6 +108,11 @@ const HistoryList: React.FC<{
 
   useMultiSelectActive(selectedHistory)
 
+  const frame = useSafeAreaFrame()
+  const insets = useSafeAreaInsets()
+  const headerHeight = getDefaultHeaderHeight(frame, false, insets.top)
+  const [canSeeFilters, setCanSeeFilters] = useState(false)
+
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
   useToast({ enabled: toastEnabled, options: toastOptions })
@@ -94,6 +123,7 @@ const HistoryList: React.FC<{
   const { agent } = useAgent()
   const [loadHistory] = useServices([TOKENS.FN_LOAD_HISTORY])
   const [isLoading, setIsLoading] = useState(true)
+  const [inputSearchValue, setInputSearchValue] = useState('')
 
   useEffect(() => {
     const updatedRecords = historyRecords.filter((record) => {
@@ -207,6 +237,37 @@ const HistoryList: React.FC<{
       color: ColorPallet.grayscale.darkGrey,
       fontSize: 16,
     },
+    inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '92%',
+      top: 1,
+      bottom: 10,
+      height: 40,
+      backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    },
+    input: {
+      flex: 1,
+      height: 40,
+      paddingVertical: 5,
+      left: 10,
+      ...TextTheme.labelTitle,
+      color: TextTheme.labelTitle.color,
+    },
+    headerInputSection: {
+      height: 100,
+      width: '100%',
+      alignItems: 'center',
+    },
+    searchSection: {
+      height: '50%',
+      width: '100%',
+      paddingBottom: 20,
+    },
+    sortSection: {
+      height: '50%',
+    },
   })
 
   const handleViewDetails = async (item: CustomRecord) => {
@@ -288,12 +349,12 @@ const HistoryList: React.FC<{
   const handleDelete = async (id: string) => {
     setFilteredRecords((prevRecords) => prevRecords.filter((record) => record.content.id !== id))
   }
-
   const renderItem = useCallback(
     ({ item }: { item: CustomRecord }) => (
       <View style={styles.historyContainer}>
         <HistoryListItem
           item={item}
+          searchValue={inputSearchValue}
           selected={(selectedHistory?.filter((selected) => selected.id === item?.content.id)?.length ?? 0) > 0}
           setSelected={(item) => {
             if ((selectedHistory?.filter((selected) => selected.id === item.id)?.length ?? 0) > 0) {
@@ -394,9 +455,41 @@ const HistoryList: React.FC<{
       <View style={styles.sectionSeparator} />
     </View>
   )
-
+  const handleInputChange = (value: string) => {
+    setInputSearchValue(value)
+  }
   return (
     <View style={styles.container}>
+      <View style={styles.headerInputSection}>
+        <View style={styles.searchSection}>
+          <SearchTextBox onChange={handleInputChange} />
+        </View>
+        <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
+          <Text style={styles.input}>{t('Filters.Title')}</Text>
+        </TouchableOpacity>
+      </View>
+      <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
+        <View>
+          <Header
+            title={t('Screens.ActivitiesFilters')}
+            headerTitleStyle={{ marginTop: insets.top, ...TextTheme.headerTitle }}
+            headerTitleAlign={'center'}
+            headerStyle={{ height: headerHeight }}
+            headerRight={() => (
+              <View style={{ marginTop: insets.top }}>
+                <IconButton
+                  buttonLocation={ButtonLocation.Right}
+                  accessibilityLabel={t('Global.Close')}
+                  testID={testIdWithKey('CloseFilters')}
+                  onPress={() => setCanSeeFilters(false)}
+                  icon={'close'}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <HistoryFilter setCanSeeFilters={setCanSeeFilters} />
+      </Modal>
       <SectionList
         style={styles.sectionList}
         sections={sections}
