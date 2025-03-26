@@ -8,7 +8,7 @@ env:
 on:
   workflow_dispatch:
   push:
-    branches: [main, acceptation, integration, develop]
+    branches: [main, acceptation/*, integration-qa/*, dev-integration/*, urgence-acceptation/*]
     paths:
       - app/**
       - .yarn/**
@@ -167,11 +167,11 @@ jobs:
           echo "OCA_URL=${OCA_URL}" >>.env
           if [[ "$BRANCH_NAME" == "main" ]]; then
             echo "ENVIRONMENT=PRODUCTION" >>.env
-          elif [[ "$BRANCH_NAME" == "acceptation" ]]; then
+          elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-acceptation/* ]]; then
             echo "ENVIRONMENT=ACCEPTATION" >>.env
-          elif [[ "$BRANCH_NAME" == "integration" ]]; then
+          elif [[ "$BRANCH_NAME" == integration-qa/* ]]; then
             echo "ENVIRONMENT=INTEGRATION-QA" >>.env
-          elif [[ "$BRANCH_NAME" == "develop" ]]; then
+          elif [[ "$BRANCH_NAME" == dev-integration/* ]]; then
             echo "ENVIRONMENT=DEV-INTEGRATION" >>.env
           else
             echo "ENVIRONMENT=${ENVIRONMENT}" >>.env
@@ -219,7 +219,7 @@ jobs:
           ouput_artifact_ref: ios-artifact
 
       - name: Ship to iTunes
-        if: github.ref_name == 'main' || github.ref_name == 'acceptation' || github.ref_name == 'integration' || github.ref_name == 'develop'
+        if: github.ref_name == 'main' || github.ref_name == acceptation/* || github.ref_name == integration-qa/* || github.ref_name == dev-integration/* || github.ref_name == urgence-acceptation/*
         uses: ./.github/workflows/actions/ship-to-itunes
         with:
           app_store_connect_issuer_id: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
@@ -277,11 +277,11 @@ jobs:
           echo "OCA_URL=${OCA_URL}" >>.env
           if [[ "$BRANCH_NAME" == "main" ]]; then
             echo "ENVIRONMENT=PRODUCTION" >>.env
-          elif [[ "$BRANCH_NAME" == "acceptation" ]]; then
+          elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-acceptation/* ]]; then
             echo "ENVIRONMENT=ACCEPTATION" >>.env
-          elif [[ "$BRANCH_NAME" == "integration" ]]; then
+          elif [[ "$BRANCH_NAME" == integration-qa/* ]]; then
             echo "ENVIRONMENT=INTEGRATION-QA" >>.env
-          elif [[ "$BRANCH_NAME" == "develop" ]]; then
+          elif [[ "$BRANCH_NAME" == dev-integration/* ]]; then
             echo "ENVIRONMENT=DEV-INTEGRATION" >>.env
           else
             echo "ENVIRONMENT=${ENVIRONMENT}" >>.env
@@ -338,7 +338,7 @@ jobs:
             app/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload Android artifact
-        if: github.ref_name == 'main' || github.ref_name == 'acceptation' || github.ref_name == 'integration' || github.ref_name == 'develop'
+        if: github.ref_name == 'main' || github.ref_name == acceptation/* || github.ref_name == integration-qa/* || github.ref_name == dev-integration/* || github.ref_name == urgence-acceptation/*
         uses: actions/upload-artifact@v4
         with:
           name: android-artifact
