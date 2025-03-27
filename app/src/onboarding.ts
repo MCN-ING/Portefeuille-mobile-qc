@@ -10,9 +10,6 @@ export const isUpdateCheckComplete = (
   isRequired: boolean,
   dismiss: boolean
 ): OnboardingTask => {
-  console.log('updateAvailable', updateAvailable)
-  console.log('isRequired', isRequired)
-  console.log('dismiss', dismiss)
   return { name: Screens.UpdateAvailable, completed: !updateAvailable || (dismiss && !isRequired) }
 }
 

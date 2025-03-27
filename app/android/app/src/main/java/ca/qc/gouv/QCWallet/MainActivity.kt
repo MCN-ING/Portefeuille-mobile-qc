@@ -45,7 +45,7 @@ class MainActivity : ReactActivity() {
             this,
             mainComponentName,
             // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-            DefaultNewArchitectureEntryPoint.getFabricEnabled()
+            DefaultNewArchitectureEntryPoint.fabricEnabled
         )
     }
 }
