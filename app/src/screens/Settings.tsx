@@ -1,11 +1,19 @@
-import { useTheme, useStore, testIdWithKey, DispatchAction, Button, ButtonType } from '@hyperledger/aries-bifold-core'
+import {
+  useTheme,
+  useStore,
+  testIdWithKey,
+  DispatchAction,
+  Button,
+  ButtonType,
+  SafeAreaModal,
+} from '@hyperledger/aries-bifold-core'
 import { i18n, Locales } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, Modal, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { getBuildNumber, getVersion } from 'react-native-device-info'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import SettingHeader from '../components/settings/SettingHeader'
 import SettingRow from '../components/settings/SettingRow'
@@ -14,6 +22,7 @@ import { BCState } from '../store'
 
 import Developer from './Developer'
 import IASEnvironment from './IASEnvironment'
+import AppUpdateNotification from './AppUpdateNotification'
 
 type SettingsProps = StackScreenProps<SettingStackParams>
 
@@ -23,12 +32,18 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const currentLanguage = i18n.t('Language.code', { context: i18n.language as Locales })
   const developerOptionCount = useRef(0)
   const [environmentModalVisible, setEnvironmentModalVisible] = useState<boolean>(false)
+  const [appUpdateModalVisible, setAppUpdateModalVisible] = useState<boolean>(false)
   const { t } = useTranslation()
+  const insets = useSafeAreaInsets()
 
   const touchCountToEnableBiometrics = 9
 
   const shouldDismissModal = () => {
     setEnvironmentModalVisible(false)
+  }
+
+  const shouldDismissAppUpdateModal = () => {
+    setAppUpdateModalVisible(false)
   }
 
   const incrementDeveloperMenuCounter = () => {
@@ -66,7 +81,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
-      <Modal
+      <SafeAreaModal
         visible={environmentModalVisible}
         transparent={false}
         animationType={'slide'}
@@ -75,7 +90,24 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         }}
       >
         <IASEnvironment shouldDismissModal={shouldDismissModal} />
-      </Modal>
+      </SafeAreaModal>
+      {/* TODO: Ajouter le Header provenant de react-navigation/elements */}
+      <SafeAreaModal
+        visible={appUpdateModalVisible}
+        transparent={false}
+        animationType={'slide'}
+        onRequestClose={() => {
+          return
+        }}
+      >
+        <View style={{ flex: 1, marginTop: insets.top }}>
+          <AppUpdateNotification
+            storeUrl={store.appUpdate.storeUrl}
+            isRequired={store.appUpdate.isRequired}
+            shouldDismissModal={shouldDismissAppUpdateModal}
+          />
+        </View>
+      </SafeAreaModal>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SettingHeader title={t('Settings.Preference')} />
         <SettingRow
@@ -155,12 +187,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
               testID={testIdWithKey('UpdateAvailable')}
               accessibilityLabel={t('AppUpdateNotificationPage.UpdateAvailable')}
               title={t('AppUpdateNotificationPage.UpdateAvailable')}
-              onPress={() =>
-                navigation.getParent()?.navigate(Stacks.AppUpdateNotificationStack, {
-                  screen: Screens.AppUpdateNotification,
-                  params: { isRequired: store.appUpdate.isRequired, storeUrl: store.appUpdate.storeUrl },
-                })
-              }
+              onPress={() => {
+                setAppUpdateModalVisible(true)
+              }}
             />
           </View>
         )}

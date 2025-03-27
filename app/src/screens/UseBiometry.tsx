@@ -53,7 +53,7 @@ const UseBiometry: React.FC = () => {
   const [{ enablePushNotifications }, logger, historyManagerCurried, historyEnabled, historyEventsLogger] = useServices(
     [TOKENS.CONFIG, TOKENS.UTIL_LOGGER, TOKENS.FN_LOAD_HISTORY, TOKENS.HISTORY_ENABLED, TOKENS.HISTORY_EVENTS_LOGGER]
   )
-  const { isBiometricsActive, commitPIN, disableBiometrics } = useAuth()
+  const { isBiometricsActive, commitWalletToKeychain, disableBiometrics } = useAuth()
   const [biometryAvailable, setBiometryAvailable] = useState(false)
   const [biometryEnabled, setBiometryEnabled] = useState(store.preferences.useBiometry)
   const [continueEnabled, setContinueEnabled] = useState(true)
@@ -101,7 +101,7 @@ const UseBiometry: React.FC = () => {
     }
 
     if (biometryEnabled) {
-      commitPIN(biometryEnabled).then(() => {
+      commitWalletToKeychain(biometryEnabled).then(() => {
         dispatch({
           type: DispatchAction.USE_BIOMETRY,
           payload: [biometryEnabled],
@@ -115,7 +115,7 @@ const UseBiometry: React.FC = () => {
         })
       })
     }
-  }, [screenUsage, biometryEnabled, commitPIN, disableBiometrics, dispatch])
+  }, [screenUsage, biometryEnabled, commitWalletToKeychain, disableBiometrics, dispatch])
 
   const logHistoryRecord = useCallback(
     (type: HistoryCardType) => {
@@ -145,7 +145,7 @@ const UseBiometry: React.FC = () => {
   const continueTouched = useCallback(async () => {
     setContinueEnabled(false)
 
-    await commitPIN(biometryEnabled)
+    await commitWalletToKeychain(biometryEnabled)
 
     dispatch({
       type: DispatchAction.USE_BIOMETRY,
@@ -161,25 +161,25 @@ const UseBiometry: React.FC = () => {
     } else {
       dispatch({ type: DispatchAction.DID_COMPLETE_ONBOARDING, payload: [true] })
     }
-  }, [biometryEnabled, commitPIN, dispatch, enablePushNotifications, navigation])
+  }, [biometryEnabled, commitWalletToKeychain, dispatch, enablePushNotifications, navigation])
 
   const onOpenSettingsDismissed = () => {
     setSettingsPopupConfig(null)
   }
 
-  const onOpenSettingsTouched = async () => {
+  const onOpenSettingsTouched = useCallback(async () => {
     await Linking.openSettings()
     onOpenSettingsDismissed()
-  }
+  }, [])
 
-  const onOpenRootSettingsTouch = async () => {
+  const onOpenRootSettingsTouch = useCallback(async () => {
     if (Platform.OS === 'ios') {
       await Linking.openURL('App-Prefs:')
     } else if (Platform.OS === 'android') {
       await Linking.sendIntent('android.settings.SECURITY_SETTINGS')
     }
     onOpenSettingsDismissed()
-  }
+  }, [])
 
   const logBiometryChange = useCallback(
     (enabled: boolean) => {
@@ -192,7 +192,12 @@ const UseBiometry: React.FC = () => {
         logHistoryRecord(type)
       }
     },
-    [store.onboarding.didAgreeToTerms, store.onboarding.didConsiderBiometry]
+    [
+      store.onboarding.didAgreeToTerms,
+      store.onboarding.didConsiderBiometry,
+      historyEventsLogger.logToggleBiometry,
+      logHistoryRecord,
+    ]
   )
 
   const onAuthenticationComplete = useCallback(
@@ -208,12 +213,7 @@ const UseBiometry: React.FC = () => {
       DeviceEventEmitter.emit(EventTypes.BIOMETRY_UPDATE, false)
       setCanSeeCheckPIN(false)
     },
-    [
-      historyEventsLogger.logToggleBiometry,
-      logHistoryRecord,
-      store.onboarding.didAgreeToTerms,
-      store.onboarding.didConsiderBiometry,
-    ]
+    [logBiometryChange]
   )
 
   const onSwitchToggleAllowed = useCallback(
@@ -229,13 +229,7 @@ const UseBiometry: React.FC = () => {
         setBiometryEnabled(newValue)
       }
     },
-    [
-      screenUsage,
-      historyEventsLogger.logToggleBiometry,
-      logHistoryRecord,
-      store.onboarding.didAgreeToTerms,
-      store.onboarding.didConsiderBiometry,
-    ]
+    [screenUsage, onAuthenticationComplete]
   )
 
   const onRequestSystemBiometrics = useCallback(
@@ -314,7 +308,16 @@ const UseBiometry: React.FC = () => {
       default:
         break
     }
-  }, [onSwitchToggleAllowed, onRequestSystemBiometrics, onCheckSystemBiometrics, biometryEnabled, t])
+  }, [
+    onSwitchToggleAllowed,
+    onRequestSystemBiometrics,
+    onCheckSystemBiometrics,
+    biometryAvailable,
+    onOpenSettingsTouched,
+    onOpenRootSettingsTouch,
+    biometryEnabled,
+    t,
+  ])
 
   const showHeader = store.onboarding.didAgreeToTerms && !store.onboarding.didConsiderBiometry
   const inBiometryScreenFromSettings = store.onboarding.didAgreeToTerms && store.onboarding.didConsiderBiometry

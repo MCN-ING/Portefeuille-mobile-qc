@@ -28,10 +28,8 @@ const AddCredentialSlider: React.FC = () => {
   const [addCredentialPressed, setAddCredentialPressed] = useState<boolean>(false)
   const [showGetPersonCredential, setShowGetPersonCredential] = useState<boolean>(false)
 
-  const credentials = [
-    ...useCredentialByState(CredentialState.CredentialReceived),
-    ...useCredentialByState(CredentialState.Done),
-  ]
+  const credentialsReceived = useCredentialByState(CredentialState.CredentialReceived)
+  const credentialsDone = useCredentialByState(CredentialState.Done)
 
   const styles = StyleSheet.create({
     centeredView: {
@@ -93,22 +91,22 @@ const AddCredentialSlider: React.FC = () => {
     deactivateSlider()
     if (!assertNetworkConnected()) return
     navigation.getParent()?.navigate(Stacks.ConnectStack, { screen: Screens.Scan })
-  }, [])
+  }, [deactivateSlider, assertNetworkConnected, navigation])
 
   const goToPersonCredentialScreen = useCallback(() => {
     deactivateSlider()
     navigation.getParent()?.navigate(Stacks.NotificationStack, {
       screen: Screens.CustomNotification,
     })
-  }, [])
+  }, [deactivateSlider, navigation])
 
   useEffect(() => {
-    const credentialDefinitionIDs = credentials.map(
+    const credentialDefinitionIDs = [...credentialsReceived, ...credentialsDone].map(
       (c) => c.metadata.data[AnonCredsCredentialMetadataKey].credentialDefinitionId as string
     )
 
     setShowGetPersonCredential(showPersonCredentialSelector(credentialDefinitionIDs))
-  }, [credentials])
+  }, [credentialsReceived, credentialsDone])
 
   useEffect(() => {
     const handle = DeviceEventEmitter.addListener(BCWalletEventTypes.ADD_CREDENTIAL_PRESSED, (value?: boolean) => {
@@ -119,7 +117,7 @@ const AddCredentialSlider: React.FC = () => {
     return () => {
       handle.remove()
     }
-  }, [])
+  }, [addCredentialPressed])
 
   return (
     <Modal animationType="slide" transparent={true} visible={addCredentialPressed} onRequestClose={deactivateSlider}>

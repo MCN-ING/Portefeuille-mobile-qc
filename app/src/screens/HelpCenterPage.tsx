@@ -1,6 +1,6 @@
 import { useTheme, testIdWithKey, Button, ButtonType } from '@hyperledger/aries-bifold-core'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, ImageSourcePropType, ScrollView, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -63,31 +63,35 @@ const HelpCenterPage: React.FC<HelpCenterProps> = ({ route, navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({ title: sectionTitle })
-  }, [sectionTitle])
+  }, [sectionTitle, navigation])
 
-  const scrollToElementWithAnimation = (title: string) => {
-    const index = content.findIndex((item) => item.title === title)
-    if (index !== -1 && itemRefs.current[index]) {
-      itemRefs.current[index]?.measureLayout(scrollViewRef.current?.getScrollableNode(), (x, y) => {
-        const scrollY = new Animated.Value(0)
+  const scrollToElementWithAnimation = useCallback(
+    (title: string) => {
+      const index = content.findIndex((item) => item.title === title)
+      if (index !== -1 && itemRefs.current[index]) {
+        itemRefs.current[index]?.measureLayout(scrollViewRef.current?.getScrollableNode(), (x, y) => {
+          const scrollY = new Animated.Value(0)
 
-        Animated.timing(scrollY, {
-          toValue: y - 50,
-          duration: 1000,
-          useNativeDriver: false,
-        }).start()
+          Animated.timing(scrollY, {
+            toValue: y - 50,
+            duration: 1000,
+            useNativeDriver: false,
+          }).start()
 
-        scrollY.addListener(({ value }) => {
-          scrollViewRef.current?.scrollTo({ x: 0, y: value, animated: false })
+          scrollY.addListener(({ value }) => {
+            scrollViewRef.current?.scrollTo({ x: 0, y: value, animated: false })
+          })
         })
-      })
-    }
-  }
+      }
+    },
+    [content]
+  )
+
   useEffect(() => {
     if (titleParam) {
       scrollToElementWithAnimation(titleParam)
     }
-  }, [titleParam])
+  }, [titleParam, scrollToElementWithAnimation])
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>

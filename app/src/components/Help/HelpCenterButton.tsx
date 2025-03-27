@@ -1,7 +1,7 @@
 import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
 import { getDefaultHeaderHeight } from '@react-navigation/elements'
 import { useRoute } from '@react-navigation/native'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeviceEventEmitter, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -28,14 +28,17 @@ const HelpCenterButton: React.FC = () => {
       paddingLeft: 4,
     },
   })
-  const paramData = {
-    isActive: true,
-    routeName: route.name,
-    headerHeight: headerHeight,
-  }
+  const paramData = useMemo(
+    () => ({
+      isActive: true,
+      routeName: route.name,
+      headerHeight: headerHeight,
+    }),
+    [route.name, headerHeight]
+  )
   const activateSlider = useCallback(() => {
     DeviceEventEmitter.emit(BCWalletEventTypes.ADD_HELP_PRESSED, paramData)
-  }, [])
+  }, [paramData])
   return (
     <TouchableOpacity
       onPress={activateSlider}

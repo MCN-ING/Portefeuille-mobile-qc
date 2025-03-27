@@ -192,7 +192,7 @@ const TabStack: React.FC = () => {
     return () => {
       subscription.remove()
     }
-  }, [agent, notifications])
+  }, [agent, notifications, dispatch])
 
   useEffect(() => {
     const notificationsToAdd = {} as ActivityState
@@ -217,7 +217,7 @@ const TabStack: React.FC = () => {
         payload: [notificationsToAdd],
       })
     }
-  }, [notifications])
+  }, [notifications, dispatch, logHistoryRecord, store.activities])
 
   useEffect(() => {
     DeviceEventEmitter.addListener(BCWalletEventTypes.ADD_MULTI_SELECT_PRESSED, (value: boolean) => {

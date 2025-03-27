@@ -97,7 +97,7 @@ const Terms = () => {
         dispatch({ type: DispatchAction.DID_COMPLETE_ONBOARDING, payload: [true] })
       }
     }
-  }, [dispatch, agreedToPreviousTerms, navigation, store.onboarding.postAuthScreens])
+  }, [dispatch, agreedToPreviousTerms, navigation, store.onboarding.postAuthScreens, store.onboarding.didCreatePIN])
 
   const continueButtonHint = checked ? t('Terms.HintEnabled') : t('Terms.HintDisabled')
 

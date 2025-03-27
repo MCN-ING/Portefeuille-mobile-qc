@@ -3,10 +3,12 @@
 exports[`HelpContactUs Component Renders Correctly 1`] = `
 <RNCSafeAreaView
   edges={
-    [
-      "left",
-      "right",
-    ]
+    {
+      "bottom": "off",
+      "left": "additive",
+      "right": "additive",
+      "top": "off",
+    }
   }
   style={
     {

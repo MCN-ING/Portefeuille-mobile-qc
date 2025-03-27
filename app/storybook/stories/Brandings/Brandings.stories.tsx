@@ -152,7 +152,7 @@ const Credentials = ({ items }: CredentialsProps) => {
       setLoaded(true)
     }
     changeFlag()
-  }, [lang])
+  }, [lang, i18n])
   return (
     <>
       {isLoaded && (

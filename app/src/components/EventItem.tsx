@@ -140,7 +140,7 @@ const EventItem = ({
     if (openSwipeableId != event.id) {
       swipeableRef?.current?.close()
     }
-  }, [openSwipeableId, swipeableRef.current])
+  }, [openSwipeableId, event.id])
 
   const body = (
     <TouchableWithoutFeedback
