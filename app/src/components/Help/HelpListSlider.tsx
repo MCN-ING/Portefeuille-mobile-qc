@@ -2,7 +2,7 @@ import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
 import { i18n } from '@hyperledger/aries-bifold-core/App/localization'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeviceEventEmitter, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
@@ -85,16 +85,13 @@ const HelpListSlider: React.FC = () => {
     },
   })
 
-  const paramDataClose = useMemo(
-    () => ({
-      isActive: false,
-    }),
-    []
-  )
+  const paramDataClose = {
+    isActive: false,
+  }
 
-  const deactivateSlider = useCallback(() => {
+  const deactivateSlider = () => {
     DeviceEventEmitter.emit(BCWalletEventTypes.ADD_HELP_PRESSED, paramDataClose)
-  }, [paramDataClose])
+  }
 
   useEffect(() => {
     const handle = DeviceEventEmitter.addListener(BCWalletEventTypes.ADD_HELP_PRESSED, (paramData) => {

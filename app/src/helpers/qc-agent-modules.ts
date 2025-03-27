@@ -85,7 +85,6 @@ export function getQCAgentModules({
     }),
     connections: new ConnectionsModule({
       autoAcceptConnections: true,
-      // C'est quoi ça?
       peerNumAlgoForDidExchangeRequests: 4,
     }),
     credentials: new CredentialsModule({

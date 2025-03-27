@@ -94,10 +94,6 @@ const defaultConfig: BifoldConfig = {
       thresholdPenaltyDuration: 60 * minute,
     },
   },
-  // appUpdateConfig: {
-  //   appleAppStoreUrl: '',
-  //   googlePlayStoreUrl: '',
-  // }
 }
 
 export class AppContainer implements Container {
