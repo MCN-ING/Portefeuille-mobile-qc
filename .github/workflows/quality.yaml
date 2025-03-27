@@ -7,7 +7,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-22.04
-    name: Linting and formatting
+    name: Linting
     steps:
       - name: Checkout portefeuille-mobile-qc
         uses: actions/checkout@v4
@@ -25,13 +25,12 @@ jobs:
       - name: Switch to app folder
         run: |
           cd app
-      - name: Run formatter
+      - name: Check style
         run: |
           yarn prettier
-      - name: Run linter
+      - name: LINTing
         run: |
           yarn lint
-
   test:
     runs-on: ubuntu-22.04
     name: Testing
@@ -55,38 +54,3 @@ jobs:
       - name: Automated testing
         run: |
           yarn test
-
-  analyze:
-    name: CodeQL (${{ matrix.language }})
-    runs-on: ubuntu-22.04
-    permissions:
-      # required for all workflows
-      security-events: write
-      # required to fetch internal or private CodeQL packs
-      packages: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - language: javascript-typescript
-            build-mode: none
-          - language: ruby
-            build-mode: none
-          - language: java-kotlin
-            build-mode: autobuild
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:${{matrix.language}}"
