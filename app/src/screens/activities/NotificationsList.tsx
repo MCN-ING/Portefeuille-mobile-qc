@@ -88,7 +88,7 @@ const NotificationsList: React.FC<{
 
   useEffect(() => {
     setSections(groupNotificationsByDate(notifications as NotificationReturnType, t))
-  }, [notifications])
+  }, [notifications, t])
 
   const removeTempNot = () => {
     const ids = (selectedNotification ?? []).map((s) => s.id)
@@ -337,7 +337,7 @@ const NotificationsList: React.FC<{
 
       return <View style={styles.notificationContainer}>{component}</View>
     },
-    [openSwipeableId, handleOpenSwipeable, selectedNotification]
+    [openSwipeableId, handleOpenSwipeable, selectedNotification, customNotification, styles.notificationContainer]
   )
 
   const renderSectionHeader = ({ section }: { section: SectionType }) => (

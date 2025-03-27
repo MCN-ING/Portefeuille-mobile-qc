@@ -127,21 +127,21 @@ const HistoryList: React.FC<{
       setRefreshing(false)
       setIsLoading(false)
     }
-  }, [agent, loadHistory, store.activities])
+  }, [agent, loadHistory, t])
 
   useFocusEffect(
     useCallback(() => {
       fetchHistory()
-    }, [agent])
+    }, [fetchHistory])
   )
 
   useEffect(() => {
     fetchHistory()
-  }, [agent])
+  }, [agent, fetchHistory])
 
   useEffect(() => {
     setSections(groupHistoryByDate(filteredRecords, t))
-  }, [filteredRecords])
+  }, [filteredRecords, t])
 
   const styles = StyleSheet.create({
     container: {
@@ -209,81 +209,84 @@ const HistoryList: React.FC<{
     },
   })
 
-  const handleViewDetails = async (item: CustomRecord) => {
-    const historyRecord = item.content as HistoryRecord
+  const handleViewDetails = useCallback(
+    async (item: CustomRecord) => {
+      const historyRecord = item.content as HistoryRecord
 
-    if (historyRecord.type === HistoryCardType.Connection) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.ContactHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Added'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.ConnectionRemoved) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.ContactHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Removed'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.InformationSent) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.ProofHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Accepted'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.InformationNotSent) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.ProofHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Declined'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.CardAccepted) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.CardHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Accepted'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.CardExpired) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.CardHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Expired'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.CardDeclined) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.CardHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Declined'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.CardRemoved) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.CardHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Removed'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.CardRevoked) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.CardHistoryDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Revoked'), item },
-      })
-    } else if (historyRecord.type === HistoryCardType.PinChanged) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.PinChangeDetails,
-        params: { recordId: historyRecord.correspondenceId ?? '', item },
-      })
-    } else if (historyRecord.type === HistoryCardType.ActivateBiometry) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.BiometricChangeDetails,
-        params: {
-          recordId: historyRecord.correspondenceId ?? '',
-          operation: t('History.Operations.Activated'),
-          item,
-        },
-      })
-    } else if (historyRecord.type === HistoryCardType.DeactivateBiometry) {
-      navigation.navigate(Stacks.HistoryStack, {
-        screen: Screens.BiometricChangeDetails,
-        params: {
-          recordId: historyRecord.correspondenceId ?? '',
-          operation: t('History.Operations.Deactivated'),
-          item,
-        },
-      })
-    } else {
-      throw new Error(`Unhandled historyRecord.type: ${historyRecord.type}`)
-    }
-  }
+      if (historyRecord.type === HistoryCardType.Connection) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.ContactHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Added'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.ConnectionRemoved) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.ContactHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Removed'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.InformationSent) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.ProofHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Accepted'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.InformationNotSent) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.ProofHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Declined'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.CardAccepted) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.CardHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Accepted'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.CardExpired) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.CardHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Expired'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.CardDeclined) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.CardHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Declined'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.CardRemoved) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.CardHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Removed'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.CardRevoked) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.CardHistoryDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', operation: t('History.Operations.Revoked'), item },
+        })
+      } else if (historyRecord.type === HistoryCardType.PinChanged) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.PinChangeDetails,
+          params: { recordId: historyRecord.correspondenceId ?? '', item },
+        })
+      } else if (historyRecord.type === HistoryCardType.ActivateBiometry) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.BiometricChangeDetails,
+          params: {
+            recordId: historyRecord.correspondenceId ?? '',
+            operation: t('History.Operations.Activated'),
+            item,
+          },
+        })
+      } else if (historyRecord.type === HistoryCardType.DeactivateBiometry) {
+        navigation.navigate(Stacks.HistoryStack, {
+          screen: Screens.BiometricChangeDetails,
+          params: {
+            recordId: historyRecord.correspondenceId ?? '',
+            operation: t('History.Operations.Deactivated'),
+            item,
+          },
+        })
+      } else {
+        throw new Error(`Unhandled historyRecord.type: ${historyRecord.type}`)
+      }
+    },
+    [navigation, t]
+  )
 
   const handleDelete = async (id: string) => {
     setFilteredRecords((prevRecords) => prevRecords.filter((record) => record.content.id !== id))
@@ -310,7 +313,7 @@ const HistoryList: React.FC<{
         />
       </View>
     ),
-    [selectedHistory, openSwipeableId, handleOpenSwipeable]
+    [selectedHistory, openSwipeableId, handleOpenSwipeable, handleViewDetails, styles.historyContainer]
   )
 
   if (isLoading) {

@@ -18,7 +18,7 @@ import {
 } from '@hyperledger/aries-bifold-core/App/types/metadata'
 import { CustomNotificationRecord } from '@hyperledger/aries-bifold-core/App/types/notification'
 import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-verifier'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { attestationCredDefIds } from '../constants'
 import { showPersonCredentialSelector } from '../helpers/BCIDHelper'
@@ -60,7 +60,6 @@ export type NotificationReturnType = Array<NotificationType>
 
 export const useNotifications = ({ isHome = true }: NotificationsInputProps): NotificationReturnType => {
   const { records: basicMessages } = useBasicMessages()
-  const [notifications, setNotifications] = useState<NotificationReturnType>([])
 
   const credsReceived = useCredentialByState(CredentialState.CredentialReceived)
   const credsDone = useCredentialByState(CredentialState.Done)
@@ -72,7 +71,7 @@ export const useNotifications = ({ isHome = true }: NotificationsInputProps): No
   const [store] = useStore<BCState>()
   const [nonAttestationProofs, setNonAttestationProofs] = useState<ProofExchangeRecord[]>([])
 
-  useEffect(() => {
+  const notifications = useMemo(() => {
     // get all unseen messages
     const unseenMessages: BasicMessageRecord[] = basicMessages.filter((msg) => {
       const meta = msg.metadata.get(BasicMessageMetadata.customMetadata) as BasicMessageCustomMetadata
@@ -147,15 +146,16 @@ export const useNotifications = ({ isHome = true }: NotificationsInputProps): No
 
     notif = notif.filter((n) => !store.activities[n.id]?.isTempDeleted)
 
-    setNotifications(isHome ? (notif.splice(0, 5) as never[]) : (notif as never[]))
+    return isHome ? (notif.splice(0, 5) as never[]) : (notif as never[])
   }, [
+    agent?.credentials,
+    isHome,
     offers,
     credsReceived,
     credsDone,
     basicMessages,
     nonAttestationProofs,
-    store.attestationAuthentification.isDismissed,
-    store.attestationAuthentification.isSeenOnHome,
+    store.attestationAuthentification,
     store.activities,
   ])
 
@@ -169,7 +169,7 @@ export const useNotifications = ({ isHome = true }: NotificationsInputProps): No
         }
       })
     ).then((val) => setNonAttestationProofs(val.filter((v) => v.include).map((data) => data.value)))
-  }, [proofsRequested, proofsDone])
+  }, [proofsRequested, proofsDone, agent])
 
   return notifications
 }

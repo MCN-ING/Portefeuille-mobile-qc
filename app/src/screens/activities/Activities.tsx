@@ -34,14 +34,7 @@ const Activities: React.FC = () => {
         payload: [true],
       })
     }
-  }, [
-    enableToursConfig,
-    store.tours.enableTours,
-    store.tours.seenCredentialOfferTour,
-    screenIsFocused,
-    start,
-    dispatch,
-  ])
+  }, [enableToursConfig, store.tours, screenIsFocused, start, dispatch])
 
   const styles = StyleSheet.create({
     container: {

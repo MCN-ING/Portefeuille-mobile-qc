@@ -280,7 +280,7 @@ const translation = {
     EnterPIN: 'Enter PIN',
     DataRetention: 'Data retention',
     RenameContact: 'Edit Contact Name',
-    AppUpdateNotification: 'App Update',
+    UpdateAvailable: 'App Update',
   },
   Error: {
     ReportThisProblem: 'Report this problem',
@@ -958,15 +958,10 @@ const translation = {
   Init: {
     Retry: 'Restart the application',
     Starting: 'Starting...',
-    CheckingAuth: 'Checking authentication...',
     FetchingPreferences: 'Fetching preferences...',
     VerifyingOnboarding: 'Verifying onboarding...',
-    GettingCredentials: 'Getting wallet credentials...',
-    RegisteringTransports: 'Registering transports...',
+    CheckingOCA: 'Checking for OCA updates...',
     InitializingAgent: 'Initializing agent...',
-    CacheWarmup: 'Warming up cache...',
-    ConnectingLedgers: 'Connecting to ledgers...',
-    SettingAgent: 'Setting agent...',
     Finishing: 'Finishing...',
   },
   Feedback: {

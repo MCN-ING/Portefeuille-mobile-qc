@@ -21,7 +21,7 @@ import { startCaseUnicode } from '../../utils/stringUtils'
 
 type ProofHistoryDetailsProp = StackScreenProps<HistoryStackParams, Screens.ProofHistoryDetails>
 
-const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigation }) => {
+const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigation }: ProofHistoryDetailsProp) => {
   const { TextTheme } = useTheme()
   const { t } = useTranslation()
   const { recordId, item, operation } = route.params

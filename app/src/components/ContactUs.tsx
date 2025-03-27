@@ -37,7 +37,7 @@ const ContactUs: React.FC = () => {
       marginTop: 6,
     },
     tel: {
-      ...TextTheme.bold,
+      ...TextTheme.normal,
       color: ColorPallet.brand.link,
       textDecorationLine: 'underline',
     },

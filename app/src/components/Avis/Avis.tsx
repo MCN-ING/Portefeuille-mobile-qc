@@ -31,7 +31,7 @@ export const Avis: React.FC<AvisProps> = ({
   primaryBackgroundColorSameAsSecondary = false,
   onCallToActionLabel,
   onCallToActionPressed,
-}) => {
+}: AvisProps) => {
   const { ColorPallet, TextTheme } = useTheme()
   const { t } = useTranslation()
 

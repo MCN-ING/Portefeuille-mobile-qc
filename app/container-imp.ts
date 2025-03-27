@@ -1,4 +1,3 @@
-import { BaseLogger } from '@credo-ts/core'
 import { IndyVdrPoolConfig } from '@credo-ts/indy-vdr'
 import {
   Container,
@@ -12,6 +11,7 @@ import {
   OnboardingState,
   DispatchAction,
   defaultConfig as bifoldDefaultConfig,
+  BifoldLogger,
 } from '@hyperledger/aries-bifold-core'
 import { minute } from '@hyperledger/aries-bifold-core/App/constants'
 import { Locales } from '@hyperledger/aries-bifold-core/App/localization'
@@ -35,12 +35,10 @@ import PINCreateHeader from './src/components/PINCreateHeader'
 import ConnectionAlert from './src/components/modals/ConnectionAlert'
 import { pinValidationRules } from './src/constants'
 import { useNotifications } from './src/hooks/notifications'
-import OnboardingStack from './src/navigators/OnboardingStack'
 import TermsStack from './src/navigators/TermsStack'
 import { getScreenOptions } from './src/navigators/screen-options'
 import DefaultNotification from './src/screens/DefaultNotification'
 import Developer from './src/screens/Developer'
-import { pages } from './src/screens/OnboardingPages'
 import Splash from './src/screens/Splash'
 import { TermsVersion } from './src/screens/Terms'
 import UseBiometry from './src/screens/UseBiometry'
@@ -55,6 +53,9 @@ import {
   ActivityState,
   AppUpdate,
 } from './src/store'
+import { generateOnboardingWorkflowSteps } from './src/onboarding'
+import AppUpdateNotification from './src/screens/AppUpdateNotification'
+import OnboardingStack from './src/navigators/OnboardingStack'
 
 export interface AppState {
   showSurvey: boolean
@@ -97,9 +98,9 @@ const defaultConfig: BifoldConfig = {
 
 export class AppContainer implements Container {
   private readonly _container: DependencyContainer
-  private readonly log?: BaseLogger
+  private readonly log?: BifoldLogger
 
-  public constructor(bifoldContainer: Container, log?: BaseLogger) {
+  public constructor(bifoldContainer: Container, log?: BifoldLogger) {
     this._container = bifoldContainer.container.createChildContainer()
     this.log = log
   }
@@ -121,8 +122,9 @@ export class AppContainer implements Container {
     // Here you can register any component to override components in core package
     // Example: Replacing button in core with custom button
     this._container.registerInstance(TOKENS.UTIL_LEDGERS, allLedgers)
-    this._container.registerInstance(TOKENS.SCREEN_ONBOARDING_PAGES, pages)
     this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
+    this._container.registerInstance(TOKENS.ONBOARDING, generateOnboardingWorkflowSteps)
+    this._container.registerInstance(TOKENS.SCREEN_UPDATE_AVAILABLE, AppUpdateNotification)
     this._container.registerInstance(TOKENS.OBJECT_SCREEN_CONFIG, defaultScreenOptionsDict)
     this._container.registerInstance(TOKENS.SCREEN_TERMS, { screen: TermsStack, version: TermsVersion })
     this._container.registerInstance(TOKENS.COMPONENT_PIN_CREATE_HEADER, PINCreateHeader)
