@@ -32,7 +32,7 @@ class MainActivity : ReactActivity() {
     }
 
     override fun getMainComponentName(): String {
-        return "PortefeuilleQc"
+        return "IdentiQC"
     }
 
     /**
