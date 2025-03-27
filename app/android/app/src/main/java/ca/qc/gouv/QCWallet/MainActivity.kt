@@ -31,9 +31,7 @@ class MainActivity : ReactActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun getMainComponentName(): String {
-        return "IdentiQC"
-    }
+    override fun getMainComponentName(): String = "PortefeuilleQc"
 
     /**
      * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link
