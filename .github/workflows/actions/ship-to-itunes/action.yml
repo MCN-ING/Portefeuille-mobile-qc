@@ -46,10 +46,10 @@ runs:
       run: |
         if [[ "$BRANCH_NAME" == "main" ]]; then
           BETA_GROUP=""
-        elif [[ "$BRANCH_NAME" == "acceptation" ]]; then
+        elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-accaptation/* ]]; then
           BETA_GROUP="Acceptation"
-        elif [[ "$BRANCH_NAME" == "integration" ]]; then
-          BETA_GROUP="Integration"
+        elif [[ "$BRANCH_NAME" == integration-qa/* ]]; then
+          BETA_GROUP="IntegrationQA"
         else
           BETA_GROUP=""
         fi

@@ -96,12 +96,16 @@ const main = async () => {
     })
 
     let track = 'internal'
+    const acceptation = new RegExp('acceptation/*')
+    const urgence = new RegExp('urgence-acceptation/*')
+    const integration = new RegExp('integration-qa/*')
+
     if (branchName === 'main') {
       track = 'internal' // TODO: set to production
-    } else if (branchName === 'acceptation') {
+    } else if (acceptation.test(branchName) || urgence.test(branchName)) {
       track = 'Acceptation'
-    } else if (branchName === 'integration') {
-      track = 'Integration'
+    } else if (integration.test(branchName)) {
+      track = 'IntegrationQA'
     }
 
     console.log('Updating internal track.')
