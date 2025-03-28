@@ -131,7 +131,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       const error = new BifoldError(t('Error.Title1028'), t('Error.Message1028'), (err as Error)?.message ?? err, 1028)
       DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error)
     }
-  }, [agent, notification])
+  }, [agent, notification, t])
 
   const dismissProofRequest = useCallback(async () => {
     if (agent && notificationType === NotificationTypeEnum.ProofRequest) {
@@ -158,7 +158,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     }
   }, [agent, notification])
 
-  const declineCredentialOffer = async () => {
+  const declineCredentialOffer = useCallback(async () => {
     try {
       const credentialId = (notification as CredentialExchangeRecord).id
       if (agent) {
@@ -168,12 +168,12 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       const error = new BifoldError(t('Error.Title1028'), t('Error.Message1028'), (err as Error)?.message ?? err, 1028)
       DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error)
     }
-  }
+  }, [agent, notification, t])
 
-  const declineCustomNotification = async () => {
+  const declineCustomNotification = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     customNotification?.onCloseAction(dispatch as any)
-  }
+  }, [customNotification, dispatch])
 
   const removeNotification = useCallback(async () => {
     if (
@@ -194,142 +194,157 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     } else if (notificationType === NotificationTypeEnum.Revocation) {
       await dismissRevocation()
     }
-  }, [notificationType, notification])
+  }, [
+    notificationType,
+    notification,
+    declineCredentialOffer,
+    declineCustomNotification,
+    declineProofRequest,
+    dismissBasicMessage,
+    dismissProofRequest,
+    dismissRevocation,
+  ])
 
-  const detailsForNotificationType = async (notificationType: NotificationTypeEnum): Promise<DisplayDetails> => {
-    return new Promise((resolve) => {
-      const theirLabel = getConnectionName(connection, store.preferences.alternateContactNames)
+  const detailsForNotificationType = useCallback(
+    async (notificationType: NotificationTypeEnum): Promise<DisplayDetails> => {
+      return new Promise((resolve) => {
+        const theirLabel = getConnectionName(connection, store.preferences.alternateContactNames)
 
+        switch (notificationType) {
+          case NotificationTypeEnum.BasicMessage:
+            resolve({
+              title: t('Home.NewMessage'),
+              body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
+              eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
+            })
+            break
+          case NotificationTypeEnum.CredentialOffer: {
+            const credentialId = (notification as CredentialExchangeRecord).id
+            agent?.credentials.findById(credentialId).then((cred) => {
+              resolve({
+                title: t('CredentialOffer.NewCredentialOffer'),
+                body: theirLabel,
+                eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
+              })
+            })
+            break
+          }
+          case NotificationTypeEnum.ProofRequest: {
+            const proofId = (notification as ProofExchangeRecord).id
+            agent?.proofs.findById(proofId).then((proof) => {
+              resolve({
+                title: t('ProofRequest.NewProofRequest'),
+                body: theirLabel,
+                eventTime: proof?.createdAt ? formatTime(proof.createdAt, { includeHour: true }) : '',
+              })
+            })
+            break
+          }
+          case NotificationTypeEnum.Revocation: {
+            const credentialId = (notification as CredentialExchangeRecord).id
+            agent?.credentials.findById(credentialId).then((cred) => {
+              const revocationDate = cred?.revocationNotification?.revocationDate
+              resolve({
+                title: t('CredentialDetails.NewRevoked'),
+                body: theirLabel,
+                eventTime: revocationDate ? formatTime(new Date(revocationDate), { includeHour: true }) : '',
+              })
+            })
+            break
+          }
+          case NotificationTypeEnum.Custom:
+            resolve({
+              title: t(customNotification?.title as string),
+              body: t(customNotification?.description as string),
+              eventTime: formatTime(notification.createdAt, { includeHour: true }),
+            })
+            break
+          default:
+            throw new Error('NotificationType was not set correctly.')
+        }
+      })
+    },
+    [connection, t, agent, store.preferences.alternateContactNames, customNotification, notification]
+  )
+
+  const getActionForNotificationType = useCallback(
+    (
+      notification:
+        | BasicMessageRecord
+        | CredentialExchangeRecord
+        | ProofExchangeRecord
+        | CustomNotificationRecord
+        | SdJwtVcRecord
+        | W3cCredentialRecord,
+      notificationType: NotificationTypeEnum
+    ) => {
+      dispatch({
+        type: BCDispatchAction.NOTIFICATIONS_UPDATED,
+        payload: [
+          {
+            [notification.id]: {
+              isRead: true,
+              isTempDeleted: false,
+            },
+          },
+        ],
+      })
       switch (notificationType) {
         case NotificationTypeEnum.BasicMessage:
-          resolve({
-            title: t('Home.NewMessage'),
-            body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
-            eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
+          navigation.getParent()?.navigate(Stacks.ContactStack, {
+            screen: Screens.Chat,
+            params: { connectionId: (notification as BasicMessageRecord).connectionId },
           })
           break
-        case NotificationTypeEnum.CredentialOffer: {
-          const credentialId = (notification as CredentialExchangeRecord).id
-          agent?.credentials.findById(credentialId).then((cred) => {
-            resolve({
-              title: t('CredentialOffer.NewCredentialOffer'),
-              body: theirLabel,
-              eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
+        case NotificationTypeEnum.CredentialOffer:
+          navigation.getParent()?.navigate(Stacks.ConnectionStack, {
+            screen: Screens.Connection,
+            params: { credentialId: notification.id },
+          })
+          break
+        case NotificationTypeEnum.ProofRequest:
+          if (
+            (notification as ProofExchangeRecord).state === ProofState.Done ||
+            (notification as ProofExchangeRecord).state === ProofState.PresentationReceived
+          ) {
+            navigation.getParent()?.navigate(Stacks.ContactStack, {
+              screen: Screens.ProofDetails,
+              params: { recordId: notification.id, isHistory: true },
             })
-          })
-          break
-        }
-        case NotificationTypeEnum.ProofRequest: {
-          const proofId = (notification as ProofExchangeRecord).id
-          agent?.proofs.findById(proofId).then((proof) => {
-            resolve({
-              title: t('ProofRequest.NewProofRequest'),
-              body: theirLabel,
-              eventTime: proof?.createdAt ? formatTime(proof.createdAt, { includeHour: true }) : '',
+          } else {
+            navigation.getParent()?.navigate(Stacks.ConnectionStack, {
+              screen: Screens.Connection,
+              params: { proofId: (notification as ProofExchangeRecord).id },
             })
+          }
+          break
+        case NotificationTypeEnum.Proof:
+          navigation.getParent()?.navigate(Stacks.NotificationStack, {
+            screen: Screens.ProofDetails,
+            params: { recordId: notification.id, isHistory: true },
           })
           break
-        }
-        case NotificationTypeEnum.Revocation: {
-          const credentialId = (notification as CredentialExchangeRecord).id
-          agent?.credentials.findById(credentialId).then((cred) => {
-            const revocationDate = cred?.revocationNotification?.revocationDate
-            resolve({
-              title: t('CredentialDetails.NewRevoked'),
-              body: theirLabel,
-              eventTime: revocationDate ? formatTime(new Date(revocationDate), { includeHour: true }) : '',
-            })
+        case NotificationTypeEnum.Revocation:
+          navigation.getParent()?.navigate(Stacks.NotificationStack, {
+            screen: Screens.CredentialDetails,
+            params: { credentialId: notification.id },
           })
           break
-        }
         case NotificationTypeEnum.Custom:
-          resolve({
-            title: t(customNotification?.title as string),
-            body: t(customNotification?.description as string),
-            eventTime: formatTime(notification.createdAt, { includeHour: true }),
+          navigation.getParent()?.navigate(Stacks.NotificationStack, {
+            screen: Screens.CustomNotification,
           })
           break
         default:
           throw new Error('NotificationType was not set correctly.')
       }
-    })
-  }
-
-  const getActionForNotificationType = (
-    notification:
-      | BasicMessageRecord
-      | CredentialExchangeRecord
-      | ProofExchangeRecord
-      | CustomNotificationRecord
-      | SdJwtVcRecord
-      | W3cCredentialRecord,
-    notificationType: NotificationTypeEnum
-  ) => {
-    dispatch({
-      type: BCDispatchAction.NOTIFICATIONS_UPDATED,
-      payload: [
-        {
-          [notification.id]: {
-            isRead: true,
-            isTempDeleted: false,
-          },
-        },
-      ],
-    })
-    switch (notificationType) {
-      case NotificationTypeEnum.BasicMessage:
-        navigation.getParent()?.navigate(Stacks.ContactStack, {
-          screen: Screens.Chat,
-          params: { connectionId: (notification as BasicMessageRecord).connectionId },
-        })
-        break
-      case NotificationTypeEnum.CredentialOffer:
-        navigation.getParent()?.navigate(Stacks.ConnectionStack, {
-          screen: Screens.Connection,
-          params: { credentialId: notification.id },
-        })
-        break
-      case NotificationTypeEnum.ProofRequest:
-        if (
-          (notification as ProofExchangeRecord).state === ProofState.Done ||
-          (notification as ProofExchangeRecord).state === ProofState.PresentationReceived
-        ) {
-          navigation.getParent()?.navigate(Stacks.ContactStack, {
-            screen: Screens.ProofDetails,
-            params: { recordId: notification.id, isHistory: true },
-          })
-        } else {
-          navigation.getParent()?.navigate(Stacks.ConnectionStack, {
-            screen: Screens.Connection,
-            params: { proofId: (notification as ProofExchangeRecord).id },
-          })
-        }
-        break
-      case NotificationTypeEnum.Proof:
-        navigation.getParent()?.navigate(Stacks.NotificationStack, {
-          screen: Screens.ProofDetails,
-          params: { recordId: notification.id, isHistory: true },
-        })
-        break
-      case NotificationTypeEnum.Revocation:
-        navigation.getParent()?.navigate(Stacks.NotificationStack, {
-          screen: Screens.CredentialDetails,
-          params: { credentialId: notification.id },
-        })
-        break
-      case NotificationTypeEnum.Custom:
-        navigation.getParent()?.navigate(Stacks.NotificationStack, {
-          screen: Screens.CustomNotification,
-        })
-        break
-      default:
-        throw new Error('NotificationType was not set correctly.')
-    }
-  }
+    },
+    [dispatch, navigation]
+  )
 
   const action = useCallback(() => {
     getActionForNotificationType(notification, notificationType)
-  }, [notification, notificationType])
+  }, [notification, notificationType, getActionForNotificationType])
 
   useEffect(() => {
     const detailsPromise = async () => {
@@ -337,7 +352,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       setDetails(details)
     }
     detailsPromise()
-  }, [notificationType, t, connection])
+  }, [notificationType, t, connection, detailsForNotificationType])
 
   const removeCurrentNotification = async () => {
     await removeNotification()

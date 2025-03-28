@@ -36,7 +36,6 @@ export enum Screens {
   ContactHistoryDetails = 'ContactHistoryDetails',
   ProofHistoryDetails = 'ProofHistoryDetails',
   Tours = 'Tours',
-  AppUpdateNotification = 'AppUpdateNotification',
 }
 
 export enum Stacks {
@@ -45,7 +44,6 @@ export enum Stacks {
   AboutStack = 'About Stack',
   ActivitiesStack = 'Activities Stack',
   HistoryStack = 'History Stack',
-  AppUpdateNotificationStack = 'AppUpdateNotification Stack',
 }
 
 export enum TabStacks {
@@ -64,7 +62,6 @@ export type RootStackParams = {
   [BifoldStacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
   [BifoldStacks.ProofRequestsStack]: NavigatorScreenParams<ProofRequestsStackParams>
   [BifoldStacks.NotificationStack]: NavigatorScreenParams<NotificationStackParams>
-  [Stacks.AppUpdateNotificationStack]: NavigatorScreenParams<AppUpdateNotificationParams>
   [Stacks.HistoryStack]: NavigatorScreenParams<HistoryStackParams>
   [Stacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
   [Stacks.HelpCenterStack]: NavigatorScreenParams<HelpCenterStackParams>
@@ -99,10 +96,6 @@ export type HistoryStackParams = {
   [Screens.CardHistoryDetails]: { recordId: string; operation: string; item: CustomRecord }
   [Screens.ContactHistoryDetails]: { recordId: string; operation: string; item: CustomRecord }
   [Screens.ProofHistoryDetails]: { recordId: string; operation: string; item: CustomRecord }
-}
-
-export type AppUpdateNotificationParams = {
-  [Screens.AppUpdateNotification]: { isRequired?: boolean; storeUrl: string }
 }
 
 type ContentType = {

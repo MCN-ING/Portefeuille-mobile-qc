@@ -21,7 +21,7 @@ const ProgressBar = ({ progressPercent, progressBackground, color }: ProgressBar
       duration: 300,
       useNativeDriver: true, // allows for much smoother animation
     }).start()
-  }, [progressPercent])
+  }, [progressPercent, progressBarScale])
 
   const styles = StyleSheet.create({
     progressBarContainer: {

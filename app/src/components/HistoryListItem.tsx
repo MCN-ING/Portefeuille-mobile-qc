@@ -99,7 +99,7 @@ const HistoryListItem: React.FC<Props> = ({
       body: content.correspondenceName ?? '',
       eventTime: content.createdAt ? formatTime(content.createdAt, { includeHour: true }) : '',
     })
-  }, [item])
+  }, [item, content.correspondenceName, content.createdAt, content.type, t])
 
   useEffect(() => {
     if (agent) {

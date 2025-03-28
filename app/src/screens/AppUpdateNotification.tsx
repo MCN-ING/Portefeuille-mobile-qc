@@ -1,36 +1,26 @@
-import {
-  useTheme,
-  Button,
-  ButtonType,
-  testIdWithKey,
-  useStore,
-  Screens as BifoldScreens,
-} from '@hyperledger/aries-bifold-core'
-import { StackScreenProps } from '@react-navigation/stack'
+import { useTheme, Button, ButtonType, testIdWithKey, useStore } from '@hyperledger/aries-bifold-core'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
-import { AppUpdateNotificationParams, Screens } from '../navigators/navigators'
 import { BCDispatchAction, BCState } from '../store'
 
-import { TermsVersion } from './Terms'
+type DefaultProps = {
+  storeUrl: string
+  isRequired?: boolean
+  shouldDismissModal?: () => void
+}
 
-type DefaultProps = StackScreenProps<AppUpdateNotificationParams, Screens.AppUpdateNotification>
-
-const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) => {
-  if (!route?.params) {
-    throw new Error('No route params found')
-  }
-  const { isRequired = false, storeUrl } = route.params
-
+const AppUpdateNotification: React.FC<DefaultProps> = ({
+  isRequired = false,
+  storeUrl,
+  shouldDismissModal,
+}: DefaultProps) => {
   const { TextTheme } = useTheme()
   const { t } = useTranslation()
-  const [store, dispatch] = useStore<BCState>()
-  const agreedToPreviousTerms = store.onboarding.didAgreeToTerms
-  const agreesToCurrentTerms = store.onboarding.didAgreeToTerms === TermsVersion
+  const [, dispatch] = useStore<BCState>()
 
   const styles = StyleSheet.create({
     safeArea: {
@@ -60,19 +50,8 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({ navigation, route }) =>
       type: BCDispatchAction.APP_UPDATE_DISMISS,
       payload: [true],
     })
-
-    if (!agreedToPreviousTerms && !agreesToCurrentTerms) {
-      navigation.getParent()?.navigate(BifoldScreens.Terms)
-    } else if (!store.onboarding.didCreatePIN) {
-      navigation.getParent()?.navigate(BifoldScreens.CreatePIN)
-    } else if (!store.onboarding.didConsiderBiometry) {
-      navigation.getParent()?.navigate(BifoldScreens.UseBiometry)
-    } else if (!store.authentication.didAuthenticate) {
-      navigation.getParent()?.navigate(BifoldScreens.EnterPIN)
-    } else {
-      navigation.goBack()
-    }
-  }, [dispatch, navigation, agreedToPreviousTerms, agreesToCurrentTerms, store.onboarding])
+    shouldDismissModal?.()
+  }, [dispatch, shouldDismissModal])
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['left', 'right', 'bottom']}>

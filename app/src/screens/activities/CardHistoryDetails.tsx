@@ -17,7 +17,7 @@ import { HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/histor
 import { BrandingOverlay } from '@hyperledger/aries-oca'
 import { Attribute, CredentialOverlay } from '@hyperledger/aries-oca/build/legacy'
 import { StackScreenProps } from '@react-navigation/stack'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -33,7 +33,7 @@ import { startCaseUnicode } from '../../utils/stringUtils'
 
 type CardHistorydDetailsProp = StackScreenProps<HistoryStackParams, Screens.CardHistoryDetails>
 
-const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigation }) => {
+const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigation }: CardHistorydDetailsProp) => {
   const { TextTheme } = useTheme()
   const { t, i18n } = useTranslation()
   const { recordId, item, operation } = route.params
@@ -79,17 +79,20 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
     })
   }, [credentialDetails, credentialConnectionLabel, bundleResolver, i18n.language])
 
-  const checkCredentialExists = async (id: string): Promise<void> => {
-    try {
-      const credentialExchangeRecord = await agent?.credentials.getById(id)
-      setCredentialExists(credentialExchangeRecord !== null)
-      setCredentialDetails(credentialExchangeRecord)
-    } catch (error) {
-      setCredentialExists(false)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const checkCredentialExists = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        const credentialExchangeRecord = await agent?.credentials.getById(id)
+        setCredentialExists(credentialExchangeRecord !== null)
+        setCredentialDetails(credentialExchangeRecord)
+      } catch (error) {
+        setCredentialExists(false)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [agent]
+  )
 
   useEffect(() => {
     if (recordId) {
@@ -98,7 +101,7 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
       setCredentialExists(false)
       setIsLoading(false)
     }
-  }, [recordId])
+  }, [recordId, checkCredentialExists])
 
   const operationDate = itemContent?.createdAt
     ? formatTime(itemContent?.createdAt, { includeHour: true })

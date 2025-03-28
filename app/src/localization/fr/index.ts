@@ -796,7 +796,7 @@ const translation = {
     EnterPIN: 'Entrer le NIP',
     DataRetention: 'Conservation des données',
     RenameContact: 'Renommer le contact',
-    AppUpdateNotification: 'Mise à jour',
+    UpdateAvailable: 'Mise à jour',
   },
   OnboardingPages: {
     FirstPageTitle: 'Bienvenue dans le portefeuille numérique du Québec',
@@ -970,15 +970,10 @@ const translation = {
   Init: {
     Retry: "Rédemarrer l'application",
     Starting: 'Débuter...',
-    CheckingAuth: 'Vérification de l’authentification...',
     FetchingPreferences: 'Récupération des préférences...',
     VerifyingOnboarding: "Vérification de l'intégration...",
-    GettingCredentials: 'Récupération des attestations...',
-    RegisteringTransports: 'Enregistrement des transports...',
+    CheckingOCA: "Vérification de l'OCA...",
     InitializingAgent: 'Initialisation de l’agent...',
-    CacheWarmup: 'Récuperation de la mémoire du cache...',
-    ConnectingLedgers: 'Connexion aux fichiers...',
-    SettingAgent: 'Configuration de l’agent...',
     Finishing: 'Finalisation...',
   },
   Feedback: {
