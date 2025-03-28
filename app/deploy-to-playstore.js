@@ -105,7 +105,7 @@ const main = async () => {
     } else if (acceptation.test(branchName) || urgence.test(branchName)) {
       track = 'Acceptation'
     } else if (integration.test(branchName)) {
-      track = 'Integration'
+      track = 'IntegrationQA'
     }
 
     console.log('Updating internal track.')

@@ -49,7 +49,7 @@ runs:
         elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-accaptation/* ]]; then
           BETA_GROUP="Acceptation"
         elif [[ "$BRANCH_NAME" == integration-qa/* ]]; then
-          BETA_GROUP="Integration"
+          BETA_GROUP="IntegrationQA"
         else
           BETA_GROUP=""
         fi
