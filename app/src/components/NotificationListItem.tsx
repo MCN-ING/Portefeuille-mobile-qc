@@ -52,7 +52,7 @@ interface NotificationListItemProps {
   selected?: boolean
   setSelected?: ({ id, deleteAction }: { id: string; deleteAction?: () => Promise<void> }) => void
   activateSelection?: boolean
-  searchValue?: string
+  searchValue: string | null
   isHome?: boolean
 }
 
@@ -86,6 +86,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   const storeNofication = store.activities[notification.id]
   const { t } = useTranslation()
   const { agent } = useAgent()
+  const [searchQuery, setSearchQuery] = useState(searchValue)
   const isNotCustomNotification =
     notification instanceof BasicMessageRecord ||
     notification instanceof CredentialExchangeRecord ||
@@ -103,6 +104,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       height: 24,
     },
   })
+  useEffect(() => {
+    setSearchQuery(searchValue)
+  }, [searchValue])
 
   const getConnectionImage = (connection: ConnectionRecord | undefined, notificationType: NotificationTypeEnum) => {
     if (connection?.imageUrl) return <Image source={{ uri: connection.imageUrl }} style={styles.icon} />
@@ -203,27 +207,23 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
       switch (notificationType) {
         case NotificationTypeEnum.BasicMessage:
-          // eslint-disable-next-line no-case-declarations
-          const body = theirLabel || ''
-          if (body.includes(searchValue || '')) {
-            resolve({
-              title: t('Home.NewMessage'),
-              body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
-              eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
-            })
-          }
+          resolve({
+            title: t('Home.NewMessage'),
+            body: theirLabel ? `${theirLabel} ${t('Home.SentMessage')}` : t('Home.ReceivedMessage'),
+            eventTime: connection?.createdAt ? formatTime(connection.createdAt, { includeHour: true }) : '',
+          })
+
           break
         case NotificationTypeEnum.CredentialOffer: {
           const credentialId = (notification as CredentialExchangeRecord).id
           agent?.credentials.findById(credentialId).then((cred) => {
-            if (body.includes(searchValue || '')) {
-              resolve({
-                title: t('CredentialOffer.NewCredentialOffer'),
-                body: theirLabel,
-                eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
-              })
-            }
+            resolve({
+              title: t('CredentialOffer.NewCredentialOffer'),
+              body: theirLabel,
+              eventTime: cred?.createdAt ? formatTime(cred.createdAt, { includeHour: true }) : '',
+            })
           })
+
           break
         }
         case NotificationTypeEnum.ProofRequest: {
@@ -349,32 +349,63 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   const removeCurrentNotification = async () => {
     await removeNotification()
   }
-
-  return (
-    <EventItem
-      action={action}
-      isRead={!!storeNofication?.isRead}
-      isHome={isHome}
-      handleDelete={removeCurrentNotification}
-      event={{
-        id: notification.id,
-        title: details.title,
-        body: details.body,
-        eventTime: details.eventTime,
-        type: notificationType,
-        image: activateSelection ? (
-          <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: notification.id })} />
-        ) : (
-          getConnectionImage(connection, notificationType)
-        ),
-      }}
-      openSwipeableId={openSwipeableId}
-      onOpenSwipeable={onOpenSwipeable}
-      setSelected={setSelected}
-      activateSelection={activateSelection}
-      deleteMessage={'Activities.NotificationsDeleted'}
-    />
-  )
+  if (
+    details.title?.includes(searchQuery || '') ||
+    details.body?.includes(searchQuery || '') ||
+    (details.eventTime?.includes(searchQuery || '') && !isHome)
+  ) {
+    return (
+      <EventItem
+        action={action}
+        isRead={!!storeNofication?.isRead}
+        isHome={isHome}
+        handleDelete={removeCurrentNotification}
+        event={{
+          id: notification.id,
+          title: details.title,
+          body: details.body,
+          eventTime: details.eventTime,
+          type: notificationType,
+          image: activateSelection ? (
+            <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: notification.id })} />
+          ) : (
+            getConnectionImage(connection, notificationType)
+          ),
+        }}
+        openSwipeableId={openSwipeableId}
+        onOpenSwipeable={onOpenSwipeable}
+        setSelected={setSelected}
+        activateSelection={activateSelection}
+        deleteMessage={'Activities.NotificationsDeleted'}
+      />
+    )
+  } else if (isHome) {
+    return (
+      <EventItem
+        action={action}
+        isRead={!!storeNofication?.isRead}
+        isHome={isHome}
+        handleDelete={removeCurrentNotification}
+        event={{
+          id: notification.id,
+          title: details.title,
+          body: details.body,
+          eventTime: details.eventTime,
+          type: notificationType,
+          image: activateSelection ? (
+            <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: notification.id })} />
+          ) : (
+            getConnectionImage(connection, notificationType)
+          ),
+        }}
+        openSwipeableId={openSwipeableId}
+        onOpenSwipeable={onOpenSwipeable}
+        setSelected={setSelected}
+        activateSelection={activateSelection}
+        deleteMessage={'Activities.NotificationsDeleted'}
+      />
+    )
+  }
 }
 
 export default NotificationListItem

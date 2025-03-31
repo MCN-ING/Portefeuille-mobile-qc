@@ -5,11 +5,30 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import Filters from '../assets/ActivityFilterConfig'
+import { SelectedItemsType } from '../types/activities'
 
 import CheckBoxList from './CheckBoxList'
 import DisplayTypeList from './DisplayTypeList'
 
-const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean) => void }) => {
+const HistoryFilter = ({
+  setCanSeeFilters,
+  onFilterChange,
+  selectedOptions,
+  selectedSortOrder,
+  selectedCredentialOffer,
+  resetSelections,
+}: {
+  setCanSeeFilters: (value: boolean) => void
+  onFilterChange: (
+    selectedOptions: SelectedItemsType,
+    selectedCredentialOffer: SelectedItemsType,
+    selectedSortOrder: SelectedItemsType
+  ) => void
+  selectedOptions: SelectedItemsType
+  selectedCredentialOffer: SelectedItemsType
+  selectedSortOrder: SelectedItemsType
+  resetSelections: () => void
+}) => {
   const { ColorPallet, TextTheme } = useTheme()
   const { t } = useTranslation()
   const [resetSelectedValue, setResetSelectedValue] = useState<boolean>(false)
@@ -17,54 +36,59 @@ const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean
   const [canSeeButtonClose, setCanSeeButtonClose] = useState<boolean>(true)
   const [canSeeButtonCancel, setCanSeeButtonCancel] = useState<boolean>(false)
   const [canSeeButtonDelete, setCanSeeButtonDelete] = useState<boolean>(false)
-  const [selectedItems, setSelectedItems] = useState<{ [key: string]: boolean }>({})
-  const [selectedSubItems, setSelectedSubItems] = useState<{ [key: string]: boolean }>({})
-  const [selectedListItem, setSelectedListItem] = useState<{ [key: string]: boolean }>({})
 
-  const isAnyItemSelected = Object.values(selectedItems).includes(true)
-  const isAnySubItemSelected = Object.values(selectedSubItems).includes(true)
-  const isAnyListItemSelected = Object.values(selectedListItem).includes(true)
+  const isAnyOptionSelected = Object.values(selectedOptions).includes(true)
+  const isAnyCredentialOfferSelected = Object.values(selectedCredentialOffer).includes(true)
+  const isAnySortOrderSelected = Object.values(selectedSortOrder).includes(true)
 
   const items = Filters.History.HistoryOptions
   const CredentialOfferOptions = Filters.History.CredentialOfferOptions
 
-  const handleSelectItem = (id: string) => {
-    setSelectedItems((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }))
+  const handleSelectOptions = (id: string) => {
+    const updatedOptions = {
+      ...selectedOptions,
+      [id]: !selectedOptions[id],
+    }
+    onFilterChange(updatedOptions, selectedCredentialOffer, selectedSortOrder)
   }
-  const handleSelectSubItem = (title: string) => {
-    setSelectedSubItems((prevState) => ({
-      ...prevState,
-      [title]: !prevState[title],
-    }))
+
+  const handleSelectCredentialOffer = (id: string) => {
+    const updatedCredential = {
+      ...selectedCredentialOffer, // Assurez-vous que selectedCredentialOffer est défini
+      [id]: !selectedCredentialOffer?.[id], // Utilisation de l'opérateur optionnel ici aussi
+    }
+    // Vérifiez que `onFilterChange` attend bien ces 3 paramètres
+    onFilterChange(selectedOptions, updatedCredential, selectedSortOrder) // Transmet les données au parent
   }
-  const handleListItemSelect = (item: { title: string }) => {
-    setSelectedListItem({ [item.title]: true }) // Update the selected item
-  }
+
   const handleDeselectAll = () => {
-    setSelectedItems({})
-    setSelectedSubItems({})
-    setSelectedListItem({})
+    resetSelections()
     setResetSelectedValue(!resetSelectedValue)
     setCanSeeButtonDelete(false)
   }
   useEffect(() => {
-    if (isAnyItemSelected || isAnySubItemSelected || isAnyListItemSelected) {
+    const allOptionsDeselected = !Object.values(selectedOptions).includes(true)
+    const allCredentialDeselected = !Object.values(selectedCredentialOffer).includes(true)
+
+    setCanSeeButtonDelete(!allOptionsDeselected)
+    setCanSeeButtonDelete(!allCredentialDeselected)
+
+    if (isAnyOptionSelected || isAnyCredentialOfferSelected || isAnySortOrderSelected) {
       setCanSeeButtonApply(true)
       setCanSeeButtonCancel(true)
       setCanSeeButtonDelete(true)
       setCanSeeButtonClose(false)
     }
-  }, [isAnyItemSelected, isAnySubItemSelected, isAnyListItemSelected])
+  }, [isAnyOptionSelected, isAnyCredentialOfferSelected, isAnySortOrderSelected])
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
     },
     innerContainer: {
-      bottom: 10,
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     title: {
       ...TextTheme.labelTitle,
@@ -94,11 +118,11 @@ const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean
       left: 8,
     },
     checkBoxList: {
-      paddingBottom: 20,
+      paddingBottom: 10,
     },
     buttonSection: {
       paddingHorizontal: 16,
-      bottom: 20,
+      paddingVertical: 10,
     },
     button: {
       paddingBottom: 16,
@@ -110,7 +134,10 @@ const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean
       <ScrollView>
         <View style={styles.innerContainer}>
           <View style={styles.displaySort}>
-            <DisplayTypeList onSelect={handleListItemSelect} resetSelectedValue={resetSelectedValue} />
+            <DisplayTypeList
+              onSelect={handleSelectCredentialOffer}
+              initialSelectedValue={Object.keys(selectedSortOrder).find((key) => selectedSortOrder[key])}
+            />
           </View>
           <View style={styles.checkBoxContainer}>
             <Text style={styles.title}>{t('Filters.DisplayOrder')}</Text>
@@ -118,12 +145,12 @@ const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean
             <View style={styles.credentialOfferBox}>
               <CheckBoxList
                 data={CredentialOfferOptions}
-                selectedItems={selectedSubItems}
-                handleSelect={handleSelectSubItem}
+                selectedItems={selectedCredentialOffer}
+                handleSelect={handleSelectCredentialOffer}
               />
             </View>
             <View style={styles.checkBoxList}>
-              <CheckBoxList data={items} selectedItems={selectedItems} handleSelect={handleSelectItem} />
+              <CheckBoxList data={items} selectedItems={selectedOptions} handleSelect={handleSelectOptions} />
             </View>
           </View>
         </View>
@@ -161,6 +188,7 @@ const HistoryFilter = ({ setCanSeeFilters }: { setCanSeeFilters: (value: boolean
                 title={t('Filters.ButtonApplyFilters')}
                 onPress={() => {
                   setCanSeeFilters(false)
+                  onFilterChange(selectedOptions, selectedCredentialOffer, selectedSortOrder) // Envoie les données au parent
                 }}
               />
             </View>

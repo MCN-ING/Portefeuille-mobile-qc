@@ -9,7 +9,7 @@ import CustomCheckBox from './CustomCheckBox'
 interface CheckBoxListProps {
   data: SelectedFilterType[]
   selectedItems: { [key: string]: boolean }
-  handleSelect: (id: string) => void
+  handleSelect: (id: string, selected: boolean) => void
 }
 const CheckBoxList: React.FC<CheckBoxListProps> = ({ data, selectedItems, handleSelect }) => {
   const { t } = useTranslation()
@@ -32,7 +32,10 @@ const CheckBoxList: React.FC<CheckBoxListProps> = ({ data, selectedItems, handle
     <View>
       {data.map((item) => (
         <View key={item.id} style={styles.row}>
-          <CustomCheckBox selected={selectedItems[item.id] || false} setSelected={() => handleSelect(item.id)} />
+          <CustomCheckBox
+            selected={selectedItems[item.id] ?? false}
+            setSelected={(selected) => handleSelect(item.id, selected)}
+          />
           <Text style={styles.title}>{t(item.title)}</Text>
         </View>
       ))}

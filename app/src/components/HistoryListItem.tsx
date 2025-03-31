@@ -47,6 +47,7 @@ const HistoryListItem: React.FC<Props> = ({
   selected,
   setSelected,
   activateSelection,
+  searchValue,
   onDelete,
   onViewDetails,
 }) => {
@@ -58,8 +59,13 @@ const HistoryListItem: React.FC<Props> = ({
   const { agent } = useAgent()
   const [loadHistory] = useServices([TOKENS.FN_LOAD_HISTORY])
   const [historyManager, setHistoryManager] = useState<IHistoryManager | null>(null)
+  const [searchQuery, setSearchQuery] = useState(searchValue)
   const content = item.content as HistoryContent
   const { t } = useTranslation()
+
+  useEffect(() => {
+    setSearchQuery(searchValue)
+  }, [searchValue])
 
   useEffect(() => {
     const getTitleByType = (type: HistoryCardType): string => {
@@ -114,29 +120,37 @@ const HistoryListItem: React.FC<Props> = ({
     onDelete(item.content.id ?? '')
   }
 
-  return (
-    <EventItem
-      action={onViewDetails}
-      handleDelete={removeHistoryItem}
-      event={{
-        id: item.content.id ?? '',
-        title: details.title,
-        body: details.body,
-        eventTime: details.eventTime,
-        type: content.type,
-        image: activateSelection ? (
-          <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: item.content.id ?? '' })} />
-        ) : (
-          renderCardIcon(item.content.type as HistoryCardType)
-        ),
-      }}
-      openSwipeableId={openSwipeableId}
-      onOpenSwipeable={onOpenSwipeable}
-      setSelected={setSelected}
-      activateSelection={activateSelection}
-      deleteMessage={'Activities.HistoryDeleted'}
-    />
-  )
+  if (
+    details.title?.includes(searchQuery || '') ||
+    details.body?.includes(searchQuery || '') ||
+    details.eventTime?.includes(searchQuery || '')
+  ) {
+    return (
+      <EventItem
+        action={onViewDetails}
+        handleDelete={removeHistoryItem}
+        event={{
+          id: item.content.id ?? '',
+          title: details.title,
+          body: details.body,
+          eventTime: details.eventTime,
+          type: content.type,
+          image: activateSelection ? (
+            <CustomCheckBox selected={selected} setSelected={() => setSelected?.({ id: item.content.id ?? '' })} />
+          ) : (
+            renderCardIcon(item.content.type as HistoryCardType)
+          ),
+        }}
+        openSwipeableId={openSwipeableId}
+        onOpenSwipeable={onOpenSwipeable}
+        setSelected={setSelected}
+        activateSelection={activateSelection}
+        deleteMessage={'Activities.HistoryDeleted'}
+      />
+    )
+  } else {
+    return null
+  }
 }
 
 export default HistoryListItem

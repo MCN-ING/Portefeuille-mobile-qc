@@ -14,7 +14,7 @@ import { getDefaultHeaderHeight, Header } from '@react-navigation/elements'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text, Modal, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, SectionList, Text, Modal, TouchableOpacity, TextInput } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -26,7 +26,7 @@ import { NotificationReturnType, NotificationsInputProps, NotificationType } fro
 import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
 import { BCDispatchAction, BCState, ActivityState } from '../../store'
-import { SelectedNotificationType } from '../../types/activities'
+import { SelectedNotificationType, SelectedItemsType, ActivityOrderType } from '../../types/activities'
 import { NotificationTypeEnum } from '../../types/notification-list-item'
 
 const isHome = false
@@ -80,13 +80,18 @@ const NotificationsList: React.FC<{
   handleOpenSwipeable: (id: string | null) => void
 }> = ({ openSwipeableId, handleOpenSwipeable }) => {
   const [{ customNotificationConfig: customNotification, useNotifications }] = useServices([TOKENS.NOTIFICATIONS])
-  const notifications = useNotifications({ isHome } as NotificationsInputProps)
+  const allNotifications = useNotifications({ isHome } as NotificationsInputProps)
   const [store, dispatch] = useStore<BCState>()
 
   const frame = useSafeAreaFrame()
   const insets = useSafeAreaInsets()
   const headerHeight = getDefaultHeaderHeight(frame, false, insets.top)
+
+  const [notifications] = useState(allNotifications)
   const [canSeeFilters, setCanSeeFilters] = useState(false)
+  const [inputSearchValue, setInputSearchValue] = useState('')
+  const [selectedOptions, setSelectedOptions] = useState<SelectedItemsType>({})
+  const [selectedSortOrder, setSelectedSortOrder] = useState<ActivityOrderType | undefined>(undefined)
 
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
@@ -103,7 +108,6 @@ const NotificationsList: React.FC<{
   const { ColorPallet, TextTheme } = useTheme()
 
   const [selectedNotification, setSelectedNotification] = useState<SelectedNotificationType[] | null>(null)
-  const [inputSearchValue, setInputSearchValue] = useState('')
   useMultiSelectActive(selectedNotification)
   const hasCanceledRef = useRef(false)
 
@@ -178,6 +182,11 @@ const NotificationsList: React.FC<{
       setToastEnabled(true)
     }
     setSelectedNotification(null)
+  }
+
+  const handleFilterChange = (selectedOptions: SelectedItemsType, selectedSortOrder?: ActivityOrderType) => {
+    setSelectedOptions(selectedOptions)
+    setSelectedSortOrder(selectedSortOrder)
   }
 
   const styles = StyleSheet.create({
@@ -279,9 +288,9 @@ const NotificationsList: React.FC<{
             onOpenSwipeable={handleOpenSwipeable}
             notificationType={NotificationTypeEnum.BasicMessage}
             notification={item}
+            searchValue={inputSearchValue}
             isHome={isHome}
             activateSelection={selectedNotification != null}
-            searchValue={inputSearchValue}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
                 0) > 0
@@ -312,6 +321,7 @@ const NotificationsList: React.FC<{
             notificationType={notificationType}
             notification={item}
             isHome={isHome}
+            searchValue={inputSearchValue}
             activateSelection={selectedNotification != null}
             selected={
               (selectedNotification?.filter((selectedNotification) => selectedNotification.id === item.id)?.length ??
@@ -392,7 +402,7 @@ const NotificationsList: React.FC<{
 
       return <View style={styles.notificationContainer}>{component}</View>
     },
-    [openSwipeableId, handleOpenSwipeable, selectedNotification]
+    [openSwipeableId, handleOpenSwipeable, selectedNotification, inputSearchValue]
   )
 
   const renderSectionHeader = ({ section }: { section: SectionType }) => (
@@ -412,7 +422,7 @@ const NotificationsList: React.FC<{
           <SearchTextBox onChange={handleInputChange} />
         </View>
         <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
-          <Text style={styles.input}>{t('Filters.Title')}</Text>
+          <TextInput style={styles.input} value={t('Filters.Title')} editable={false} pointerEvents="none" />
         </TouchableOpacity>
       </View>
       <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
@@ -435,7 +445,12 @@ const NotificationsList: React.FC<{
             )}
           />
         </View>
-        <NotificationFilter setCanSeeFilters={setCanSeeFilters} />
+        <NotificationFilter
+          setCanSeeFilters={setCanSeeFilters}
+          onFilterChange={handleFilterChange}
+          selectedOptions={selectedOptions}
+          selectedSortOrder={selectedSortOrder}
+        />
       </Modal>
       <SectionList
         style={styles.sectionList}

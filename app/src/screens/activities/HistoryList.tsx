@@ -32,6 +32,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   Modal,
+  TextInput,
 } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
@@ -44,7 +45,7 @@ import { useToast } from '../../hooks/toast'
 import useMultiSelectActive from '../../hooks/useMultiSelectActive'
 import { RootStackParams, Screens, Stacks } from '../../navigators/navigators'
 import { ActivityState, BCDispatchAction, BCState } from '../../store'
-import { SelectedHistoryType } from '../../types/activities'
+import { SelectedHistoryType, SelectedItemsType } from '../../types/activities'
 
 const iconSize = 24
 
@@ -105,6 +106,10 @@ const HistoryList: React.FC<{
   const [filteredRecords, setFilteredRecords] = useState<CustomRecord[]>([])
   const [sections, setSections] = useState<{ title: string; data: CustomRecord[] }[]>([])
   const [selectedHistory, setSelectedHistory] = useState<SelectedHistoryType[] | null>(null)
+
+  const [selectedOptions, setSelectedOptions] = useState<SelectedItemsType>({})
+  const [selectedCredentialOffer, setSelectedCredentialOffer] = useState<SelectedItemsType>({})
+  const [selectedSortOrder, setSelectedSortOrder] = useState<SelectedItemsType>({})
 
   useMultiSelectActive(selectedHistory)
 
@@ -172,6 +177,22 @@ const HistoryList: React.FC<{
   useEffect(() => {
     setSections(groupHistoryByDate(filteredRecords, t))
   }, [filteredRecords])
+
+  const handleFilterChange = (
+    selectedOptions: SelectedItemsType,
+    selectedCredentialOffer: SelectedItemsType,
+    selectedSortOrder: SelectedItemsType
+  ) => {
+    setSelectedOptions(selectedOptions)
+    setSelectedCredentialOffer(selectedCredentialOffer)
+    setSelectedSortOrder(selectedSortOrder)
+  }
+
+  const resetSelections = () => {
+    setSelectedOptions({})
+    setSelectedSortOrder({})
+    setSelectedCredentialOffer({})
+  }
 
   const styles = StyleSheet.create({
     container: {
@@ -371,7 +392,7 @@ const HistoryList: React.FC<{
         />
       </View>
     ),
-    [selectedHistory, openSwipeableId, handleOpenSwipeable]
+    [selectedHistory, openSwipeableId, handleOpenSwipeable, inputSearchValue]
   )
 
   if (isLoading) {
@@ -458,6 +479,7 @@ const HistoryList: React.FC<{
   const handleInputChange = (value: string) => {
     setInputSearchValue(value)
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerInputSection}>
@@ -465,7 +487,7 @@ const HistoryList: React.FC<{
           <SearchTextBox onChange={handleInputChange} />
         </View>
         <TouchableOpacity style={styles.inputContainer} onPress={() => setCanSeeFilters(true)}>
-          <Text style={styles.input}>{t('Filters.Title')}</Text>
+          <TextInput style={styles.input} value={t('Filters.Title')} editable={false} pointerEvents="none" />
         </TouchableOpacity>
       </View>
       <Modal visible={canSeeFilters} transparent={false} animationType={'slide'} presentationStyle="fullScreen">
@@ -488,7 +510,14 @@ const HistoryList: React.FC<{
             )}
           />
         </View>
-        <HistoryFilter setCanSeeFilters={setCanSeeFilters} />
+        <HistoryFilter
+          setCanSeeFilters={setCanSeeFilters}
+          onFilterChange={handleFilterChange}
+          selectedOptions={selectedOptions}
+          selectedCredentialOffer={selectedCredentialOffer}
+          selectedSortOrder={selectedSortOrder}
+          resetSelections={resetSelections}
+        />
       </Modal>
       <SectionList
         style={styles.sectionList}

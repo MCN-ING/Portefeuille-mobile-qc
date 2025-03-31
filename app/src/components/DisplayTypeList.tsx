@@ -1,39 +1,34 @@
 import { useTheme } from '@hyperledger/aries-bifold-core'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Modal } from 'react-native'
 
-import Filters from '../assets/ActivityFilterConfig'
 import ChevronDown from '../assets/img/icons/ChevronDown.svg'
 import ChevronUp from '../assets/img/icons/ChevronUp.svg'
+import { Filters } from '../constants'
+import { ActivityOrderType } from '../types/activities'
 
 const DisplayTypeList = ({
   onSelect,
-  resetSelectedValue,
+  initialSelectedValue = '',
 }: {
-  onSelect: (item: { title: string }) => void
-  resetSelectedValue: boolean
+  onSelect: (item: ActivityOrderType) => void
+  initialSelectedValue?: string
 }) => {
   const { ColorPallet, TextTheme } = useTheme()
   const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState(false)
 
-  const [selectedValue, setSelectedValue] = useState('')
-  const [showDropdown, setShowDropdown] = useState(false)
+  const [selectedValue, setSelectedValue] = useState(initialSelectedValue || '')
   const [inputPosition, setInputPosition] = useState({ top: 0 })
 
   const inputRef = useRef(null)
   const chevron = isVisible ? <ChevronUp /> : <ChevronDown />
 
-  const items = Filters.SortOptions
-
-  useEffect(() => {
-    setSelectedValue('')
-  }, [resetSelectedValue])
+  const items = Filters.SortOptions as { id: ActivityOrderType; title: string }[]
 
   const handleSelect = (item: { title: string }) => {
     setSelectedValue(t(item.title))
-    setShowDropdown(!showDropdown)
   }
 
   const toggleDropdown = () => {
@@ -74,7 +69,6 @@ const DisplayTypeList = ({
     input: {
       flex: 1,
       height: 40,
-      paddingVertical: 5,
       fontSize: 16,
       color: TextTheme.labelTitle.color,
     },
@@ -126,9 +120,15 @@ const DisplayTypeList = ({
     <View style={styles.container}>
       <Text style={styles.titleInput}>{t('Filters.Display')}</Text>
       <TouchableOpacity style={styles.inputContainer} onPress={toggleDropdown} onLayout={handleInputLayout}>
-        <Text ref={inputRef} style={styles.input}>
-          {selectedValue ? selectedValue : t('Filters.DisplayPlaceHolder')}
-        </Text>
+        <TextInput
+          ref={inputRef}
+          style={styles.input}
+          value={selectedValue}
+          placeholder={t('Filters.DisplayPlaceHolder')}
+          placeholderTextColor={TextTheme.labelTitle.color}
+          editable={false}
+          pointerEvents="none"
+        />
         <View>{chevron}</View>
       </TouchableOpacity>
       <Modal transparent={true} visible={isVisible} onRequestClose={toggleDropdown} accessible={false}>
@@ -142,13 +142,13 @@ const DisplayTypeList = ({
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View>
-              {items.map((item) => (
+              {items.map((item: { id: ActivityOrderType; title: string }) => (
                 <TouchableOpacity
                   key={item.id} // Utilisez l'id de chaque élément comme clé unique
                   style={styles.dropdownItem}
                   onPress={() => {
                     handleSelect(item)
-                    onSelect(item)
+                    onSelect(item.id)
                     toggleDropdown()
                   }}
                 >
