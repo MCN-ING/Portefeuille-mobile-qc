@@ -59,18 +59,6 @@ const SettingRow = ({
 
   const innerView = (
     <View style={[styles.section, { paddingVertical: 12 }, style]}>
-      {/* {fontIsGreaterThanCap ? (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View>
-            <ThemedText variant="headingFour" style={[styles.rowTitle, titleStyle, { flexWrap: 'wrap' }]}>
-              {title} {isExternalLink && <ExternalLinkIcon />}
-            </ThemedText>
-
-            {children}
-          </View>
-          {rowIcon}
-        </View>
-      ) : ( */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         {fontIsGreaterThanCap && children ? (
           <View>
@@ -89,10 +77,8 @@ const SettingRow = ({
             {children}
           </>
         )}
-
         {rowIcon}
       </View>
-      {/* )} */}
     </View>
   )
 
