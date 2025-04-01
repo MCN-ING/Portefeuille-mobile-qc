@@ -69,6 +69,7 @@ exports[`BaseToast Component Error renders correctly 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -76,13 +77,15 @@ exports[`BaseToast Component Error renders correctly 1`] = `
                 "fontSize": 18,
                 "fontWeight": "normal",
               },
-              {
-                "fontSize": 14,
-                "fontWeight": "bold",
-              },
-              {
-                "color": "#FFFFFF",
-              },
+              [
+                {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+              ],
             ]
           }
           testID="com.ariesbifold:id/ToastTitle"
@@ -90,6 +93,7 @@ exports[`BaseToast Component Error renders correctly 1`] = `
           Any Error Title
         </Text>
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -246,6 +250,7 @@ exports[`BaseToast Component Info renders correctly 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -253,13 +258,15 @@ exports[`BaseToast Component Info renders correctly 1`] = `
                 "fontSize": 18,
                 "fontWeight": "normal",
               },
-              {
-                "fontSize": 14,
-                "fontWeight": "bold",
-              },
-              {
-                "color": "#FFFFFF",
-              },
+              [
+                {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+              ],
             ]
           }
           testID="com.ariesbifold:id/ToastTitle"
@@ -267,6 +274,7 @@ exports[`BaseToast Component Info renders correctly 1`] = `
           Any Info Title
         </Text>
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -423,6 +431,7 @@ exports[`BaseToast Component Success renders correctly 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -430,13 +439,15 @@ exports[`BaseToast Component Success renders correctly 1`] = `
                 "fontSize": 18,
                 "fontWeight": "normal",
               },
-              {
-                "fontSize": 14,
-                "fontWeight": "bold",
-              },
-              {
-                "color": "#FFFFFF",
-              },
+              [
+                {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+              ],
             ]
           }
           testID="com.ariesbifold:id/ToastTitle"
@@ -444,6 +455,7 @@ exports[`BaseToast Component Success renders correctly 1`] = `
           Any Success Title
         </Text>
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -600,6 +612,7 @@ exports[`BaseToast Component Warn renders correctly 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -607,13 +620,15 @@ exports[`BaseToast Component Warn renders correctly 1`] = `
                 "fontSize": 18,
                 "fontWeight": "normal",
               },
-              {
-                "fontSize": 14,
-                "fontWeight": "bold",
-              },
-              {
-                "color": "#FFFFFF",
-              },
+              [
+                {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+              ],
             ]
           }
           testID="com.ariesbifold:id/ToastTitle"
@@ -621,6 +636,7 @@ exports[`BaseToast Component Warn renders correctly 1`] = `
           Any Warning Title
         </Text>
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {

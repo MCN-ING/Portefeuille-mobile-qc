@@ -1,8 +1,8 @@
-import { GenericFn, testIdWithKey, ToastType, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import { GenericFn, testIdWithKey, ThemedText, ToastType, useStore, useTheme } from '@hyperledger/aries-bifold-core'
 import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Swipeable } from 'react-native-gesture-handler'
 import { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -44,7 +44,7 @@ const EventItem = ({
   deleteMessage,
 }: EventItemProps): React.JSX.Element => {
   const { t } = useTranslation()
-  const { ColorPallet, TextTheme, Assets } = useTheme()
+  const { ColorPallet, Assets } = useTheme()
   const hasCanceledRef = useRef(false)
   const [toastEnabled, setToastEnabled] = useState(false)
   const [toastOptions, setToastOptions] = useState<ToastShowParams>({})
@@ -77,16 +77,13 @@ const EventItem = ({
       justifyContent: 'center',
     },
     headerText: {
-      ...TextTheme.labelTitle,
       flexGrow: 1,
       flex: 1,
     },
     bodyText: {
-      ...TextTheme.labelSubtitle,
       marginVertical: 8,
     },
     bodyEventTime: {
-      ...TextTheme.labelSubtitle,
       color: ColorPallet.grayscale.mediumGrey,
       fontSize: 12,
     },
@@ -146,15 +143,20 @@ const EventItem = ({
     <View style={[styles.container]}>
       {event.image}
       <View style={styles.infoContainer}>
-        <Text style={[styles.headerText]} testID={testIdWithKey(`HeaderText`)}>
+        <ThemedText
+          maxFontSizeMultiplier={1.8}
+          variant="labelTitle"
+          style={styles.headerText}
+          testID={testIdWithKey(`HeaderText`)}
+        >
           {event.title}
-        </Text>
-        <Text style={[styles.bodyText]} testID={testIdWithKey(`BodyText`)}>
+        </ThemedText>
+        <ThemedText variant="labelSubtitle" style={styles.bodyText} testID={testIdWithKey(`BodyText`)}>
           {event.body}
-        </Text>
-        <Text style={styles.bodyEventTime} testID={testIdWithKey(`BodyEventTime`)}>
+        </ThemedText>
+        <ThemedText variant="labelSubtitle" style={styles.bodyEventTime} testID={testIdWithKey(`BodyEventTime`)}>
           {event.eventTime}
-        </Text>
+        </ThemedText>
       </View>
       <View style={styles.arrowContainer}>
         <Assets.svg.iconChevronRight {...arrowIconStyles} />
@@ -217,9 +219,9 @@ const EventItem = ({
             size={20}
             style={styles.rightActionIcon}
           />
-          <Text accessible={isSwipeableOpen} style={styles.rightActionText}>
+          <ThemedText accessible={isSwipeableOpen} style={styles.rightActionText}>
             {t('Notifications.Dismiss')}
-          </Text>
+          </ThemedText>
         </View>
       </TouchableOpacity>
     )

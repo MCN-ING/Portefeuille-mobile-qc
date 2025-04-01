@@ -1,8 +1,16 @@
-import { testIdWithKey, TOKENS, useServices, useStore, useTheme, useTour } from '@hyperledger/aries-bifold-core'
+import {
+  testIdWithKey,
+  ThemedText,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+  useTour,
+} from '@hyperledger/aries-bifold-core'
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { BCDispatchAction, BCState } from '../../store'
 import { QCTourID, QCToursState } from '../../types/tours'
@@ -19,7 +27,7 @@ const Activities: React.FC = () => {
   const [store, dispatch] = useStore<BCState>()
   const { start } = useTour()
   const { t } = useTranslation()
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const [{ enableTours: enableToursConfig }] = useServices([TOKENS.CONFIG])
 
   const screenIsFocused = useIsFocused()
@@ -64,9 +72,6 @@ const Activities: React.FC = () => {
       borderBottomWidth: 4,
       borderBottomColor: ColorPallet.brand.primary,
     },
-    tabText: {
-      ...TextTheme.labelTitle,
-    },
     activeTabText: {
       color: ColorPallet.brand.primary,
     },
@@ -88,9 +93,13 @@ const Activities: React.FC = () => {
           onPress={() => setActiveTab(NotificationTab)}
         >
           <View style={styles.tabContent}>
-            <Text style={[styles.tabText, activeTab === NotificationTab && styles.activeTabText]}>
+            <ThemedText
+              maxFontSizeMultiplier={1.25}
+              variant="labelTitle"
+              style={activeTab === NotificationTab && styles.activeTabText}
+            >
               {t('Screens.Notifications')}
-            </Text>
+            </ThemedText>
           </View>
         </TouchableOpacity>
 
@@ -101,7 +110,13 @@ const Activities: React.FC = () => {
           style={[styles.tab, activeTab === HistoryTab && styles.activeTab]}
           onPress={() => setActiveTab(HistoryTab)}
         >
-          <Text style={[styles.tabText, activeTab === HistoryTab && styles.activeTabText]}>{t('Screens.History')}</Text>
+          <ThemedText
+            maxFontSizeMultiplier={1.25}
+            variant="labelTitle"
+            style={activeTab === HistoryTab && styles.activeTabText}
+          >
+            {t('Screens.History')}
+          </ThemedText>
         </TouchableOpacity>
       </View>
 

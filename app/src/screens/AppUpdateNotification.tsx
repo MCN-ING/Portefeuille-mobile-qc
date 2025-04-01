@@ -1,7 +1,7 @@
-import { useTheme, Button, ButtonType, testIdWithKey, useStore } from '@hyperledger/aries-bifold-core'
+import { Button, ButtonType, testIdWithKey, useStore, ThemedText } from '@hyperledger/aries-bifold-core'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, StyleSheet, Text, View } from 'react-native'
+import { Linking, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
@@ -18,7 +18,6 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({
   storeUrl,
   shouldDismissModal,
 }: DefaultProps) => {
-  const { TextTheme } = useTheme()
   const { t } = useTranslation()
   const [, dispatch] = useStore<BCState>()
 
@@ -36,7 +35,6 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({
       paddingTop: 24,
     },
     description: {
-      ...TextTheme.normal,
       paddingTop: 16,
     },
   })
@@ -61,11 +59,11 @@ const AppUpdateNotification: React.FC<DefaultProps> = ({
             isRequired ? t('AppUpdateNotificationPage.TitleRequired') : t('AppUpdateNotificationPage.TitleAvailable')
           }
         />
-        <Text style={styles.description}>
+        <ThemedText style={styles.description}>
           {isRequired
             ? t('AppUpdateNotificationPage.DescriptionRequired')
             : t('AppUpdateNotificationPage.DescriptionAvailable')}
-        </Text>
+        </ThemedText>
       </View>
       <View style={styles.button}>
         <Button

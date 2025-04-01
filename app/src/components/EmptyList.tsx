@@ -1,7 +1,7 @@
-import { useTheme, testIdWithKey, Button, ButtonType } from '@hyperledger/aries-bifold-core'
+import { useTheme, testIdWithKey, Button, ButtonType, ThemedText } from '@hyperledger/aries-bifold-core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, View, DeviceEventEmitter } from 'react-native'
+import { View, DeviceEventEmitter } from 'react-native'
 
 import EmptyWallet from '../assets/img/emptyWallet.svg'
 import { BCWalletEventTypes } from '../events/eventTypes'
@@ -31,9 +31,9 @@ const EmptyList = ({ message }: EmptyListProps) => {
   return (
     <View style={{ marginTop: 100, height: '100%' }}>
       <EmptyWallet height={200} />
-      <Text style={[ListItems.emptyList, { textAlign: 'center' }]} testID={testIdWithKey('NoneYet')}>
+      <ThemedText style={[ListItems.emptyList, { textAlign: 'center' }]} testID={testIdWithKey('NoneYet')}>
         {message || t('Global.NoneYet!')}
-      </Text>
+      </ThemedText>
       <View style={{ margin: 25 }}>
         <Button
           title={t('Credentials.AddFirstCredential')}

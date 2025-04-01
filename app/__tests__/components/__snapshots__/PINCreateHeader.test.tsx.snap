@@ -15,12 +15,15 @@ exports[`PINCreateHeader Component Renders correctly 1`] = `
     >
       <Text
         accessibilityRole="header"
+        maxFontSizeMultiplier={2}
         style={
           [
             {
               "color": "#FFFFFF",
               "fontSize": 32,
               "fontWeight": "bold",
+            },
+            {
               "lineHeight": 32,
             },
           ]
@@ -40,22 +43,29 @@ exports[`PINCreateHeader Component Renders correctly 1`] = `
     </View>
   </View>
   <Text
+    maxFontSizeMultiplier={2}
     style={
       [
         {
           "color": "#FFFFFF",
           "fontSize": 18,
-          "fontWeight": "bold",
+          "fontWeight": "normal",
         },
-        {
-          "marginBottom": 16,
-        },
+        [
+          {
+            "fontWeight": "bold",
+          },
+          {
+            "marginBottom": 16,
+          },
+        ],
       ]
     }
   >
     PINCreate.RememberChangePIN
   </Text>
   <Text
+    maxFontSizeMultiplier={2}
     style={
       [
         {
@@ -113,13 +123,18 @@ exports[`PINCreateHeader Component Renders correctly 1`] = `
       </Text>
     </View>
     <Text
+      maxFontSizeMultiplier={2}
       style={
-        {
-          "color": "#FFFFFF",
-          "fontSize": 18,
-          "fontWeight": "normal",
-          "textAlign": "left",
-        }
+        [
+          {
+            "color": "#FFFFFF",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          {
+            "textAlign": "left",
+          },
+        ]
       }
     >
       PINCreate.BulletPoint1
@@ -169,13 +184,18 @@ exports[`PINCreateHeader Component Renders correctly 1`] = `
       </Text>
     </View>
     <Text
+      maxFontSizeMultiplier={2}
       style={
-        {
-          "color": "#FFFFFF",
-          "fontSize": 18,
-          "fontWeight": "normal",
-          "textAlign": "left",
-        }
+        [
+          {
+            "color": "#FFFFFF",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          {
+            "textAlign": "left",
+          },
+        ]
       }
     >
       PINCreate.BulletPoint2

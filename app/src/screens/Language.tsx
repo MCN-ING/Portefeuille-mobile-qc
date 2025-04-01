@@ -1,8 +1,8 @@
-import { Locales, testIdWithKey, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
+import { Locales, testIdWithKey, ThemedText, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
 import { storeLanguage } from '@hyperledger/aries-bifold-core/App/localization'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -16,7 +16,7 @@ interface Language {
 
 const Language = () => {
   const { t, i18n } = useTranslation()
-  const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
+  const { ColorPallet, SettingsTheme } = useTheme()
   const [{ supportedLanguages }] = useServices([TOKENS.CONFIG])
 
   const languages: Language[] = supportedLanguages.map((lang) => ({
@@ -74,7 +74,9 @@ const Language = () => {
                 }`} // add on voice over the text checked / not checked after the text from value above
                 accessibilityHint={id !== i18n.language ? t('Settings.LanguageHint') : ''}
               >
-                <Text style={[TextTheme.title, { fontWeight: '400' }]}>{value}</Text>
+                <ThemedText variant="title" style={{ fontWeight: '400' }}>
+                  {value}
+                </ThemedText>
                 <BouncyCheckbox
                   accessibilityLabel={`${
                     id === i18n.language ? value + ' ' + t('Language.Checked') : value + ' ' + t('Language.NotChecked')

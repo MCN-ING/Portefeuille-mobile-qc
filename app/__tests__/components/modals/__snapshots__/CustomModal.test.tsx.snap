@@ -104,12 +104,15 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
           >
             <Text
               accessibilityRole="header"
+              maxFontSizeMultiplier={2}
               style={
                 [
                   {
                     "color": "#FFFFFF",
                     "fontSize": 32,
                     "fontWeight": "bold",
+                  },
+                  {
                     "lineHeight": 32,
                   },
                 ]
@@ -208,13 +211,19 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
               onStartShouldSetResponder={[Function]}
             >
               <Text
+                maxFontSizeMultiplier={2}
                 style={
-                  {
-                    "color": "#FFFFFF",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "paddingVertical": 16,
-                  }
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 18,
+                      "fontWeight": "normal",
+                    },
+                    {
+                      "color": "#FFFFFF",
+                      "paddingVertical": 16,
+                    },
+                  ]
                 }
               >
                 Lorem ipsum sit dolar amet
@@ -279,17 +288,25 @@ exports[`DismissibleCustomModal Component Renders correctly with primary call to
               }
             >
               <Text
+                maxFontSizeMultiplier={2}
                 style={
                   [
                     {
                       "color": "#FFFFFF",
                       "fontSize": 18,
-                      "fontWeight": "bold",
-                      "textAlign": "center",
+                      "fontWeight": "normal",
                     },
-                    false,
-                    false,
-                    false,
+                    [
+                      {
+                        "color": "#FFFFFF",
+                        "fontSize": 18,
+                        "fontWeight": "bold",
+                        "textAlign": "center",
+                      },
+                      false,
+                      false,
+                      false,
+                    ],
                   ]
                 }
               >
@@ -408,12 +425,15 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
           >
             <Text
               accessibilityRole="header"
+              maxFontSizeMultiplier={2}
               style={
                 [
                   {
                     "color": "#FFFFFF",
                     "fontSize": 32,
                     "fontWeight": "bold",
+                  },
+                  {
                     "lineHeight": 32,
                   },
                 ]
@@ -512,13 +532,19 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
               onStartShouldSetResponder={[Function]}
             >
               <Text
+                maxFontSizeMultiplier={2}
                 style={
-                  {
-                    "color": "#FFFFFF",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "paddingVertical": 16,
-                  }
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 18,
+                      "fontWeight": "normal",
+                    },
+                    {
+                      "color": "#FFFFFF",
+                      "paddingVertical": 16,
+                    },
+                  ]
                 }
               >
                 Lorem ipsum sit dolar amet
@@ -583,17 +609,25 @@ exports[`DismissibleCustomModal Component Renders correctly without call to acti
               }
             >
               <Text
+                maxFontSizeMultiplier={2}
                 style={
                   [
                     {
                       "color": "#FFFFFF",
                       "fontSize": 18,
-                      "fontWeight": "bold",
-                      "textAlign": "center",
+                      "fontWeight": "normal",
                     },
-                    false,
-                    false,
-                    false,
+                    [
+                      {
+                        "color": "#FFFFFF",
+                        "fontSize": 18,
+                        "fontWeight": "bold",
+                        "textAlign": "center",
+                      },
+                      false,
+                      false,
+                      false,
+                    ],
                   ]
                 }
               >

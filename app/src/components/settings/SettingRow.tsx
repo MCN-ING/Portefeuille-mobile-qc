@@ -1,11 +1,21 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
-import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
+import {
+  AccessibilityRole,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native'
 
 import ExternalLinkIcon from '../../assets/img/icons/external_link_icon.svg'
 
 interface SectionRowProps {
   title: string
+  titleStyle?: StyleProp<TextStyle>
   testID?: string
   children?: JSX.Element
   showRowSeparator?: boolean
@@ -13,11 +23,12 @@ interface SectionRowProps {
   isExternalLink?: boolean
   onPress?: () => void
   rowIcon?: JSX.Element
-  style?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 const SettingRow = ({
   title,
+  titleStyle,
   testID,
   onPress,
   children,
@@ -25,10 +36,12 @@ const SettingRow = ({
   accessibilityRole = 'button',
   isExternalLink = false,
   rowIcon,
-  style,
+  containerStyle: style,
 }: SectionRowProps) => {
-  const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
+  const { ColorPallet, SettingsTheme, maxFontSizeMultiplier } = useTheme()
   const { t } = useTranslation()
+  const { fontScale } = useWindowDimensions()
+  const fontIsGreaterThanCap = fontScale >= maxFontSizeMultiplier
   const styles = StyleSheet.create({
     rowSeparator: {
       borderBottomWidth: 1,
@@ -36,12 +49,9 @@ const SettingRow = ({
     },
     section: {
       backgroundColor: SettingsTheme.groupBackground,
-      alignItems: 'center',
     },
     rowTitle: {
-      ...TextTheme.headingFour,
       flex: 1,
-      fontWeight: 'normal',
       flexWrap: 'wrap',
       ...(isExternalLink && { color: ColorPallet.brand.link }),
     },
@@ -49,13 +59,24 @@ const SettingRow = ({
 
   const innerView = (
     <View style={[styles.section, { paddingVertical: 12 }, style]}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={styles.rowTitle}>
-          {title} {isExternalLink && <ExternalLinkIcon />}
-        </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        {fontIsGreaterThanCap && children ? (
+          <View>
+            <ThemedText variant="headingFour" style={[styles.rowTitle, titleStyle, { flexDirection: 'row' }]}>
+              {title} {isExternalLink && <ExternalLinkIcon />}
+            </ThemedText>
 
-        {children}
+            {children}
+          </View>
+        ) : (
+          <>
+            <ThemedText variant="headingFour" style={[styles.rowTitle, titleStyle]}>
+              {title} {isExternalLink && <ExternalLinkIcon />}
+            </ThemedText>
 
+            {children}
+          </>
+        )}
         {rowIcon}
       </View>
     </View>

@@ -1,16 +1,16 @@
-import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { getDefaultHeaderHeight } from '@react-navigation/elements'
 import { useRoute } from '@react-navigation/native'
 import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { DeviceEventEmitter, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { BCWalletEventTypes } from '../../events/eventTypes'
 
 const HelpCenterButton: React.FC = () => {
   const { t } = useTranslation()
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const route = useRoute()
   const frame = useSafeAreaFrame()
   const insets = useSafeAreaInsets()
@@ -21,7 +21,6 @@ const HelpCenterButton: React.FC = () => {
       alignItems: 'center',
     },
     text: {
-      ...TextTheme.label,
       color: ColorPallet.brand.headerText,
       marginRight: 4,
       paddingVertical: 4,
@@ -47,7 +46,9 @@ const HelpCenterButton: React.FC = () => {
       testID={testIdWithKey('HelpCenterButton')}
     >
       <View style={styles.container}>
-        <Text style={styles.text}>{t('HelpCenter.Help')}</Text>
+        <ThemedText allowFontScaling={false} variant="label" style={styles.text}>
+          {t('HelpCenter.Help')}
+        </ThemedText>
       </View>
     </TouchableOpacity>
   )

@@ -1,7 +1,7 @@
-import { Button, ButtonType, GenericFn, testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { Button, ButtonType, GenericFn, testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import ErrorIcon from '../../assets/img/icons/error_icon.svg'
 import InfoIcon from '../../assets/img/icons/info_icon.svg'
@@ -32,7 +32,7 @@ export const Avis: React.FC<AvisProps> = ({
   onCallToActionLabel,
   onCallToActionPressed,
 }: AvisProps) => {
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const { t } = useTranslation()
 
   const secondaryBackgroundColor = useMemo(() => {
@@ -72,11 +72,9 @@ export const Avis: React.FC<AvisProps> = ({
       paddingHorizontal: 8,
     },
     title: {
-      ...TextTheme.labelSubtitle,
       fontWeight: 'bold',
     },
     description: {
-      ...TextTheme.labelSubtitle,
       ...(type === AvisType.Success && primaryBackgroundColorSameAsSecondary && { color: ColorPallet.brand.text }),
     },
   })
@@ -100,14 +98,14 @@ export const Avis: React.FC<AvisProps> = ({
         }}
       >
         {hasTitle && (
-          <Text testID={testIdWithKey('AvisTitle')} style={styles.title}>
+          <ThemedText variant="labelSubtitle" testID={testIdWithKey('AvisTitle')} style={styles.title}>
             {title}
-          </Text>
+          </ThemedText>
         )}
         {typeof description === 'string' ? (
-          <Text testID={testIdWithKey('AvisDescription')} style={styles.description}>
+          <ThemedText variant="labelSubtitle" testID={testIdWithKey('AvisDescription')} style={styles.description}>
             {description}
-          </Text>
+          </ThemedText>
         ) : (
           <View testID={testIdWithKey('AvisDescriptionView')}>{description}</View>
         )}

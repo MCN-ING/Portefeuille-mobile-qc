@@ -1,7 +1,7 @@
-import { useTheme, testIdWithKey } from '@hyperledger/aries-bifold-core'
+import { useTheme, testIdWithKey, ThemedText } from '@hyperledger/aries-bifold-core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import SettingRow from '../components/settings/SettingRow'
@@ -19,11 +19,9 @@ const HelpCenter: React.FC = () => {
     sectionCopyright: {
       flex: 1,
       justifyContent: 'flex-end',
-      ...TextTheme.headingOne,
       paddingBottom: 20,
     },
     sectionCopyrightText: {
-      ...TextTheme.caption,
       color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
@@ -42,6 +40,7 @@ const HelpCenter: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <SettingRow
         title={t('About.Accessibility')}
+        titleStyle={{ fontWeight: 'normal' }}
         showRowSeparator
         testID={testIdWithKey('Accessibility')}
         accessibilityRole="link"
@@ -51,6 +50,7 @@ const HelpCenter: React.FC = () => {
       />
       <SettingRow
         title={t('About.TermsOfUse')}
+        titleStyle={{ fontWeight: 'normal' }}
         showRowSeparator
         testID={testIdWithKey('TermsOfUse')}
         accessibilityRole="link"
@@ -60,14 +60,18 @@ const HelpCenter: React.FC = () => {
       />
       <SettingRow
         title={t('About.PrivacyPolicy')}
+        titleStyle={{ fontWeight: 'normal' }}
         testID={testIdWithKey('PrivacyPolicy')}
         accessibilityRole="link"
         rowIcon={arrowIcon}
         isExternalLink
         onPress={notImplemented}
       />
-      <View style={[styles.sectionCopyright]}>
-        <Text style={styles.sectionCopyrightText}> {t('OptionsPlus.Copyright')}</Text>
+      <View style={styles.sectionCopyright}>
+        <ThemedText variant="caption" style={styles.sectionCopyrightText}>
+          {' '}
+          {t('OptionsPlus.Copyright')}
+        </ThemedText>
       </View>
     </SafeAreaView>
   )

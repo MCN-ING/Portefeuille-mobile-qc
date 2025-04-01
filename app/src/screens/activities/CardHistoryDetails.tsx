@@ -5,12 +5,12 @@ import {
   Record,
   TOKENS,
   useServices,
-  useTheme,
   formatTime,
   useCredentialConnectionLabel,
   getCredentialIdentifiers,
   isValidAnonCredsCredential,
   buildFieldsFromAnonCredsCredential,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { CredentialErrors } from '@hyperledger/aries-bifold-core/App/components/misc/CredentialCard11'
 import { HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
@@ -19,7 +19,7 @@ import { Attribute, CredentialOverlay } from '@hyperledger/aries-oca/build/legac
 import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -34,7 +34,6 @@ import { startCaseUnicode } from '../../utils/stringUtils'
 type CardHistorydDetailsProp = StackScreenProps<HistoryStackParams, Screens.CardHistoryDetails>
 
 const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigation }: CardHistorydDetailsProp) => {
-  const { TextTheme } = useTheme()
   const { t, i18n } = useTranslation()
   const { recordId, item, operation } = route.params
   const itemContent = item.content as HistoryRecord
@@ -111,7 +110,7 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color={ColorPallet.brand.highlight} />
-        <Text>{t('Global.Loading')}</Text>
+        <ThemedText>{t('Global.Loading')}</ThemedText>
       </View>
     )
   }
@@ -133,12 +132,12 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
               />
 
               <View style={{ marginTop: 20 }} />
-              <Text style={styles.subTitle}>
+              <ThemedText style={styles.subTitle}>
                 {itemContent?.correspondenceName ? startCaseUnicode(itemContent?.correspondenceName) : ''}
-              </Text>
-              <Text style={styles.date}>
+              </ThemedText>
+              <ThemedText style={styles.date}>
                 {t('History.Date.changedOn', { operation: operation })} {operationDate}
-              </Text>
+              </ThemedText>
               {credentialExists ? (
                 <CredentialCard
                   credential={credentialDetails as CredentialExchangeRecord}
@@ -170,7 +169,7 @@ const CardHistorydDetails: React.FC<CardHistorydDetailsProp> = ({ route, navigat
           accessibilityRole="image"
           accessibilityLabel={t('History.Icon.Delete')}
         />
-        <Text style={[TextTheme.normal, styles.deleteText]}>{t('History.Button.DeleteHistory')}</Text>
+        <ThemedText style={styles.deleteText}>{t('History.Button.DeleteHistory')}</ThemedText>
       </TouchableOpacity>
     </SafeAreaView>
   )

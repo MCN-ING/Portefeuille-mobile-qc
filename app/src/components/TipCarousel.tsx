@@ -1,4 +1,4 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import React, {
   FunctionComponent,
   PropsWithChildren,
@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View, Text, useWindowDimensions, FlatList, ListRenderItem, AccessibilityInfo } from 'react-native'
+import { StyleSheet, View, useWindowDimensions, FlatList, ListRenderItem, AccessibilityInfo } from 'react-native'
 
 import { SplashLargeScreenWidthPercentage } from '../constants'
 
@@ -71,8 +71,14 @@ const Comp: FunctionComponent<TipProps> = ({ item, width, header }) => {
 
   return (
     <View style={tipStyles.tipContainer}>
-      {item.showHeader && <Text style={tipStyles.tipHeader}>{header}</Text>}
-      <Text style={tipStyles.tipText}>{item.text}</Text>
+      {item.showHeader && (
+        <ThemedText allowFontScaling={false} style={tipStyles.tipHeader}>
+          {header}
+        </ThemedText>
+      )}
+      <ThemedText allowFontScaling={false} style={tipStyles.tipText}>
+        {item.text}
+      </ThemedText>
     </View>
   )
 }

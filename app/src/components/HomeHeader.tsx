@@ -1,10 +1,10 @@
-import { Screens, Stacks, testIdWithKey, useNetwork, useTheme } from '@hyperledger/aries-bifold-core'
+import { Screens, Stacks, testIdWithKey, ThemedText, useNetwork, useTheme } from '@hyperledger/aries-bifold-core'
 import { ConnectStackParams } from '@hyperledger/aries-bifold-core/App/types/navigators'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 
 import HomeImg from '../assets/img/HomeImg.svg'
 import { ShadowTheme } from '../theme'
@@ -86,15 +86,15 @@ const HomeHeader = () => {
               <HomeImg />
             </View>
             <View style={styles.underImageTextContainer}>
-              <Text style={styles.ScanText}>{t('Home.ScanQrCode')}</Text>
+              <ThemedText style={styles.ScanText}>{t('Home.ScanQrCode')}</ThemedText>
             </View>
           </View>
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.activiteTitleContainer}>
-        <Text style={styles.activiteTitle} accessibilityRole="header">
+        <ThemedText maxFontSizeMultiplier={1.5} style={styles.activiteTitle} accessibilityRole="header">
           {t('Home.NotificationTitle')}
-        </Text>
+        </ThemedText>
       </View>
     </View>
   )
