@@ -1,5 +1,5 @@
-import { ColorPallet, useTheme } from '@hyperledger/aries-bifold-core'
-import { StyleSheet, Text, TextStyle, View } from 'react-native'
+import { ColorPallet, ThemedText } from '@hyperledger/aries-bifold-core'
+import { StyleSheet, TextStyle, View } from 'react-native'
 
 import ProgressBar from './ProgressBar'
 
@@ -20,13 +20,11 @@ const Progress = ({
   progressText,
   textStyle,
 }: Props) => {
-  const { TextTheme } = useTheme()
   const style = StyleSheet.create({
     progress: {
       paddingVertical: 8,
     },
     bodyText: {
-      ...TextTheme.normal,
       flexShrink: 1,
       paddingVertical: 10,
     },
@@ -37,12 +35,13 @@ const Progress = ({
       <View style={style.progress}>
         <ProgressBar progressPercent={progressPercent} color={color} progressBackground={progressBackground} />
       </View>
-      <Text
+      <ThemedText
+        allowFontScaling={false}
         accessibilityLabel={accessibilityLabel ?? progressText}
         style={[textStyle ?? style.bodyText, { textAlign: 'center' }]}
       >
         {progressText}
-      </Text>
+      </ThemedText>
     </>
   )
 }

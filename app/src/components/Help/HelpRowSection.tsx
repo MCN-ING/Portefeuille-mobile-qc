@@ -1,7 +1,7 @@
-import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { NavigationProp } from '@react-navigation/native'
 import React from 'react'
-import { StyleSheet, Text, View, Pressable, ImageSourcePropType } from 'react-native'
+import { StyleSheet, View, Pressable, ImageSourcePropType } from 'react-native'
 
 import { HelpCenterStackParams, Screens } from '../../navigators/navigators'
 
@@ -43,7 +43,7 @@ const HelpRowSection = ({
   showArrowIcon,
   navigation,
 }: HelpRowSectionProps) => {
-  const { SettingsTheme, TextTheme, ColorPallet, Assets } = useTheme()
+  const { SettingsTheme, ColorPallet, Assets } = useTheme()
   const iconStyles = {
     color: ColorPallet.grayscale.darkGrey,
     width: 30,
@@ -55,7 +55,6 @@ const HelpRowSection = ({
       backgroundColor: SettingsTheme.groupBackground,
     },
     rowTitle: {
-      ...TextTheme.headingFour,
       flex: 1,
       fontWeight: 'normal',
       flexWrap: 'wrap',
@@ -89,9 +88,9 @@ const HelpRowSection = ({
     <>
       {showSectionTitle && (
         <View style={[styles.section, styles.sectionHeader]}>
-          <Text style={[TextTheme.headingThree, styles.sectionHeaderText]} accessibilityRole="header">
+          <ThemedText variant="headingThree" style={styles.sectionHeaderText} accessibilityRole="header">
             {sectionTitle}
-          </Text>
+          </ThemedText>
         </View>
       )}
       {itemSection.map((item, index) => (
@@ -106,8 +105,12 @@ const HelpRowSection = ({
               testID={testIdWithKey(item.title)}
             >
               <View style={[styles.sectionRow, index === itemSection.length - 1 && { marginBottom: 32 }]}>
-                <Text style={styles.rowTitle}>{item.title}</Text>
-                <Text style={[TextTheme.headingFour, styles.sectionText]}>{children}</Text>
+                <ThemedText variant="headingFour" style={styles.rowTitle}>
+                  {item.title}
+                </ThemedText>
+                <ThemedText variant="headingFour" style={styles.sectionText}>
+                  {children}
+                </ThemedText>
                 {showArrowIcon && arrowIcon}
               </View>
             </Pressable>

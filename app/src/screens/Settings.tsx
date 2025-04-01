@@ -6,12 +6,13 @@ import {
   Button,
   ButtonType,
   SafeAreaModal,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { i18n, Locales } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { getBuildNumber, getVersion } from 'react-native-device-info'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -27,7 +28,7 @@ import AppUpdateNotification from './AppUpdateNotification'
 type SettingsProps = StackScreenProps<SettingStackParams>
 
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
-  const { TextTheme, ColorPallet, Assets } = useTheme()
+  const { ColorPallet, Assets } = useTheme()
   const [store, dispatch] = useStore<BCState>()
   const currentLanguage = i18n.t('Language.code', { context: i18n.language as Locales })
   const developerOptionCount = useRef(0)
@@ -117,18 +118,20 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           showRowSeparator
           rowIcon={arrowIcon}
         >
-          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>{currentLanguage}</Text>
+          <ThemedText variant="headingFour" style={{ fontWeight: 'normal' }}>
+            {currentLanguage}
+          </ThemedText>
         </SettingRow>
         <SettingRow
           title={t('Settings.Tours')}
           testID={testIdWithKey('Tours')}
           onPress={() => navigation.navigate(Screens.Tours)}
           rowIcon={arrowIcon}
-          style={{ marginBottom: 32 }}
+          containerStyle={{ marginBottom: 32 }}
         >
-          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>
+          <ThemedText variant="headingFour" style={{ fontWeight: 'normal' }}>
             {store.tours.enableTours ? t('Settings.ToursActive') : t('Settings.ToursDisabled')}
-          </Text>
+          </ThemedText>
         </SettingRow>
         <SettingHeader title={t('Settings.Security')} />
         <SettingRow
@@ -142,7 +145,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           showRowSeparator
           rowIcon={arrowIcon}
         >
-          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>{t('Settings.ChangePin')}</Text>
+          <ThemedText variant="headingFour" style={{ fontWeight: 'normal' }}>
+            {t('Settings.ChangePin')}
+          </ThemedText>
         </SettingRow>
         <SettingRow
           title={t('Settings.Biometrics')}
@@ -151,9 +156,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           showRowSeparator
           rowIcon={arrowIcon}
         >
-          <Text style={[TextTheme.headingFour, { fontWeight: 'normal' }]}>
+          <ThemedText variant="headingFour" style={{ fontWeight: 'normal' }}>
             {store.preferences.useBiometry ? t('Settings.BiometricActive') : t('Settings.BiometricDisabled')}
-          </Text>
+          </ThemedText>
         </SettingRow>
         {store.preferences.useManageEnvironment && (
           <SettingRow
@@ -164,11 +169,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
               setEnvironmentModalVisible(true)
             }}
           >
-            <Text
-              style={[TextTheme.label, { fontWeight: 'normal', color: ColorPallet.brand.link, alignSelf: 'center' }]}
-            >
+            <ThemedText variant="label" style={{ fontWeight: 'normal', color: ColorPallet.brand.link }}>
               {environment}
-            </Text>
+            </ThemedText>
           </SettingRow>
         )}
         <SettingRow
@@ -176,9 +179,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           testID={testIdWithKey('Version')}
           onPress={environment !== 'PRODUCTION' ? incrementDeveloperMenuCounter : undefined}
         >
-          <Text style={[TextTheme.normal, { alignSelf: 'center' }]}>
+          <ThemedText>
             {getVersion()} {`(${getBuildNumber()})`}
-          </Text>
+          </ThemedText>
         </SettingRow>
         {store.appUpdate.updateAvailable && (
           <View style={{ paddingTop: 12, paddingBottom: 32 }}>

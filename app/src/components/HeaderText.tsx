@@ -1,5 +1,5 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
-import { StyleSheet, Text, View } from 'react-native'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
+import { StyleSheet, View } from 'react-native'
 
 type Props = {
   title: string
@@ -7,12 +7,10 @@ type Props = {
 }
 
 const HeaderText = ({ title, isHeader = true }: Props) => {
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const style = StyleSheet.create({
     headerText: {
-      ...TextTheme.headingTwo,
       lineHeight: 32,
-      // color: ColorPallet.notification.infoText,
     },
     headerBottomLine: {
       height: 4,
@@ -22,9 +20,9 @@ const HeaderText = ({ title, isHeader = true }: Props) => {
   })
   return (
     <View accessible={true}>
-      <Text style={[style.headerText]} accessibilityRole={`${isHeader ? 'header' : 'text'}`}>
+      <ThemedText variant="headingTwo" style={style.headerText} accessibilityRole={`${isHeader ? 'header' : 'text'}`}>
         {title}
-      </Text>
+      </ThemedText>
       <View style={style.headerBottomLine} />
     </View>
   )

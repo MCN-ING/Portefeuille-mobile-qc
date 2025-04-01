@@ -1,7 +1,7 @@
-import { GenericFn, testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { GenericFn, testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, Text, useWindowDimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, useWindowDimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import Toast from 'react-native-toast-message'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -77,13 +77,13 @@ const BaseToast: React.FC<BaseToastProps> = ({ title, body, toastType, onPress =
       <View style={[styles.container, { backgroundColor, borderColor, width: width - width * 0.1 }]}>
         <View style={{ flex: 2, flexDirection: 'row' }}>
           <View style={styles.textContainer}>
-            <Text style={[TextTheme.normal, styles.title, { color: textColor }]} testID={testIdWithKey('ToastTitle')}>
+            <ThemedText style={[styles.title, { color: textColor }]} testID={testIdWithKey('ToastTitle')}>
               {title}
-            </Text>
+            </ThemedText>
             {body && (
-              <Text style={[TextTheme.normal, { color: textColor }]} testID={testIdWithKey('ToastBody')}>
+              <ThemedText style={{ color: textColor }} testID={testIdWithKey('ToastBody')}>
                 {body}
-              </Text>
+              </ThemedText>
             )}
           </View>
         </View>
@@ -96,7 +96,9 @@ const BaseToast: React.FC<BaseToastProps> = ({ title, body, toastType, onPress =
             }}
           >
             {typeof onCancel !== 'undefined' ? (
-              <Text style={[TextTheme.labelTitle, { color: textColor }]}>{t('Global.Cancel')}</Text>
+              <ThemedText variant="labelTitle" style={{ color: textColor }}>
+                {t('Global.Cancel')}
+              </ThemedText>
             ) : (
               <Icon name={'close'} color={iconColor} size={iconSize} />
             )}

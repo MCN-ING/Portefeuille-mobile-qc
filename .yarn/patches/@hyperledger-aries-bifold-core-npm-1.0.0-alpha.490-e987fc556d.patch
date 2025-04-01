@@ -1,8 +1,8 @@
 diff --git a/App/components/listItems/NotificationListItem.tsx b/App/components/listItems/NotificationListItem.tsx
-index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..9bc37bb8c12dd2e10a9b02c5f25139ff5ab00fcc 100644
+index cb9e05b200554a8f401fc07ee1e2ae04fd2283ab..6eff159bd1881d9cf2d558d0f41e5c28e7ab504c 100644
 --- a/App/components/listItems/NotificationListItem.tsx
 +++ b/App/components/listItems/NotificationListItem.tsx
-@@ -49,6 +49,8 @@ export interface NotificationListItemProps {
+@@ -50,6 +50,8 @@ export interface NotificationListItemProps {
    notificationType: NotificationType
    notification: BasicMessageRecord | CredentialExchangeRecord | ProofExchangeRecord | CustomNotificationRecord
    customNotification?: CustomNotification
@@ -11,7 +11,7 @@ index 8bdace7c22354cc7a5e7752cd3957e8ac80018ba..9bc37bb8c12dd2e10a9b02c5f25139ff
  }
  
  type DisplayDetails = {
-@@ -83,6 +85,8 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
+@@ -84,6 +86,8 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
    notificationType,
    notification,
    customNotification,
@@ -48,10 +48,10 @@ index 237e122dfe5537b74c9a40709b78a6867d9cabe8..f98586baef57d4c771e39130e57d2d60
    }
  
 diff --git a/App/screens/CredentialOffer.tsx b/App/screens/CredentialOffer.tsx
-index 738affd93b926560ec4312436b3bab9642a0d08e..3425a80ab473d73056f9bd73e5cd38c014e9f5cf 100644
+index 85c38333651e3a51517108d7d380d5fdf22df1ab..8d148820d046c6a8c13ccec10fefdb288dc3b934 100644
 --- a/App/screens/CredentialOffer.tsx
 +++ b/App/screens/CredentialOffer.tsx
-@@ -40,9 +40,10 @@ import { BaseTourID } from '../types/tour'
+@@ -41,9 +41,10 @@ import { ThemedText } from '../components/texts/ThemedText'
  type CredentialOfferProps = {
    navigation: any
    credentialId: string
@@ -62,7 +62,7 @@ index 738affd93b926560ec4312436b3bab9642a0d08e..3425a80ab473d73056f9bd73e5cd38c0
 +const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentialId, redirect }) => {
    const { agent } = useAppAgent()
    const { t, i18n } = useTranslation()
-   const { TextTheme, ColorPallet } = useTheme()
+   const { ColorPallet } = useTheme()
 @@ -90,6 +91,16 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentia
      },
    })
@@ -81,19 +81,19 @@ index 738affd93b926560ec4312436b3bab9642a0d08e..3425a80ab473d73056f9bd73e5cd38c0
      const shouldShowTour = enableToursConfig && store.tours.enableTours && !store.tours.seenCredentialOfferTour
      if (shouldShowTour && screenIsFocused) {
 diff --git a/App/screens/CredentialOfferAccept.tsx b/App/screens/CredentialOfferAccept.tsx
-index 41fa163839c593ff8a1a103c9170a340f9279ae2..90c627cc061737096a9eaade00ac17398cd3f5d0 100644
+index 7849f912bff1ef14457948eb87eac951ad6c4932..3124140561de19fef213a65e4885b4a9c31adcaa 100644
 --- a/App/screens/CredentialOfferAccept.tsx
 +++ b/App/screens/CredentialOfferAccept.tsx
 @@ -3,7 +3,7 @@ import { useCredentialById } from '@credo-ts/react-hooks'
  import { useNavigation } from '@react-navigation/native'
  import React, { useCallback, useEffect, useState } from 'react'
  import { useTranslation } from 'react-i18next'
--import { AccessibilityInfo, ScrollView, StyleSheet, Text, View } from 'react-native'
-+import { AccessibilityInfo, Linking, ScrollView, StyleSheet, Text, View } from 'react-native'
+-import { AccessibilityInfo, ScrollView, StyleSheet, View } from 'react-native'
++import { AccessibilityInfo, Linking, ScrollView, StyleSheet, View } from 'react-native'
  import { SafeAreaView } from 'react-native-safe-area-context'
  
  import Button, { ButtonType } from '../components/buttons/Button'
-@@ -32,6 +32,7 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+@@ -33,6 +33,7 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
    const [credentialDeliveryStatus, setCredentialDeliveryStatus] = useState<DeliveryStatus>(DeliveryStatus.Pending)
    const [timerDidFire, setTimerDidFire] = useState<boolean>(false)
    const [timer, setTimer] = useState<NodeJS.Timeout>()
@@ -101,7 +101,7 @@ index 41fa163839c593ff8a1a103c9170a340f9279ae2..90c627cc061737096a9eaade00ac1739
    const credential = useCredentialById(credentialId)
    const navigation = useNavigation()
    const { ListItems } = useTheme()
-@@ -64,6 +65,14 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+@@ -65,6 +66,13 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
      },
    })
  
@@ -112,11 +112,10 @@ index 41fa163839c593ff8a1a103c9170a340f9279ae2..90c627cc061737096a9eaade00ac1739
 +    }
 +  }, [credential])
 +
-+
    if (!credential && !confirmationOnly) {
      throw new Error('Unable to fetch credential from Credo')
    }
-@@ -170,12 +179,26 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
+@@ -171,12 +179,26 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible,
  
            {credentialDeliveryStatus === DeliveryStatus.Completed && (
              <View>
@@ -145,18 +144,18 @@ index 41fa163839c593ff8a1a103c9170a340f9279ae2..90c627cc061737096a9eaade00ac1739
              </View>
            )}
 diff --git a/App/screens/Home.tsx b/App/screens/Home.tsx
-index 78cd401bd6b0e8e07d5d266274b0229403827462..fd2bbddef5191a7748f77adcbe6318a9bb4e04a6 100644
+index 78cd401bd6b0e8e07d5d266274b0229403827462..332926b9c66da11f4fa561d99cd1ef99f316caa6 100644
 --- a/App/screens/Home.tsx
 +++ b/App/screens/Home.tsx
-@@ -40,6 +40,8 @@ const Home: React.FC<HomeProps> = () => {
+@@ -39,6 +39,8 @@ const Home: React.FC<HomeProps> = () => {
+   const { start, stop } = useTour()
    const [showTourPopup, setShowTourPopup] = useState(false)
    const screenIsFocused = useIsFocused()
- 
++  
 +  const [notificationItemId, setNotificationItemId] = useState<string | null>(null)
-+
+ 
    const styles = StyleSheet.create({
      flatlist: {
-       marginBottom: 35,
 @@ -50,27 +52,49 @@ const Home: React.FC<HomeProps> = () => {
      (item: any): React.ReactNode => {
        let component: React.ReactNode
@@ -212,10 +211,10 @@ index 78cd401bd6b0e8e07d5d266274b0229403827462..fd2bbddef5191a7748f77adcbe6318a9
  
    useEffect(() => {
 diff --git a/App/screens/ProofRequest.tsx b/App/screens/ProofRequest.tsx
-index dc8cefab84e9ca8d4aceb5c25b4247b95cfd5d1b..c2d7a7c50cc36e7b7aee79525bdd5dcce5e4899b 100644
+index cd0a6a779cf9c9dcbaf5de4bf148c564fc4a8156..b44a904ce5fcea70651ecfb65996deed57d43c1b 100644
 --- a/App/screens/ProofRequest.tsx
 +++ b/App/screens/ProofRequest.tsx
-@@ -69,6 +69,7 @@ import { BaseTourID } from '../types/tour'
+@@ -70,6 +70,7 @@ import { ThemedText } from '../components/texts/ThemedText'
  type ProofRequestProps = {
    navigation: any
    proofId: string
@@ -223,7 +222,7 @@ index dc8cefab84e9ca8d4aceb5c25b4247b95cfd5d1b..c2d7a7c50cc36e7b7aee79525bdd5dcc
  }
  
  type CredentialListProps = {
-@@ -78,7 +79,7 @@ type CredentialListProps = {
+@@ -79,7 +80,7 @@ type CredentialListProps = {
    missing: boolean
  }
  
@@ -232,7 +231,7 @@ index dc8cefab84e9ca8d4aceb5c25b4247b95cfd5d1b..c2d7a7c50cc36e7b7aee79525bdd5dcc
    const { agent } = useAppAgent()
    const { t } = useTranslation()
    const { assertNetworkConnected } = useNetwork()
-@@ -169,6 +170,16 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, proofId }) => {
+@@ -170,6 +171,16 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, proofId }) => {
      },
    })
  
@@ -249,3 +248,59 @@ index dc8cefab84e9ca8d4aceb5c25b4247b95cfd5d1b..c2d7a7c50cc36e7b7aee79525bdd5dcc
    useEffect(() => {
      if (!attestationMonitor) {
        return
+diff --git a/App/screens/ProofRequestAccept.tsx b/App/screens/ProofRequestAccept.tsx
+index a531eebb7403b8cb78a361b2d7020ce83c226601..bed9f6c29a5e3ce4c0d76ce66a157c19c2c58fca 100644
+--- a/App/screens/ProofRequestAccept.tsx
++++ b/App/screens/ProofRequestAccept.tsx
+@@ -3,7 +3,7 @@ import { useProofById } from '@credo-ts/react-hooks'
+ import { useNavigation } from '@react-navigation/native'
+ import React, { useEffect, useState } from 'react'
+ import { useTranslation } from 'react-i18next'
+-import { ScrollView, StyleSheet, View } from 'react-native'
++import { Linking, ScrollView, StyleSheet, View } from 'react-native'
+ import { SafeAreaView } from 'react-native-safe-area-context'
+ 
+ import Button, { ButtonType } from '../components/buttons/Button'
+@@ -27,6 +27,7 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+   const navigation = useNavigation()
+   const { ColorPallet, TextTheme } = useTheme()
+   const { SendingProof, SentProof } = useAnimatedComponents()
++  const [redirect, setRedirect] = useState<string | undefined>(undefined)
+ 
+   const styles = StyleSheet.create({
+     container: {
+@@ -54,6 +55,13 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+       marginTop: 20,
+     },
+   })
++  
++  useEffect(() => {
++    const metadata = proof?.metadata.get('redirect')
++    if (metadata?.deeplink) {
++      setRedirect(metadata.deeplink)
++    }
++  }, [proof])
+ 
+   if (!proof && !confirmationOnly) {
+     throw new Error('Unable to fetch proof from Credo')
+@@ -116,6 +124,20 @@ const ProofRequestAccept: React.FC<ProofRequestAcceptProps> = ({ visible, proofI
+ 
+         <View style={styles.controlsContainer}>
+           <View>
++            {redirect && (
++              <View style={{ marginBottom: 20 }}>
++                <Button
++                  title={t('Global.Redirect')}
++                  accessibilityLabel={t('Global.Redirect')}
++                  testID={testIdWithKey('redirectDeeplink')}
++                  onPress={() => {
++                    Linking.openURL(redirect)
++                    onBackToHomeTouched()
++                  }}
++                  buttonType={ButtonType.ModalPrimary}
++                />
++              </View>
++            )}
+             <Button
+               title={t('Loading.BackToHome')}
+               accessibilityLabel={t('Loading.BackToHome')}

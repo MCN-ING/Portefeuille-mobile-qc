@@ -1,7 +1,15 @@
-import { useTheme, useStore, Button, ButtonType, testIdWithKey, DispatchAction } from '@hyperledger/aries-bifold-core'
+import {
+  useTheme,
+  useStore,
+  Button,
+  ButtonType,
+  testIdWithKey,
+  DispatchAction,
+  ThemedText,
+} from '@hyperledger/aries-bifold-core'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import Config from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -16,7 +24,7 @@ interface IASEnvironmentProps {
 
 const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModal }) => {
   const { t } = useTranslation()
-  const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
+  const { ColorPallet, SettingsTheme } = useTheme()
   const [store, dispatch] = useStore<BCState>()
 
   const environments = Object.keys(iasEnvironments) as IASEnvironmentKeys[]
@@ -68,26 +76,43 @@ const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModa
     [dispatch, store.preferences.developerModeEnabled, shouldDismissModal]
   )
 
+  const ListFooter = () => (
+    <View style={{ marginTop: 30, marginHorizontal: 20 }}>
+      <Button
+        title={t('Global.Cancel')}
+        accessibilityLabel={t('Global.Cancel')}
+        testID={testIdWithKey('Cancel')}
+        onPress={shouldDismissModal}
+        buttonType={ButtonType.Secondary}
+      />
+    </View>
+  )
+
+  const AvisHeader = () => (
+    <View
+      style={{
+        marginHorizontal: 10,
+        padding: 16,
+      }}
+    >
+      <Avis
+        type={AvisType.Warn}
+        primaryBackgroundColorSameAsSecondary
+        description={t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
+      />
+    </View>
+  )
+
   return (
     <SafeAreaView style={[styles.container]}>
-      <View
-        style={{
-          marginHorizontal: 10,
-          padding: 16,
-        }}
-      >
-        <Avis
-          type={AvisType.Warn}
-          primaryBackgroundColorSameAsSecondary
-          description={t('Settings.IASEnvironmentWarning', { environment: Config.ENVIRONMENT })}
-        />
-      </View>
       <FlatList
+        ListHeaderComponent={AvisHeader}
+        ListFooterComponent={ListFooter}
         data={environments}
         renderItem={({ item }) => {
           return (
             <View style={[styles.section, styles.sectionRow]}>
-              <Text style={[TextTheme.title]}>{item}</Text>
+              <ThemedText variant="title">{item}</ThemedText>
               <BouncyCheckbox
                 accessibilityLabel={item}
                 disableText
@@ -112,15 +137,6 @@ const IASEnvironmentScreen: React.FC<IASEnvironmentProps> = ({ shouldDismissModa
           </View>
         )}
       />
-      <View style={{ marginTop: 30, marginHorizontal: 20 }}>
-        <Button
-          title={t('Global.Cancel')}
-          accessibilityLabel={t('Global.Cancel')}
-          testID={testIdWithKey('Cancel')}
-          onPress={shouldDismissModal}
-          buttonType={ButtonType.Secondary}
-        />
-      </View>
     </SafeAreaView>
   )
 }

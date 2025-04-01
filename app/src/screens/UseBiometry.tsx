@@ -6,6 +6,7 @@ import {
   OnboardingStackParams,
   Screens,
   TOKENS,
+  ThemedText,
   testIdWithKey,
   useAnimatedComponents,
   useAuth,
@@ -22,7 +23,6 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   StyleSheet,
-  Text,
   View,
   Modal,
   Switch,
@@ -59,7 +59,7 @@ const UseBiometry: React.FC = () => {
   const [continueEnabled, setContinueEnabled] = useState(true)
   const [settingsPopupConfig, setSettingsPopupConfig] = useState<null | SettingsPopup>(null)
   const [canSeeCheckPIN, setCanSeeCheckPIN] = useState<boolean>(false)
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const { ButtonLoading } = useAnimatedComponents()
   const navigation = useNavigation<StackNavigationProp<OnboardingStackParams>>()
   const screenUsage = useMemo(() => {
@@ -361,16 +361,16 @@ const UseBiometry: React.FC = () => {
         <View style={{ marginTop: 20 }}>
           {biometryAvailable ? (
             <View style={styles.biometryAvailableGap}>
-              <Text style={TextTheme.normal}>{t('Biometry.EnabledText1')}</Text>
-              <Text style={TextTheme.normal}>
+              <ThemedText>{t('Biometry.EnabledText1')}</ThemedText>
+              <ThemedText>
                 {t('Biometry.EnabledText2')}
-                <Text style={TextTheme.bold}> {t('Biometry.Warning')}</Text>
-              </Text>
+                <ThemedText variant="bold"> {t('Biometry.Warning')}</ThemedText>
+              </ThemedText>
             </View>
           ) : (
             <View style={styles.biometryAvailableGap}>
-              <Text style={TextTheme.normal}>{t('Biometry.NotEnabledText1')}</Text>
-              <Text style={TextTheme.normal}>{t('Biometry.NotEnabledText2')}</Text>
+              <ThemedText>{t('Biometry.NotEnabledText1')}</ThemedText>
+              <ThemedText>{t('Biometry.NotEnabledText2')}</ThemedText>
             </View>
           )}
         </View>
@@ -381,7 +381,7 @@ const UseBiometry: React.FC = () => {
           }}
         >
           <View style={styles.useToUnlockContainer}>
-            <Text style={TextTheme.bold}>{t('Biometry.UseToUnlock')}</Text>
+            <ThemedText variant="bold">{t('Biometry.UseToUnlock')}</ThemedText>
           </View>
           <View style={{ justifyContent: 'center' }}>
             <Pressable

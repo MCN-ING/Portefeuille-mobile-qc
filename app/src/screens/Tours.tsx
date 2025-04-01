@@ -1,8 +1,16 @@
-import { Button, ButtonType, DispatchAction, testIdWithKey, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonType,
+  DispatchAction,
+  testIdWithKey,
+  ThemedText,
+  useStore,
+  useTheme,
+} from '@hyperledger/aries-bifold-core'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View, Switch, ScrollView, Pressable } from 'react-native'
+import { StyleSheet, View, Switch, ScrollView, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
@@ -16,7 +24,7 @@ const Tours: React.FC<ToursProps> = ({ navigation }) => {
 
   const { t } = useTranslation()
   const [tourEnabled, setTourEnabled] = useState(!!store.tours.enableTours)
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
 
   const styles = StyleSheet.create({
     container: {
@@ -84,13 +92,13 @@ const Tours: React.FC<ToursProps> = ({ navigation }) => {
         <HeaderText title={t('TourScreen.Title')} />
         <View style={{ marginTop: 20 }}>
           <View style={styles.biometryAvailableGap}>
-            <Text style={TextTheme.normal}>{t('TourScreen.Text1')}</Text>
-            <Text style={TextTheme.normal}>{t('TourScreen.Text2')}</Text>
+            <ThemedText>{t('TourScreen.Text1')}</ThemedText>
+            <ThemedText>{t('TourScreen.Text2')}</ThemedText>
           </View>
         </View>
         <View style={styles.switchContent}>
           <View style={styles.useToUnlockContainer}>
-            <Text style={TextTheme.bold}>{t('TourScreen.SwitchText')}</Text>
+            <ThemedText variant="bold">{t('TourScreen.SwitchText')}</ThemedText>
           </View>
           <View style={{ justifyContent: 'center' }}>
             <Pressable

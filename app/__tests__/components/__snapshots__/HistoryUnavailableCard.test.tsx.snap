@@ -45,6 +45,7 @@ exports[`HistoryUnavailableCard Component Renders correctly 1`] = `
     testID="com.ariesbifold:id/CredentialCardPrimaryBody"
   >
     <Text
+      maxFontSizeMultiplier={2}
       style={
         [
           {
@@ -52,19 +53,21 @@ exports[`HistoryUnavailableCard Component Renders correctly 1`] = `
             "fontSize": 18,
             "fontWeight": "bold",
           },
-          {
-            "flexShrink": 1,
-            "fontSize": 16,
-            "lineHeight": 24,
-          },
-          {
-            "flex": 1,
-            "flexWrap": "wrap",
-            "fontSize": 14,
-            "fontWeight": "600",
-            "lineHeight": 16,
-            "maxWidth": "85%",
-          },
+          [
+            {
+              "flexShrink": 1,
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+            {
+              "flex": 1,
+              "flexWrap": "wrap",
+              "fontSize": 14,
+              "fontWeight": "600",
+              "lineHeight": 16,
+              "maxWidth": "85%",
+            },
+          ],
         ]
       }
       testID="com.ariesbifold:id/CredentialName"
@@ -105,6 +108,7 @@ exports[`HistoryUnavailableCard Component Renders correctly 1`] = `
         >
           <Text
             accessible={false}
+            maxFontSizeMultiplier={2}
             style={
               [
                 {
@@ -125,6 +129,7 @@ exports[`HistoryUnavailableCard Component Renders correctly 1`] = `
           </Text>
         </View>
         <Text
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -132,18 +137,20 @@ exports[`HistoryUnavailableCard Component Renders correctly 1`] = `
                 "fontSize": 18,
                 "fontWeight": "normal",
               },
-              {
-                "flexShrink": 1,
-                "fontSize": 16,
-                "lineHeight": 24,
-              },
-              {
-                "flexWrap": "wrap",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 19,
-                "opacity": 0.8,
-              },
+              [
+                {
+                  "flexShrink": 1,
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "flexWrap": "wrap",
+                  "fontSize": 12,
+                  "fontWeight": "500",
+                  "lineHeight": 19,
+                  "opacity": 0.8,
+                },
+              ],
             ]
           }
           testID="com.ariesbifold:id/CredentialIssuer"

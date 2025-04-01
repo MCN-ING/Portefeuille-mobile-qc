@@ -1,6 +1,6 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import BulletPoint from './BulletPoint'
 import HeaderText from './HeaderText'
@@ -11,18 +11,13 @@ export interface PINCreateHeaderProps {
 }
 
 const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
-  const { TextTheme } = useTheme()
   const { t } = useTranslation()
   const styles = StyleSheet.create({
     containerMargin: {
       marginBottom: 16,
     },
     pinBodyTitle: {
-      ...TextTheme.normal,
       fontWeight: 'bold',
-    },
-    pinBodyParagraph: {
-      ...TextTheme.normal,
     },
     headerTitle: {
       marginBottom: 16,
@@ -47,10 +42,10 @@ const PINCreateHeader = ({ updatePin }: PINCreateHeaderProps) => {
       <View style={styles.headerTitle}>
         <HeaderText title={updatePin ? t('Screens.ChangePIN') : t('Screens.CreatePIN')} />
       </View>
-      <Text style={[styles.pinBodyTitle, styles.containerMargin]}>
+      <ThemedText style={[styles.pinBodyTitle, styles.containerMargin]}>
         {updatePin ? t('PINCreate.RememberChangePIN') : t('PINCreate.RememberPIN')}
-      </Text>
-      <Text style={[styles.pinBodyParagraph, styles.containerMargin]}>{t('PINCreate.Warning')}</Text>
+      </ThemedText>
+      <ThemedText style={styles.containerMargin}>{t('PINCreate.Warning')}</ThemedText>
       <BulletPoint text={t('PINCreate.BulletPoint1')} />
       <BulletPoint text={t('PINCreate.BulletPoint2')} style={{ marginBottom: 32 }} />
     </View>

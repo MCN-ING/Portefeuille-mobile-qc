@@ -1,6 +1,6 @@
-import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 
 type UnavailableCardProps = {
   credentialName?: string
@@ -10,7 +10,7 @@ type UnavailableCardProps = {
 const HistoryUnavailableCard = ({ credentialName, issuer }: UnavailableCardProps) => {
   const { t } = useTranslation()
   const { width } = useWindowDimensions()
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const padding = width * 0.05
   const logoHeight = width * 0.12
   const borderRadius = 10
@@ -80,12 +80,13 @@ const HistoryUnavailableCard = ({ credentialName, issuer }: UnavailableCardProps
     >
       <View style={styles.secondaryBodyContainer} />
       <View testID={testIdWithKey('CredentialCardPrimaryBody')} style={styles.primaryBodyContainer}>
-        <Text
+        <ThemedText
+          variant="bold"
           testID={testIdWithKey('CredentialName')}
-          style={[TextTheme.bold, styles.textContainer, styles.credentialName]}
+          style={[styles.textContainer, styles.credentialName]}
         >
           {credentialName}
-        </Text>
+        </ThemedText>
         <View style={styles.credentialIssuerContainer}>
           <View
             style={{
@@ -96,25 +97,22 @@ const HistoryUnavailableCard = ({ credentialName, issuer }: UnavailableCardProps
             }}
           >
             <View style={styles.logoContainer}>
-              <Text
+              <ThemedText
+                variant="bold"
                 accessible={false}
-                style={[
-                  TextTheme.bold,
-                  {
-                    fontSize: 0.5 * logoHeight,
-                    alignSelf: 'center',
-                    color: '#000',
-                  },
-                ]}
+                style={{
+                  fontSize: 0.5 * logoHeight,
+                  alignSelf: 'center',
+                  color: '#000',
+                }}
                 testID={testIdWithKey('NoLogoText')}
               >
                 {secureIssuer.charAt(0).toUpperCase()}
-              </Text>
+              </ThemedText>
             </View>
-            <Text
+            <ThemedText
               testID={testIdWithKey('CredentialIssuer')}
               style={[
-                TextTheme.normal,
                 styles.textContainer,
                 {
                   fontWeight: '500',
@@ -126,7 +124,7 @@ const HistoryUnavailableCard = ({ credentialName, issuer }: UnavailableCardProps
               ]}
             >
               {secureIssuer}
-            </Text>
+            </ThemedText>
           </View>
         </View>
       </View>

@@ -1,10 +1,9 @@
-import { Button, ButtonType, testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { Button, ButtonType, testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
 import {
   Modal,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   useWindowDimensions,
@@ -31,7 +30,7 @@ export interface CustomModalProps {
 
 export const CustomModal = ({ title, description, primary, secondary, onDismissPressed }: CustomModalProps) => {
   const { height, width } = useWindowDimensions()
-  const { TextTheme, ColorPallet } = useTheme()
+  const { ColorPallet } = useTheme()
   const { t } = useTranslation()
 
   const styles = StyleSheet.create({
@@ -65,7 +64,6 @@ export const CustomModal = ({ title, description, primary, secondary, onDismissP
       justifyContent: 'space-between',
     },
     bodyText: {
-      ...TextTheme.normal,
       paddingVertical: 16,
       color: ColorPallet.notification.infoText,
     },
@@ -94,7 +92,11 @@ export const CustomModal = ({ title, description, primary, secondary, onDismissP
               </View>
               <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollViewStyle}>
                 <View onStartShouldSetResponder={() => true}>
-                  {typeof description == 'string' ? <Text style={styles.bodyText}>{description}</Text> : description}
+                  {typeof description == 'string' ? (
+                    <ThemedText style={styles.bodyText}>{description}</ThemedText>
+                  ) : (
+                    description
+                  )}
                 </View>
               </ScrollView>
               <View style={styles.ActionContainer}>

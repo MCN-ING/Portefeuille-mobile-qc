@@ -5,11 +5,12 @@ import {
   testIdWithKey,
   Stacks as BifoldStacks,
   Screens as BifoldScreens,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import ContactUs from '../components/ContactUs'
@@ -28,8 +29,6 @@ const Plus = () => {
       marginVertical: 24,
     },
     textHeaderTitle: {
-      ...TextTheme.headingThree,
-      color: TextTheme.headingThree.color,
       marginVertical: 8,
     },
     button: {
@@ -40,16 +39,12 @@ const Plus = () => {
     },
     sectionCopyright: {
       flex: 1,
-      ...TextTheme.headingOne,
       marginVertical: 10,
     },
     sectionDescription: {
-      ...TextTheme.normal,
-      color: TextTheme.normal.color,
       textAlign: 'left',
     },
     sectionCopyrightText: {
-      ...TextTheme.caption,
       color: TextTheme.normal.color,
       textAlign: 'left',
     },
@@ -93,14 +88,16 @@ const Plus = () => {
             />
           </View>
           <View style={styles.section}>
-            <Text style={styles.textHeaderTitle} accessibilityRole="header">
+            <ThemedText variant="headingThree" style={styles.textHeaderTitle} accessibilityRole="header">
               {t('OptionsPlus.TitleSupport')}
-            </Text>
-            <Text style={styles.sectionDescription}>{t('OptionsPlus.DetailSupport')}</Text>
+            </ThemedText>
+            <ThemedText style={styles.sectionDescription}>{t('OptionsPlus.DetailSupport')}</ThemedText>
           </View>
           <ContactUs />
-          <View style={[styles.sectionCopyright]}>
-            <Text style={styles.sectionCopyrightText}>{t('OptionsPlus.Copyright')}</Text>
+          <View style={styles.sectionCopyright}>
+            <ThemedText variant="caption" style={styles.sectionCopyrightText}>
+              {t('OptionsPlus.Copyright')}
+            </ThemedText>
           </View>
         </View>
       </ScrollView>

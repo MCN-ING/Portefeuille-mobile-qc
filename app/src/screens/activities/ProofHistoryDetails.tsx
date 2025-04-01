@@ -1,6 +1,6 @@
 import { ProofState } from '@credo-ts/core'
 import { useAgent, useProofById } from '@credo-ts/react-hooks'
-import { TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, TOKENS, useServices } from '@hyperledger/aries-bifold-core'
 import SharedProofData from '@hyperledger/aries-bifold-core/App/components/misc/SharedProofData'
 import { HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
 import { formatTime } from '@hyperledger/aries-bifold-core/App/utils/helpers'
@@ -8,7 +8,7 @@ import { GroupedSharedProofDataItem } from '@hyperledger/aries-bifold-verifier'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -22,7 +22,6 @@ import { startCaseUnicode } from '../../utils/stringUtils'
 type ProofHistoryDetailsProp = StackScreenProps<HistoryStackParams, Screens.ProofHistoryDetails>
 
 const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigation }: ProofHistoryDetailsProp) => {
-  const { TextTheme } = useTheme()
   const { t } = useTranslation()
   const { recordId, item, operation } = route.params
   const itemContent = item?.content as HistoryRecord
@@ -55,7 +54,7 @@ const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigat
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color={ColorPallet.brand.highlight} />
-        <Text>{t('Global.Loading')}</Text>
+        <ThemedText>{t('Global.Loading')}</ThemedText>
       </View>
     )
   }
@@ -65,12 +64,12 @@ const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigat
       <ScrollView contentContainerStyle={[styles.contentContainer]}>
         <HeaderText title={t('History.CardDescription.Proof', { operation })} />
         <View style={{ marginTop: 20 }} />
-        <Text style={styles.subTitle}>
+        <ThemedText style={styles.subTitle}>
           {itemContent?.correspondenceName ? startCaseUnicode(itemContent.correspondenceName) : ''}
-        </Text>
-        <Text style={styles.date}>
+        </ThemedText>
+        <ThemedText style={styles.date}>
           {t('History.Date.changedOn', { operation: operation })} {operationDate}
-        </Text>
+        </ThemedText>
 
         {record && record.state !== ProofState.Declined && (
           <SharedProofData recordId={record.id} onSharedProofDataLoad={onSharedProofDataLoad} />
@@ -86,7 +85,7 @@ const ProofHistoryDetails: React.FC<ProofHistoryDetailsProp> = ({ route, navigat
         accessibilityLabel={t('History.Button.DeleteHistory')}
       >
         <MaterialCommunityIcon name={'trash-can-outline'} size={iconSize} style={styles.trashIcon} />
-        <Text style={[TextTheme.normal, styles.deleteText]}>{t('History.Button.DeleteHistory')}</Text>
+        <ThemedText style={styles.deleteText}>{t('History.Button.DeleteHistory')}</ThemedText>
       </TouchableOpacity>
     </SafeAreaView>
   )

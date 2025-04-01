@@ -1,8 +1,8 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
-import { StyleSheet, Text, View } from 'react-native'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
+import { StyleSheet, View } from 'react-native'
 
 const SettingHeader = ({ title }: { title: string }): JSX.Element => {
-  const { TextTheme, SettingsTheme } = useTheme()
+  const { SettingsTheme } = useTheme()
   const styles = StyleSheet.create({
     section: {
       backgroundColor: SettingsTheme.groupBackground,
@@ -16,9 +16,9 @@ const SettingHeader = ({ title }: { title: string }): JSX.Element => {
   })
   return (
     <View style={[styles.section, styles.sectionHeader]}>
-      <Text style={[TextTheme.headingThree, { flexShrink: 1 }]} accessibilityRole="header">
+      <ThemedText variant="headingThree" style={{ flexShrink: 1 }} accessibilityRole="header">
         {title}
-      </Text>
+      </ThemedText>
     </View>
   )
 }

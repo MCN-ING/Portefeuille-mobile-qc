@@ -41,6 +41,7 @@ exports[`Developer Screen screen renders correctly 1`] = `
       >
         <Text
           accessibilityRole="header"
+          maxFontSizeMultiplier={2}
           style={
             [
               {
@@ -69,7 +70,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -84,46 +84,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Developer.DeveloperMode
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Developer.Toggle"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={true}
-            />
+              >
+                Developer.DeveloperMode
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Developer.Toggle"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={true}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -139,7 +153,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -154,46 +167,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Settings.ManageEnvironment
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Settings.ToggleManageEnvironment"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Settings.ManageEnvironment
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Settings.ToggleManageEnvironment"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -209,7 +236,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -224,46 +250,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Verifier.UseVerifierCapability
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Verifier.Toggle"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Verifier.UseVerifierCapability
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Verifier.Toggle"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -279,7 +319,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -294,46 +333,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Verifier.AcceptDevCredentials
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Verifier.Toggle"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Verifier.AcceptDevCredentials
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Verifier.Toggle"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -349,7 +402,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -364,46 +416,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Connection.UseConnectionInviterCapability
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Connection.Toggle"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Connection.UseConnectionInviterCapability
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Connection.Toggle"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -419,7 +485,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -434,46 +499,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Verifier.UseDevVerifierTemplates
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Verifier.ToggleDevTemplates"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Verifier.UseDevVerifierTemplates
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Verifier.ToggleDevTemplates"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -489,7 +568,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -504,46 +582,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              NameWallet.EnableWalletNaming
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="NameWallet.ToggleWalletNaming"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                NameWallet.EnableWalletNaming
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="NameWallet.ToggleWalletNaming"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -559,7 +651,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -574,46 +665,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Settings.PreventAutoLock
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Settings.TogglePreventAutoLock"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Settings.PreventAutoLock
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Settings.TogglePreventAutoLock"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -622,7 +727,6 @@ exports[`Developer Screen screen renders correctly 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "backgroundColor": "#313132",
               },
               {
@@ -637,46 +741,60 @@ exports[`Developer Screen screen renders correctly 1`] = `
               {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "justifyContent": "space-between",
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "#FFFFFF",
-                  "flex": 1,
-                  "flexWrap": "wrap",
-                  "fontSize": 21,
-                  "fontWeight": "normal",
+            <View>
+              <Text
+                maxFontSizeMultiplier={2}
+                style={
+                  [
+                    {
+                      "color": "#FFFFFF",
+                      "fontSize": 21,
+                      "fontWeight": "bold",
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexWrap": "wrap",
+                      },
+                      undefined,
+                      {
+                        "flexDirection": "row",
+                      },
+                    ],
+                  ]
                 }
-              }
-            >
-              Settings.ForcedUpdates
-               
-            </Text>
-            <RCTSwitch
-              accessibilityLabel="Settings.ToggleForcedUpdates"
-              accessibilityRole="switch"
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#42803E"
-              style={
-                [
-                  {
-                    "height": 31,
-                    "width": 51,
-                  },
-                  {
-                    "backgroundColor": "#D3D3D3",
-                    "borderRadius": 16,
-                  },
-                ]
-              }
-              thumbTintColor="#FFFFFF"
-              tintColor="#D3D3D3"
-              value={false}
-            />
+              >
+                Settings.ForcedUpdates
+                 
+              </Text>
+              <RCTSwitch
+                accessibilityLabel="Settings.ToggleForcedUpdates"
+                accessibilityRole="switch"
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#42803E"
+                style={
+                  [
+                    {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    {
+                      "backgroundColor": "#D3D3D3",
+                      "borderRadius": 16,
+                    },
+                  ]
+                }
+                thumbTintColor="#FFFFFF"
+                tintColor="#D3D3D3"
+                value={false}
+              />
+            </View>
           </View>
         </View>
       </View>

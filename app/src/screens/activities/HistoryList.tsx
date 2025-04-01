@@ -1,5 +1,14 @@
 import { useAgent } from '@credo-ts/react-hooks'
-import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonType,
+  ThemedText,
+  ToastType,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+} from '@hyperledger/aries-bifold-core'
 import {
   CustomRecord,
   HistoryCardType,
@@ -11,7 +20,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text, ActivityIndicator, RefreshControl } from 'react-native'
+import { View, StyleSheet, SectionList, ActivityIndicator, RefreshControl } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -76,7 +85,7 @@ const HistoryList: React.FC<{
 }> = ({ openSwipeableId, handleOpenSwipeable }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const [historyRecords, setHistoryRecords] = useState<CustomRecord[]>([])
   const [filteredRecords, setFilteredRecords] = useState<CustomRecord[]>([])
   const [sections, setSections] = useState<{ title: string; data: CustomRecord[] }[]>([])
@@ -156,9 +165,6 @@ const HistoryList: React.FC<{
       borderBottomWidth: 1,
       borderBottomColor: ColorPallet.brand.secondary,
     },
-    bodyText: {
-      ...TextTheme.labelSubtitle,
-    },
     bodyEventTime: {
       marginTop: 8,
       color: ColorPallet.grayscale.mediumGrey,
@@ -178,7 +184,6 @@ const HistoryList: React.FC<{
       marginVertical: 16,
     },
     footerText: {
-      ...TextTheme.labelSubtitle,
       color: ColorPallet.grayscale.mediumGrey,
     },
     selectionMultiActionContainer: {
@@ -320,7 +325,7 @@ const HistoryList: React.FC<{
     return (
       <View style={styles.loaderContainer}>
         <ActivityIndicator size="large" color={ColorPallet.brand.primary} />
-        <Text style={styles.loaderText}>{t('Global.Loading')}</Text>
+        <ThemedText style={styles.loaderText}>{t('Global.Loading')}</ThemedText>
       </View>
     )
   }
@@ -393,7 +398,9 @@ const HistoryList: React.FC<{
 
   const renderSectionHeader = ({ section }: { section: { title: string } }) => (
     <View style={styles.sectionHeaderContainer}>
-      <Text style={[styles.bodyText, styles.bodyEventTime]}>{section.title}</Text>
+      <ThemedText variant="labelSubtitle" style={styles.bodyEventTime}>
+        {section.title}
+      </ThemedText>
       <View style={styles.sectionSeparator} />
     </View>
   )
@@ -410,7 +417,9 @@ const HistoryList: React.FC<{
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={fetchHistory} />}
         ListFooterComponent={
           <View style={[selectedHistory != null && { paddingBottom: 200 }, { paddingHorizontal: 16 }]}>
-            <Text style={[styles.footerText]}>{t('Activities.FooterNothingElse')}</Text>
+            <ThemedText variant="labelSubtitle" style={styles.footerText}>
+              {t('Activities.FooterNothingElse')}
+            </ThemedText>
           </View>
         }
       />

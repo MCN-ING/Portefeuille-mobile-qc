@@ -28,15 +28,20 @@ exports[`HelpContactUs Component Renders Correctly 1`] = `
     >
       < />
       <Text
+        maxFontSizeMultiplier={2}
         style={
-          {
-            "color": "#FFFFFF",
-            "fontSize": 18,
-            "fontWeight": "normal",
-            "marginLeft": 10,
-            "textAlign": "left",
-            "textDecorationLine": "none",
-          }
+          [
+            {
+              "color": "#FFFFFF",
+              "fontSize": 18,
+              "fontWeight": "normal",
+            },
+            {
+              "marginLeft": 10,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+            },
+          ]
         }
       >
          
@@ -53,15 +58,20 @@ exports[`HelpContactUs Component Renders Correctly 1`] = `
     >
       < />
       <Text
+        maxFontSizeMultiplier={2}
         style={
-          {
-            "color": "#FFFFFF",
-            "fontSize": 18,
-            "fontWeight": "normal",
-            "marginLeft": 10,
-            "textAlign": "left",
-            "textDecorationLine": "none",
-          }
+          [
+            {
+              "color": "#FFFFFF",
+              "fontSize": 18,
+              "fontWeight": "normal",
+            },
+            {
+              "marginLeft": 10,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+            },
+          ]
         }
       >
          
@@ -87,15 +97,20 @@ exports[`HelpContactUs Component Renders Correctly 1`] = `
         }
       />
       <Text
+        maxFontSizeMultiplier={2}
         style={
-          {
-            "color": "#FFFFFF",
-            "fontSize": 18,
-            "fontWeight": "normal",
-            "marginLeft": 10,
-            "textAlign": "left",
-            "textDecorationLine": "none",
-          }
+          [
+            {
+              "color": "#FFFFFF",
+              "fontSize": 18,
+              "fontWeight": "normal",
+            },
+            {
+              "marginLeft": 10,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+            },
+          ]
         }
       >
         any_phone

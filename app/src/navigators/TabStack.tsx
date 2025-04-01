@@ -7,6 +7,7 @@ import {
   EventTypes,
   HomeStack,
   TOKENS,
+  ThemedText,
   testIdWithKey,
   useActivity,
   useServices,
@@ -26,7 +27,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReducerAction, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, useWindowDimensions, View, AppState, DeviceEventEmitter, TouchableWithoutFeedback } from 'react-native'
+import { View, AppState, DeviceEventEmitter, TouchableWithoutFeedback } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import AtestationTabIcon from '../assets/img/icons/atestation.svg'
@@ -44,7 +45,6 @@ import PlusStack from './PlusStack'
 import { TabStackParams, TabStacks } from './navigators'
 
 const TabStack: React.FC = () => {
-  const { fontScale } = useWindowDimensions()
   const { agent } = useAgent()
   const [store, dispatch] = useStore<BCState>()
   const navigation = useNavigation<StackNavigationProp<TabStackParams>>()
@@ -68,7 +68,6 @@ const TabStack: React.FC = () => {
   const { t } = useTranslation()
   const Tab = createBottomTabNavigator<TabStackParams>()
   const { ColorPallet, TabTheme, TextTheme } = useTheme()
-  const showLabels = fontScale * TabTheme.tabBarTextStyle.fontSize < 18
 
   const { appStateStatus } = useActivity()
 
@@ -286,17 +285,16 @@ const TabStack: React.FC = () => {
                     color={isFocused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor}
                   />
                 )}
-                {showLabels && (
-                  <Text
-                    style={{
-                      ...TabTheme.tabBarTextStyle,
-                      color: isFocused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
-                      fontWeight: isFocused ? TextTheme.bold.fontWeight : TextTheme.normal.fontWeight,
-                    }}
-                  >
-                    {label}
-                  </Text>
-                )}
+                <ThemedText
+                  maxFontSizeMultiplier={1.25}
+                  style={{
+                    ...TabTheme.tabBarTextStyle,
+                    color: isFocused ? TabTheme.tabBarActiveTintColor : TabTheme.tabBarInactiveTintColor,
+                    fontWeight: isFocused ? TextTheme.bold.fontWeight : TextTheme.normal.fontWeight,
+                  }}
+                >
+                  {label}
+                </ThemedText>
                 {!!options.tabBarBadge && (
                   <View
                     style={{
@@ -311,7 +309,8 @@ const TabStack: React.FC = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <Text
+                    <ThemedText
+                      maxFontSizeMultiplier={1.25}
                       style={{
                         color: ColorPallet.brand.text,
                         fontSize: 9,
@@ -319,7 +318,7 @@ const TabStack: React.FC = () => {
                       }}
                     >
                       {notifications.length}
-                    </Text>
+                    </ThemedText>
                   </View>
                 )}
               </View>

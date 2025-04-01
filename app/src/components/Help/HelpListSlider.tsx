@@ -1,10 +1,10 @@
-import { testIdWithKey, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { i18n } from '@hyperledger/aries-bifold-core/App/localization'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { DeviceEventEmitter, Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import { itemsDataEn } from '../../assets/Index_en'
 import { itemsDataFr } from '../../assets/Index_fr'
@@ -81,6 +81,7 @@ const HelpListSlider: React.FC = () => {
       flexWrap: 'wrap',
     },
     drawerRowItem: {
+      marginLeft: 5,
       color: ColorPallet.brand.primary,
     },
   })
@@ -152,9 +153,9 @@ const HelpListSlider: React.FC = () => {
                             }}
                             accessibilityRole="button"
                           >
-                            <Text style={{ ...styles.drawerRowItem, marginLeft: 5 }}>
+                            <ThemedText maxFontSizeMultiplier={1.2} style={styles.drawerRowItem}>
                               {hasTitle(contentItem) && contentItem.title}
-                            </Text>
+                            </ThemedText>
                           </TouchableOpacity>
                         )}
                       </View>
@@ -174,7 +175,9 @@ const HelpListSlider: React.FC = () => {
             }}
           >
             <View>
-              <Text style={{ ...styles.drawerRowItem, marginLeft: 5 }}>{t('HelpCenter.ConsultHelpCenter')}</Text>
+              <ThemedText maxFontSizeMultiplier={1.2} style={styles.drawerRowItem}>
+                {t('HelpCenter.ConsultHelpCenter')}
+              </ThemedText>
             </View>
           </TouchableOpacity>
         </View>

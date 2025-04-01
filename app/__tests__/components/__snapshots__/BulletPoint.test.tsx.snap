@@ -43,13 +43,18 @@ exports[`BulletPoint Component Renders correctly 1`] = `
     </Text>
   </View>
   <Text
+    maxFontSizeMultiplier={2}
     style={
-      {
-        "color": "#FFFFFF",
-        "fontSize": 18,
-        "fontWeight": "normal",
-        "textAlign": "left",
-      }
+      [
+        {
+          "color": "#FFFFFF",
+          "fontSize": 18,
+          "fontWeight": "normal",
+        },
+        {
+          "textAlign": "left",
+        },
+      ]
     }
   >
     Any Text
