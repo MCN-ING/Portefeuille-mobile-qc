@@ -42,7 +42,7 @@ describe('Avis Component', () => {
       <Avis type={AvisType.Success} primaryBackgroundColorSameAsSecondary description={'any_description'} />
     )
     const avisDescription = getByTestId(testIdWithKey('AvisDescription'))
-    expect(avisDescription.props.style.color).toEqual(ColorPallet.brand.text)
+    expect(avisDescription.props.style[0].color).toEqual(ColorPallet.brand.text)
   })
 
   test('renders description node', () => {

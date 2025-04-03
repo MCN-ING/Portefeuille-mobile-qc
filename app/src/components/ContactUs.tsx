@@ -1,6 +1,6 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
-import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Linking, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import CalendarImg from '../assets/img/calendar-empty.svg'
 import ClockImg from '../assets/img/clock.svg'
@@ -17,7 +17,6 @@ const ContactUs: React.FC = () => {
       paddingVertical: 8,
     },
     textSectionTitle: {
-      ...TextTheme.title,
       flexShrink: 1,
       color: TextTheme.bold.color,
     },
@@ -37,13 +36,10 @@ const ContactUs: React.FC = () => {
       marginTop: 6,
     },
     tel: {
-      ...TextTheme.normal,
       color: ColorPallet.brand.link,
       textDecorationLine: 'underline',
     },
     sectionDescription: {
-      ...TextTheme.normal,
-      color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
     },
@@ -52,15 +48,17 @@ const ContactUs: React.FC = () => {
   return (
     <View>
       <View style={styles.section}>
-        <Text style={styles.textSectionTitle}>{t('OptionsPlus.JoinUsTitle')}</Text>
+        <ThemedText variant="title" style={styles.textSectionTitle}>
+          {t('OptionsPlus.JoinUsTitle')}
+        </ThemedText>
       </View>
       <View style={styles.sectionRow}>
         <CalendarImg />
-        <Text style={styles.sectionDescription}>{t('OptionsPlus.DaysOpen')}</Text>
+        <ThemedText style={styles.sectionDescription}>{t('OptionsPlus.DaysOpen')}</ThemedText>
       </View>
       <View style={styles.sectionRow}>
         <ClockImg />
-        <Text style={styles.sectionDescription}>{t('OptionsPlus.OpeningHours')}</Text>
+        <ThemedText style={styles.sectionDescription}>{t('OptionsPlus.OpeningHours')}</ThemedText>
       </View>
       <View style={[styles.sectionRow]}>
         <PhoneImg style={styles.phoneImage} />
@@ -70,17 +68,17 @@ const ContactUs: React.FC = () => {
             activeOpacity={1}
             onPress={async () => await Linking.openURL(`tel:${t('OptionsPlus.PhoneNumber')}`)}
           >
-            <Text style={[styles.sectionDescription, styles.tel]}>{t('OptionsPlus.PhoneNumber')}</Text>
+            <ThemedText style={[styles.sectionDescription, styles.tel]}>{t('OptionsPlus.PhoneNumber')}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             accessibilityRole="button"
             activeOpacity={1}
             onPress={async () => await Linking.openURL(`tel:${t('OptionsPlus.TollFreeNumber')}`)}
           >
-            <Text style={[styles.sectionDescription]}>
-              <Text style={styles.tel}>{t('OptionsPlus.TollFreeNumber')}</Text>
-              <Text>{t('OptionsPlus.TollFreeNumberDescription')}</Text>
-            </Text>
+            <ThemedText style={[styles.sectionDescription]}>
+              <ThemedText style={styles.tel}>{t('OptionsPlus.TollFreeNumber')}</ThemedText>
+              <ThemedText>{t('OptionsPlus.TollFreeNumberDescription')}</ThemedText>
+            </ThemedText>
           </TouchableOpacity>
         </View>
       </View>

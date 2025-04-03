@@ -8,11 +8,12 @@ import {
   testIdWithKey,
   testIdForAccessabilityLabel,
   useNetwork,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { DeviceEventEmitter, Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { hitSlop } from '../constants'
@@ -54,7 +55,6 @@ const AddCredentialSlider: React.FC = () => {
       elevation: 5,
     },
     drawerTitleText: {
-      ...TextTheme.normal,
       fontWeight: 'bold',
       marginVertical: 5,
     },
@@ -135,7 +135,7 @@ const AddCredentialSlider: React.FC = () => {
             <Icon name="window-close" size={35} style={styles.drawerRowItem}></Icon>
           </TouchableOpacity>
 
-          <Text style={styles.drawerTitleText}>{t('AddCredentialSlider.Title')}</Text>
+          <ThemedText style={styles.drawerTitleText}>{t('AddCredentialSlider.Title')}</ThemedText>
 
           {showGetPersonCredential && (
             <TouchableOpacity
@@ -145,7 +145,9 @@ const AddCredentialSlider: React.FC = () => {
               accessibilityLabel={t('AddCredentialSlider.ScanQRCode')}
             >
               <Icon name="qrcode" size={30} style={styles.drawerRowItem}></Icon>
-              <Text style={{ ...styles.drawerRowItem, marginLeft: 5 }}>{t('CredentialDetails.ScanQrCode')}</Text>
+              <ThemedText style={[styles.drawerRowItem, { marginLeft: 5 }]}>
+                {t('CredentialDetails.ScanQrCode')}
+              </ThemedText>
             </TouchableOpacity>
           )}
           <View style={[styles.drawerRowSeparator]}></View>
@@ -156,7 +158,7 @@ const AddCredentialSlider: React.FC = () => {
             accessibilityLabel={t('BCID.GetDigitalID')}
           >
             <Icon name="credit-card" size={30} style={styles.drawerRowItem}></Icon>
-            <Text style={{ ...styles.drawerRowItem, marginLeft: 5 }}>{t('BCID.GetDigitalID')}</Text>
+            <ThemedText style={[styles.drawerRowItem, { marginLeft: 5 }]}>{t('BCID.GetDigitalID')}</ThemedText>
           </TouchableOpacity>
         </View>
       </View>

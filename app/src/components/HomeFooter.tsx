@@ -1,8 +1,8 @@
-import { testIdWithKey, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey, ThemedText, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import { ActivitiesStackParams, Screens, TabStacks } from '../navigators/navigators'
 
@@ -40,7 +40,7 @@ const HomeFooter = () => {
           style={styles.footerLinkContainer}
           onPress={() => navigate(TabStacks.ActivitiesStack as never, { screen: Screens.Activities } as never)}
         >
-          <Text style={styles.footerLink}>{t('Home.SeeAll')}</Text>
+          <ThemedText style={styles.footerLink}>{t('Home.SeeAll')}</ThemedText>
         </TouchableOpacity>
       )}
     </View>

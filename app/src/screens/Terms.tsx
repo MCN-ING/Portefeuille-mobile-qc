@@ -8,12 +8,13 @@ import {
   testIdWithKey,
   useTheme,
   useStore,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 import HeaderText from '../components/HeaderText'
 import Progress from '../components/Progress'
@@ -36,15 +37,11 @@ const Terms = () => {
       flex: 1,
     },
     bodyText: {
-      ...TextTheme.normal,
       flexShrink: 1,
     },
     titleText: {
       ...TextTheme.normal,
       textDecorationLine: 'underline',
-    },
-    title: {
-      ...TextTheme.title,
     },
     controlsContainer: {
       marginTop: 'auto',
@@ -120,42 +117,50 @@ const Terms = () => {
         <View style={{ marginTop: agreedToPreviousTerms ? 20 : 0, marginBottom: 20 }}>
           <HeaderText title={t('Screens.Terms')} />
         </View>
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginTop: 20 }]}>{t('TermsV2.Consent.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginTop: 20 }]}>{t('TermsV2.Consent.body')}</ThemedText>
 
-        <Text style={[style.title, { marginTop: 20 }]} accessibilityRole="header">
+        <ThemedText variant="title" style={{ marginTop: 20 }} accessibilityRole="header">
           {t('TermsV2.Consent.PersonalUse.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.PersonalUse.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>
+          {t('TermsV2.Consent.PersonalUse.body')}
+        </ThemedText>
 
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.PersonalUse.subsection.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.PersonalUse.subsection.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>
+          {t('TermsV2.Consent.PersonalUse.subsection.body')}
+        </ThemedText>
 
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.IdentityTheft.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.IdentityTheft.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>
+          {t('TermsV2.Consent.IdentityTheft.body')}
+        </ThemedText>
 
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.IdentityTheft.subsection.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>
           {t('TermsV2.Consent.IdentityTheft.subsection.body')}
-        </Text>
+        </ThemedText>
 
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.Privacy.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.Privacy.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.Privacy.body')}</ThemedText>
 
-        <Text style={[style.title]} accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header">
           {t('TermsV2.Consent.Privacy.subsection.title')}
-        </Text>
-        <Text style={[style.bodyText, { marginVertical: 20 }]}>{t('TermsV2.Consent.Privacy.subsection.body')}</Text>
+        </ThemedText>
+        <ThemedText style={[style.bodyText, { marginVertical: 20 }]}>
+          {t('TermsV2.Consent.Privacy.subsection.body')}
+        </ThemedText>
 
         <View style={[style.controlsContainer]}>
           {!(agreesToCurrentTerms && agreedToPreviousTerms && store.authentication.didAuthenticate) && (

@@ -8,7 +8,14 @@ env:
 on:
   workflow_dispatch:
   push:
-    branches: [main, acceptation/*, integration-qa/*, dev-integration/*, urgence-acceptation/*]
+    branches:
+      [
+        main,
+        acceptation/*,
+        integration-qa/*,
+        dev-integration/*,
+        urgence-acceptation/*,
+      ]
     paths:
       - app/**
       - .yarn/**
@@ -176,7 +183,7 @@ jobs:
           echo "OCA_URL=${OCA_URL}" >>.env
           if [[ "$BRANCH_NAME" == "main" ]]; then
             echo "ENVIRONMENT=PRODUCTION" >>.env
-         elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-acceptation/* ]]; then
+          elif [[ "$BRANCH_NAME" == acceptation/* || "$BRANCH_NAME" == urgence-acceptation/* ]]; then
             echo "ENVIRONMENT=ACCEPTATION" >>.env
           elif [[ "$BRANCH_NAME" == integration-qa/* ]]; then
             echo "ENVIRONMENT=INTEGRATION-QA" >>.env

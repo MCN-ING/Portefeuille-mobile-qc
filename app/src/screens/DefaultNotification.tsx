@@ -6,10 +6,11 @@ import {
   Screens,
   NotificationStackParams,
   useStore,
+  ThemedText,
 } from '@hyperledger/aries-bifold-core'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
-import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Linking, ScrollView, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderText from '../components/HeaderText'
@@ -39,7 +40,6 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       color: TextTheme.headingThree.color,
     },
     textSectionTitle: {
-      ...TextTheme.title,
       flexShrink: 1,
       color: TextTheme.bold.color,
     },
@@ -58,15 +58,11 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
       marginBottom: 12,
     },
     sectionDescription: {
-      ...TextTheme.normal,
-      color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
       paddingTop: 8,
     },
     sectionDescriptionTitle: {
-      ...TextTheme.normal,
-      color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
     },
@@ -78,20 +74,36 @@ const DefaultNotification: React.FC<DefaultProps> = ({ navigation }: DefaultProp
         <View style={styles.section}>
           <HeaderText title={t('DefaultNotificationPage.Title')} />
           <View style={{ paddingTop: 32 }}>
-            <Text style={styles.sectionDescriptionTitle}> {t('DefaultNotificationPage.Description')}</Text>
+            <ThemedText style={styles.sectionDescriptionTitle}> {t('DefaultNotificationPage.Description')}</ThemedText>
           </View>
         </View>
         <View style={styles.section}>
-          <Text style={styles.textSectionTitle} accessibilityRole="header">
+          <ThemedText
+            maxFontSizeMultiplier={1.8}
+            variant="title"
+            style={styles.textSectionTitle}
+            accessibilityRole="header"
+          >
             {t('DefaultNotificationPage.SAGConnexion')}
-          </Text>
-          <Text style={styles.sectionDescription}> {t('DefaultNotificationPage.SAGConnexionDescription')}</Text>
+          </ThemedText>
+          <ThemedText style={styles.sectionDescription}>
+            {' '}
+            {t('DefaultNotificationPage.SAGConnexionDescription')}
+          </ThemedText>
         </View>
         <View style={[styles.sectionBottom, styles.section]}>
-          <Text style={styles.textSectionTitle} accessibilityRole="header">
+          <ThemedText
+            maxFontSizeMultiplier={1.8}
+            variant="title"
+            style={styles.textSectionTitle}
+            accessibilityRole="header"
+          >
             {t('DefaultNotificationPage.ANIGRequest')}
-          </Text>
-          <Text style={styles.sectionDescription}> {t('DefaultNotificationPage.ANIGAcceptDescription')}</Text>
+          </ThemedText>
+          <ThemedText style={styles.sectionDescription}>
+            {' '}
+            {t('DefaultNotificationPage.ANIGAcceptDescription')}
+          </ThemedText>
         </View>
         <View style={styles.buttonContainer}>
           <View style={styles.button}>

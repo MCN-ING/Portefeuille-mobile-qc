@@ -1,5 +1,5 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
-import { StyleSheet, Text, View } from 'react-native'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
+import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import CalendarImg from '../../assets/img/calendar-empty.svg'
@@ -61,8 +61,6 @@ const HelpContactUs = ({ itemContact = [] }: HelpContactUsProps) => {
       height: 24,
     },
     sectionDescription: {
-      ...TextTheme.normal,
-      color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
       marginLeft: 10,
@@ -75,19 +73,19 @@ const HelpContactUs = ({ itemContact = [] }: HelpContactUsProps) => {
         <View key={index}>
           <View style={styles.sectionRow}>
             <CalendarImg />
-            <Text style={styles.sectionDescription}> {item.details.daysOpen}</Text>
+            <ThemedText style={styles.sectionDescription}> {item.details.daysOpen}</ThemedText>
           </View>
           <View style={styles.sectionRow}>
             <ClockImg />
-            <Text style={styles.sectionDescription}> {item.details.openingHours}</Text>
+            <ThemedText style={styles.sectionDescription}> {item.details.openingHours}</ThemedText>
           </View>
           <View style={styles.sectionDoubleRow}>
             <PhoneImg style={styles.phoneImage} />
-            <Text style={styles.sectionDescription}>
+            <ThemedText style={styles.sectionDescription}>
               {item.details.phone}
               {'\n'}
               {item.details.phoneSec}
-            </Text>
+            </ThemedText>
           </View>
         </View>
       ))}

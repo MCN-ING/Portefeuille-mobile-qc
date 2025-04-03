@@ -1,9 +1,9 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { i18n } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { itemsDataEn } from '../assets/Index_en'
@@ -31,12 +31,10 @@ const HelpCenter: React.FC<HelpCenterProps> = ({ navigation }) => {
     sectionCopyright: {
       flex: 1,
       justifyContent: 'flex-end',
-      ...TextTheme.headingOne,
       marginTop: 10,
       paddingBottom: 20,
     },
     sectionCopyrightText: {
-      ...TextTheme.caption,
       color: TextTheme.normal.color,
       textAlign: 'left',
       textDecorationLine: 'none',
@@ -58,8 +56,11 @@ const HelpCenter: React.FC<HelpCenterProps> = ({ navigation }) => {
             />
           </View>
         ))}
-        <View style={[styles.sectionCopyright]}>
-          <Text style={styles.sectionCopyrightText}> {t('OptionsPlus.Copyright')}</Text>
+        <View style={styles.sectionCopyright}>
+          <ThemedText variant="caption" style={styles.sectionCopyrightText}>
+            {' '}
+            {t('OptionsPlus.Copyright')}
+          </ThemedText>
         </View>
       </ScrollView>
     </SafeAreaView>

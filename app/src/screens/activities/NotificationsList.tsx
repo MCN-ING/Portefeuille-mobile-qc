@@ -1,8 +1,17 @@
-import { Button, ButtonType, ToastType, TOKENS, useServices, useStore, useTheme } from '@hyperledger/aries-bifold-core'
+import {
+  Button,
+  ButtonType,
+  ThemedText,
+  ToastType,
+  TOKENS,
+  useServices,
+  useStore,
+  useTheme,
+} from '@hyperledger/aries-bifold-core'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-import { View, StyleSheet, SectionList, Text } from 'react-native'
+import { View, StyleSheet, SectionList } from 'react-native'
 import Toast, { ToastShowParams } from 'react-native-toast-message'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -80,7 +89,7 @@ const NotificationsList: React.FC<{
 
   const [sections, setSections] = useState<SectionType[]>([])
   const { t } = useTranslation()
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
 
   const [selectedNotification, setSelectedNotification] = useState<SelectedNotificationType[] | null>(null)
   useMultiSelectActive(selectedNotification)
@@ -173,9 +182,6 @@ const NotificationsList: React.FC<{
       marginHorizontal: 16,
       borderBottomColor: ColorPallet.brand.secondary,
     },
-    bodyText: {
-      ...TextTheme.labelSubtitle,
-    },
     bodyEventTime: {
       marginTop: 8,
       color: ColorPallet.grayscale.mediumGrey,
@@ -196,7 +202,6 @@ const NotificationsList: React.FC<{
       marginVertical: 16,
     },
     footerText: {
-      ...TextTheme.labelSubtitle,
       color: ColorPallet.grayscale.mediumGrey,
     },
     selectionMultiActionContainer: {
@@ -342,7 +347,9 @@ const NotificationsList: React.FC<{
 
   const renderSectionHeader = ({ section }: { section: SectionType }) => (
     <View style={styles.sectionHeaderContainer}>
-      <Text style={[styles.bodyText, styles.bodyEventTime]}>{section.title}</Text>
+      <ThemedText variant="labelSubtitle" style={styles.bodyEventTime}>
+        {section.title}
+      </ThemedText>
       <View style={styles.sectionSeparator} />
     </View>
   )
@@ -358,7 +365,9 @@ const NotificationsList: React.FC<{
         renderSectionHeader={renderSectionHeader}
         ListFooterComponent={
           <View style={[selectedNotification != null && { paddingBottom: 200 }, { paddingHorizontal: 16 }]}>
-            <Text style={[styles.footerText]}>{t('Activities.FooterNothingElse')}</Text>
+            <ThemedText variant="labelSubtitle" style={styles.footerText}>
+              {t('Activities.FooterNothingElse')}
+            </ThemedText>
           </View>
         }
       />

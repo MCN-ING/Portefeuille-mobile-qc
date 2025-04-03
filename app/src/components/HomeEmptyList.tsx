@@ -1,6 +1,6 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 const HomeEmptyList = () => {
   const { ColorPallet } = useTheme()
@@ -19,7 +19,9 @@ const HomeEmptyList = () => {
   })
   return (
     <View style={style.container}>
-      <Text style={style.text}>{t('Home.NoNewUpdates')}</Text>
+      <ThemedText maxFontSizeMultiplier={1.5} style={style.text}>
+        {t('Home.NoNewUpdates')}
+      </ThemedText>
     </View>
   )
 }

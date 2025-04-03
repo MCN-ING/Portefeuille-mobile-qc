@@ -1,5 +1,5 @@
-import { useTheme } from '@hyperledger/aries-bifold-core'
-import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 const BulletPoint = ({ text, style }: Props) => {
-  const { ColorPallet, TextTheme } = useTheme()
+  const { ColorPallet } = useTheme()
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -18,17 +18,13 @@ const BulletPoint = ({ text, style }: Props) => {
       marginRight: 10,
       marginVertical: 10,
     },
-    bulletText: {
-      ...TextTheme.normal,
-      textAlign: 'left',
-    },
   })
   return (
     <View style={[styles.container, style]}>
       <View style={styles.iconContainer}>
         <Icon name={'circle'} size={6} color={ColorPallet.brand.modalIcon} />
       </View>
-      <Text style={styles.bulletText}>{text}</Text>
+      <ThemedText style={{ textAlign: 'left' }}>{text}</ThemedText>
     </View>
   )
 }
