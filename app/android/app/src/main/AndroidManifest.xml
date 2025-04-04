@@ -8,6 +8,14 @@
   <uses-permission-sdk-23 android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.CAMERA" />
 
+  <!-- These permissions are needed for the the react-native-capture-protection package -->
+  <!-- Android 14 only support -->
+  <uses-permission android:name="android.permission.DETECT_SCREEN_CAPTURE" android:minSdkVersion="34"/>
+  <!-- Android 13 only support -->
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+  <!-- eles -->  
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" android:minSdkVersion="33"  />
+
   <queries>
     <intent>
       <action android:name="android.intent.action.VIEW" />
