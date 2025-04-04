@@ -140,19 +140,19 @@ const translation = {
     Off: 'Biométrie désactivée',
     Toggle: 'Activer la biométrie',
     EnabledText1:
-      'Déverrouillez votre portefeuille avec la biométrie de votre appareil au lieu d’utiliser le NIP du portefeuille.',
+      'Déverrouillez votre portefeuille avec la biométrie de votre appareil mobile au lieu d’utiliser le NIP de l’application.',
     EnabledText1Bold:
       'Notez qu’en activant la biométrie, toute personne dont les données biométriques sont enregistrées sur votre appareil pourra déverrouiller votre portefeuille et avoir accès à vos attestations.',
     EnabledText2:
-      'Cela signifie que toutes les empreintes digitales et les données faciales ajoutées sur cet appareil peuvent être utilisées pour accéder à votre portefeuille QC.',
+      'Cela signifie que les empreintes digitales et les données de reconnaissance faciale ajoutées sur cet appareil peuvent être utilisées pour accéder à votre portefeuille.',
     EnabledText3:
       "Toute personne pouvant accéder à votre téléphone à l'aide de la biométrie peut accéder à votre portefeuille numérique.",
     EnabledText3Bold: 'Assurez-vous que vous seul avez accès à votre portefeuille.',
     Warning: '\n\nAssurez-vous que vous seul avez accès à votre portefeuille.',
-    UseToUnlock: 'Souhaitez-vous utiliser la biométrie pour déverrouiller votre portefeuille?',
+    UseToUnlock: 'Souhaitez-vous utiliser la biométrie de votre appareil pour déverrouiller votre portefeuille? ',
     NotEnabledText1: "La biométrie n'est pas configurée sur cet appareil. Elle ne peut donc pas être activée.",
     NotEnabledText2:
-      "Si vous souhaitez activer cette fonctionnalité, activez la biométrie dans les paramètres de l'appareil, puis revenez à cet écran.",
+      'Si vous souhaitez activer cette fonctionnalité, activez la biométrie dans les paramètres de votre appareil, puis revenez à cet écran.',
     UnlockPromptTitle: 'Déverrouillage du portefeuille',
     UnlockPromptDescription: 'Utilisez la biométrie pour déverrouiller votre portefeuille',
     NoBiometricsErrorTitle: 'Pas de biométrie',
@@ -382,9 +382,9 @@ const translation = {
     ChangePIN: 'Modifier le NIP',
     Continue: 'Continuer',
     EnterYourCurrentPIN: 'Veuiller saisir votre NIP',
-    PinChangeSuccessTitle: 'Changement de NIP réussi',
+    PinChangeSuccessTitle: 'Modifier le NIP réussi',
     PinChangeSuccessMessage:
-      'Votre NIP a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau NIP.',
+      'Votre NIP a été modifié avec succès.  Vous pouvez maintenant vous connecter avec votre nouveau NIP.',
     EnterOldPINTitle: 'Entrez votre ancien NIP',
     EnterOldPIN: 'Saisir NIP actuel',
     NewPIN: 'nouveau',
@@ -770,7 +770,7 @@ const translation = {
     ContactDetails: 'Informations du contact',
     ProofRequestDetails: 'Informations de la demande de preuve',
     ProofDetails: 'Informations de la preuve',
-    Tours: "Conseils d'utilisation",
+    Tours: 'Tour guidé',
     Decline: 'Refuser',
     Biometry: 'Biométrie',
     Developer: 'Options de développeur',
@@ -785,7 +785,7 @@ const translation = {
     AttemptLockout: 'Temporairement verrouillé',
     OnTheWay: 'En cours de transmission',
     Declined: 'Refusé/e',
-    UseBiometry: 'Utiliser la biométrie',
+    UseBiometry: 'Utiliser la biométrie de votre appareil mobile',
     RecreatePIN: 'Modifier le NIP',
     CustomNotification: 'Notification personnalisée',
     ProofRequesting: 'Demande de preuve',
@@ -881,15 +881,15 @@ const translation = {
       "L'application est présentement dans l'environnement \"{{ environment }}\".  L'option ci-dessous modifie uniquement le lien d'accès à la gestion de compte du SAG pour la notification d'attestation d'authentification gouvernementale.",
   },
   TourScreen: {
-    Title: 'Utiliser les conseils',
+    Title: 'Utiliser le tour guidé',
     Text1:
-      "Le tour guidé vous donne un aperçu des possibilité qui vous sont disponible lorsque vous accéder à une interface de l'application pour la première fois.",
+      'Le tour guidé vous donne un aperçu des possibilités qui s’affichent lorsque vous accédez à une interface de l’application pour la première fois.',
     Text2:
-      "Le tour guidé est utile lorsque c'est une première utilisation de l'application, ou pour se rafraîchir la mémoire.",
-    SwitchText: 'Utiliser les conseils d’utilisation',
+      'Le tour guidé est utile lorsqu’il s’agit d’une première utilisation de l’application, ou simplement pour se rafraîchir la mémoire.',
+    SwitchText: 'Utiliser le tour guidé',
     On: 'Tour guidé activé',
     Off: 'Tour guidé désactivé',
-    TourActivateButton: 'Relancer les conseils',
+    TourActivateButton: 'Relancer le tour guidé',
   },
   Tour: {
     GuideTitle: 'Bienvenue au Portefeuille numérique',
