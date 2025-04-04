@@ -11,8 +11,8 @@ import {
   basicMessageCustomMetadata,
   BasicMessageMetadata,
   CredentialMetadata,
-} from '@hyperledger/aries-bifold-core/App/types/metadata'
-import { CustomNotificationRecord } from '@hyperledger/aries-bifold-core/App/types/notification'
+} from '@hyperledger/aries-bifold-core/src/types/metadata'
+import { CustomNotificationRecord } from '@hyperledger/aries-bifold-core/src/types/notification'
 import { ProofMetadata } from '@hyperledger/aries-bifold-verifier'
 import { ReducerAction } from 'react'
 

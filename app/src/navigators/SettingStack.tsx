@@ -1,6 +1,6 @@
 import { testIdWithKey, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
-import { useDefaultStackOptions } from '@hyperledger/aries-bifold-core/App/navigators/defaultStackOptions'
-import PINCreate from '@hyperledger/aries-bifold-core/App/screens/PINCreate'
+import { useDefaultStackOptions } from '@hyperledger/aries-bifold-core/src/navigators/defaultStackOptions'
+import PINCreate from '@hyperledger/aries-bifold-core/src/screens/PINCreate'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

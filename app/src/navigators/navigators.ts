@@ -3,7 +3,7 @@ import {
   Screens as BifoldScreens,
   NotificationStackParams,
 } from '@hyperledger/aries-bifold-core'
-import { CustomRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { CustomRecord } from '@hyperledger/aries-bifold-core/src/modules/history/types'
 import {
   ConnectStackParams,
   ContactStackParams,
@@ -11,7 +11,7 @@ import {
   DeliveryStackParams,
   HomeStackParams,
   ProofRequestsStackParams,
-} from '@hyperledger/aries-bifold-core/App/types/navigators'
+} from '@hyperledger/aries-bifold-core/src/types/navigators'
 import { NavigatorScreenParams } from '@react-navigation/native'
 import { ImageSourcePropType } from 'react-native'
 

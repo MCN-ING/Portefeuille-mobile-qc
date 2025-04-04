@@ -10,7 +10,7 @@ import {
   ITheme,
   IAssets,
 } from '@hyperledger/aries-bifold-core'
-import { IErrorColors, IInlineInputMessage } from '@hyperledger/aries-bifold-core/App/theme'
+import { IErrorColors, IInlineInputMessage } from '@hyperledger/aries-bifold-core/src/theme'
 import React from 'react'
 import { StyleSheet, ViewStyle } from 'react-native'
 

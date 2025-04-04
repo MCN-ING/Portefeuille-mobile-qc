@@ -4,8 +4,8 @@ import {
   CustomRecord,
   HistoryCardType,
   IHistoryManager,
-} from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import { formatTime } from '@hyperledger/aries-bifold-core/App/utils/helpers'
+} from '@hyperledger/aries-bifold-core/src/modules/history/types'
+import { formatTime } from '@hyperledger/aries-bifold-core/src/utils/helpers'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

@@ -1,5 +1,4 @@
 import { ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
-import { i18n } from '@hyperledger/aries-bifold-core/App/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -15,7 +14,7 @@ type HelpCenterProps = StackScreenProps<HelpCenterStackParams>
 
 const HelpCenter: React.FC<HelpCenterProps> = ({ navigation }) => {
   const { TextTheme, ColorPallet } = useTheme()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const currentLanguage = i18n.language
   const helpIndex = currentLanguage === 'fr' ? itemsDataFr.centreAide.sommaire : itemsDataEn.centreAide.sommaire
 

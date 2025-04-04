@@ -1,5 +1,5 @@
 import { Screens, Stacks, testIdWithKey, ThemedText, useNetwork, useTheme } from '@hyperledger/aries-bifold-core'
-import { ConnectStackParams } from '@hyperledger/aries-bifold-core/App/types/navigators'
+import { ConnectStackParams } from '@hyperledger/aries-bifold-core/src/types/navigators'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
