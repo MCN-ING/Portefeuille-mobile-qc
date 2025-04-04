@@ -14,7 +14,7 @@ import {
   HistoryCardType,
   HistoryRecord,
   RecordType,
-} from '@hyperledger/aries-bifold-core/App/modules/history/types'
+} from '@hyperledger/aries-bifold-core/src/modules/history/types'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'

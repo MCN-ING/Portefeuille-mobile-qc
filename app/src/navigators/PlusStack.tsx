@@ -1,5 +1,5 @@
 import { useTheme } from '@hyperledger/aries-bifold-core'
-import { useDefaultStackOptions } from '@hyperledger/aries-bifold-core/App/navigators/defaultStackOptions'
+import { useDefaultStackOptions } from '@hyperledger/aries-bifold-core/src/navigators/defaultStackOptions'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

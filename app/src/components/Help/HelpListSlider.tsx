@@ -1,5 +1,4 @@
 import { testIdWithKey, ThemedText, useTheme } from '@hyperledger/aries-bifold-core'
-import { i18n } from '@hyperledger/aries-bifold-core/App/localization'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
@@ -15,7 +14,7 @@ import { RootStackParams, Screens, Stacks } from '../../navigators/navigators'
 const HelpListSlider: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const { ColorPallet, TextTheme } = useTheme()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const currentLanguage = i18n.language
   const helpIndex = currentLanguage === 'fr' ? itemsDataFr.centreAide.sommaire : itemsDataEn.centreAide.sommaire
   const [addHelpPressed, setAddHelpPressed] = useState<boolean>(false)

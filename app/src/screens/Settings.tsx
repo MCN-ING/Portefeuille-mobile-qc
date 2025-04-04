@@ -8,7 +8,7 @@ import {
   SafeAreaModal,
   ThemedText,
 } from '@hyperledger/aries-bifold-core'
-import { i18n, Locales } from '@hyperledger/aries-bifold-core/App/localization'
+import { Locales } from '@hyperledger/aries-bifold-core/src/localization'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,11 +30,11 @@ type SettingsProps = StackScreenProps<SettingStackParams>
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const { ColorPallet, Assets } = useTheme()
   const [store, dispatch] = useStore<BCState>()
-  const currentLanguage = i18n.t('Language.code', { context: i18n.language as Locales })
+  const { t, i18n } = useTranslation()
+  const currentLanguage = t('Language.code', { context: i18n.language as Locales })
   const developerOptionCount = useRef(0)
   const [environmentModalVisible, setEnvironmentModalVisible] = useState<boolean>(false)
   const [appUpdateModalVisible, setAppUpdateModalVisible] = useState<boolean>(false)
-  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
   const touchCountToEnableBiometrics = 9

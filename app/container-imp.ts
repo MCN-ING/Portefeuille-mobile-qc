@@ -13,10 +13,10 @@ import {
   defaultConfig as bifoldDefaultConfig,
   BifoldLogger,
 } from '@hyperledger/aries-bifold-core'
-import { minute } from '@hyperledger/aries-bifold-core/App/constants'
-import { Locales } from '@hyperledger/aries-bifold-core/App/localization'
-import { Config as BifoldConfig } from '@hyperledger/aries-bifold-core/App/types/config'
-import { InlineErrorPosition } from '@hyperledger/aries-bifold-core/App/types/error'
+import { minute } from '@hyperledger/aries-bifold-core/src/constants'
+import { Locales } from '@hyperledger/aries-bifold-core/src/localization'
+import { Config as BifoldConfig } from '@hyperledger/aries-bifold-core/src/types/config'
+import { InlineErrorPosition } from '@hyperledger/aries-bifold-core/src/types/error'
 import { getProofRequestTemplates } from '@hyperledger/aries-bifold-verifier'
 import { BrandingOverlayType, RemoteOCABundleResolver } from '@hyperledger/aries-oca/build/legacy'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -94,6 +94,8 @@ const defaultConfig: BifoldConfig = {
       thresholdPenaltyDuration: 60 * minute,
     },
   },
+  // TODO: Vérifier si on active cette option ou pas au retour des travaux sur le portefeuille
+  preventScreenCapture: false,
 }
 
 export class AppContainer implements Container {

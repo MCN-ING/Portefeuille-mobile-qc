@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import EventItem from '../../src/components/EventItem'
-import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { HistoryCardType } from '@hyperledger/aries-bifold-core/src/modules/history/types'
 import { NotificationTypeEnum } from '../../src/types/notification-list-item'
 import { testIdWithKey } from '@hyperledger/aries-bifold-core'
 

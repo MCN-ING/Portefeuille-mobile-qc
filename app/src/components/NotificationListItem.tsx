@@ -15,10 +15,10 @@ import {
   BasicMessageMetadata,
   CredentialMetadata,
   basicMessageCustomMetadata,
-} from '@hyperledger/aries-bifold-core/App/types/metadata'
-import { HomeStackParams } from '@hyperledger/aries-bifold-core/App/types/navigators'
-import { CustomNotification, CustomNotificationRecord } from '@hyperledger/aries-bifold-core/App/types/notification'
-import { formatTime, getConnectionName } from '@hyperledger/aries-bifold-core/App/utils/helpers'
+} from '@hyperledger/aries-bifold-core/src/types/metadata'
+import { HomeStackParams } from '@hyperledger/aries-bifold-core/src/types/navigators'
+import { CustomNotification, CustomNotificationRecord } from '@hyperledger/aries-bifold-core/src/types/notification'
+import { formatTime, getConnectionName } from '@hyperledger/aries-bifold-core/src/utils/helpers'
 import { markProofAsViewed } from '@hyperledger/aries-bifold-verifier'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'

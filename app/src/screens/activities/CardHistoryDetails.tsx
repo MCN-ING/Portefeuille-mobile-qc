@@ -12,8 +12,8 @@ import {
   buildFieldsFromAnonCredsCredential,
   ThemedText,
 } from '@hyperledger/aries-bifold-core'
-import { CredentialErrors } from '@hyperledger/aries-bifold-core/App/components/misc/CredentialCard11'
-import { HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { CredentialErrors } from '@hyperledger/aries-bifold-core/src/components/misc/CredentialCard11'
+import { HistoryRecord } from '@hyperledger/aries-bifold-core/src/modules/history/types'
 import { BrandingOverlay } from '@hyperledger/aries-oca'
 import { Attribute, CredentialOverlay } from '@hyperledger/aries-oca/build/legacy'
 import { StackScreenProps } from '@react-navigation/stack'

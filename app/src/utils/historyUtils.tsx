@@ -1,6 +1,6 @@
 import { Agent } from '@credo-ts/core'
-import { HistoryCardType, IHistoryManager } from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import { CredentialMetadata } from '@hyperledger/aries-bifold-core/App/types/metadata'
+import { HistoryCardType, IHistoryManager } from '@hyperledger/aries-bifold-core/src/modules/history/types'
+import { CredentialMetadata } from '@hyperledger/aries-bifold-core/src/types/metadata'
 import { Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 

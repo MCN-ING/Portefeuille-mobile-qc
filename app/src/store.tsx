@@ -6,7 +6,7 @@ import {
   ReducerAction,
   LocalStorageKeys,
 } from '@hyperledger/aries-bifold-core'
-import { Preferences } from '@hyperledger/aries-bifold-core/lib/typescript/App/types/state'
+import { Preferences } from '@hyperledger/aries-bifold-core/lib/typescript/src/types/state'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
 import { checkVersion } from 'react-native-check-version'

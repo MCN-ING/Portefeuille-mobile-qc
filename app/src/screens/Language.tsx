@@ -1,5 +1,5 @@
 import { Locales, testIdWithKey, ThemedText, TOKENS, useServices, useTheme } from '@hyperledger/aries-bifold-core'
-import { storeLanguage } from '@hyperledger/aries-bifold-core/App/localization'
+import { storeLanguage } from '@hyperledger/aries-bifold-core/src/localization'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'

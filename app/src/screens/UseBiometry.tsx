@@ -14,9 +14,9 @@ import {
   useStore,
   useTheme,
 } from '@hyperledger/aries-bifold-core'
-import { HistoryCardType, HistoryRecord } from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import PINEnter, { PINEntryUsage } from '@hyperledger/aries-bifold-core/App/screens/PINEnter'
-import { useAppAgent } from '@hyperledger/aries-bifold-core/App/utils/agent'
+import { HistoryCardType, HistoryRecord } from '@hyperledger/aries-bifold-core/src/modules/history/types'
+import PINEnter, { PINEntryUsage } from '@hyperledger/aries-bifold-core/src/screens/PINEnter'
+import { useAppAgent } from '@hyperledger/aries-bifold-core/src/utils/agent'
 import { CommonActions, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useState, useEffect, useMemo, useCallback } from 'react'

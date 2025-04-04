@@ -19,9 +19,9 @@ import {
   HistoryCardType,
   HistoryRecord,
   RecordType,
-} from '@hyperledger/aries-bifold-core/App/modules/history/types'
-import { parseCredDefFromId } from '@hyperledger/aries-bifold-core/App/utils/cred-def'
-import { getCredentialIdentifiers } from '@hyperledger/aries-bifold-core/App/utils/credential'
+} from '@hyperledger/aries-bifold-core/src/modules/history/types'
+import { parseCredDefFromId } from '@hyperledger/aries-bifold-core/src/utils/cred-def'
+import { getCredentialIdentifiers } from '@hyperledger/aries-bifold-core/src/utils/credential'
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
