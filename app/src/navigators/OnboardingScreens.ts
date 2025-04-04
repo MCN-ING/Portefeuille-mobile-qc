@@ -3,7 +3,7 @@ import { TransitionPresets, StackNavigationOptions, StackScreenProps } from '@re
 import { ParamListBase, RouteConfig, StackNavigationState } from '@react-navigation/native'
 import type { StackNavigationEventMap } from '@react-navigation/stack/lib/typescript/src/types'
 import { Screens } from '@hyperledger/aries-bifold-core'
-import { ScreenOptionsType } from '@hyperledger/aries-bifold-core/App/types/navigators'
+import { ScreenOptionsType } from '@hyperledger/aries-bifold-core/src/types/navigators'
 
 type ScreenOptions = RouteConfig<
   ParamListBase,

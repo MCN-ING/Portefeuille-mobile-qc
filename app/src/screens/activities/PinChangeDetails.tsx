@@ -1,6 +1,6 @@
 import { useAgent } from '@credo-ts/react-hooks'
 import { ThemedText, TOKENS, useServices } from '@hyperledger/aries-bifold-core'
-import { formatTime } from '@hyperledger/aries-bifold-core/App/utils/helpers'
+import { formatTime } from '@hyperledger/aries-bifold-core/src/utils/helpers'
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

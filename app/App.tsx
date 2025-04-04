@@ -16,7 +16,7 @@ import {
   Container,
   Locales,
 } from '@hyperledger/aries-bifold-core'
-import { OpenIDCredentialRecordProvider } from '@hyperledger/aries-bifold-core/App/modules/openid/context/OpenIDCredentialRecordProvider'
+import { OpenIDCredentialRecordProvider } from '@hyperledger/aries-bifold-core/src/modules/openid/context/OpenIDCredentialRecordProvider'
 import React, { useEffect, useMemo, useState } from 'react'
 import { StatusBar } from 'react-native'
 import { isTablet } from 'react-native-device-info'

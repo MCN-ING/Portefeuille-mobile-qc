@@ -1,4 +1,4 @@
-import { PINValidationRules } from '@hyperledger/aries-bifold-core/lib/typescript/App/types/security'
+import { PINValidationRules } from '@hyperledger/aries-bifold-core/lib/typescript/src/types/security'
 
 import { TabTheme } from './theme'
 

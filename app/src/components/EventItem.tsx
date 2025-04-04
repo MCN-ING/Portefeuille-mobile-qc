@@ -1,5 +1,5 @@
 import { GenericFn, testIdWithKey, ThemedText, ToastType, useStore, useTheme } from '@hyperledger/aries-bifold-core'
-import { HistoryCardType } from '@hyperledger/aries-bifold-core/App/modules/history/types'
+import { HistoryCardType } from '@hyperledger/aries-bifold-core/src/modules/history/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'

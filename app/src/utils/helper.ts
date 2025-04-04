@@ -1,11 +1,11 @@
 import { Agent } from '@credo-ts/core'
 import { BifoldLogger, Screens, Stacks } from '@hyperledger/aries-bifold-core'
-import { b64decode, connectFromInvitation } from '@hyperledger/aries-bifold-core/App/utils/helpers'
+import { b64decode, connectFromInvitation } from '@hyperledger/aries-bifold-core/src/utils/helpers'
 import {
   InvitationQrTypes,
   isOpenIdCredentialOffer,
   isOpenIdPresentationRequest,
-} from '@hyperledger/aries-bifold-core/App/utils/parsers'
+} from '@hyperledger/aries-bifold-core/src/utils/parsers'
 import { parseUrl } from 'query-string'
 
 const processBetaUrlIfRequired = (uri: string): string => {

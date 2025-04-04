@@ -5,7 +5,7 @@ import {
   Screens as BifoldScreens,
   ThemedText,
 } from '@hyperledger/aries-bifold-core'
-import UnorderedList from '@hyperledger/aries-bifold-core/App/components/misc/UnorderedList'
+import UnorderedList from '@hyperledger/aries-bifold-core/src/components/misc/UnorderedList'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useState } from 'react'

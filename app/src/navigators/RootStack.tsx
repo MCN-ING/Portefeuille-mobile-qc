@@ -22,9 +22,9 @@ import {
   useTheme,
   useTour,
 } from '@hyperledger/aries-bifold-core'
-import OpenIdCredentialDetails from '@hyperledger/aries-bifold-core/App/modules/openid/screens/OpenIDCredentialDetails'
-import Chat from '@hyperledger/aries-bifold-core/App/screens/Chat'
-import CredentialDetails from '@hyperledger/aries-bifold-core/App/screens/CredentialDetails'
+import OpenIdCredentialDetails from '@hyperledger/aries-bifold-core/src/modules/openid/screens/OpenIDCredentialDetails'
+import Chat from '@hyperledger/aries-bifold-core/src/screens/Chat'
+import CredentialDetails from '@hyperledger/aries-bifold-core/src/screens/CredentialDetails'
 import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-verifier'
 import { CardStyleInterpolators, createStackNavigator, StackCardStyleInterpolator } from '@react-navigation/stack'
 import React, { useEffect, useMemo } from 'react'
